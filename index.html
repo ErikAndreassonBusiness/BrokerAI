@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stock Tracker</title>
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="#/">Stock Tracker</a>
+      <span class="muted" id="last-run"></span>
+    </header>
+    <main id="app" aria-live="polite">
+      <p class="muted">Loading…</p>
+    </main>
+    <div id="tip" class="tip" role="tooltip" hidden></div>
+    <footer class="muted">
+      Figures are pulled from public company reports by a Claude agent. Always
+      check the linked source before acting on a number.
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
