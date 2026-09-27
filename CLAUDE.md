@@ -34,11 +34,15 @@ notes per stock. Owner: Erik. Keep it simple — no features I didn't ask for.
 - **Python via uv only.** Never use `pip` or `pip install`.
   - Add packages: `uv add <pkg>` (dev tools: `uv add --dev <pkg>`)
   - Run things: `uv run <command>`; sync: `uv sync`. Commit `pyproject.toml` and `uv.lock`.
-- **Backend:** FastAPI (Python) in `backend/`. Run locally with `uv run fastapi dev backend/app/main.py`.
-- **Market data:** `yfinance`. Tickers must be Yahoo Finance format, e.g. `VOLV-B.ST`, `INVE-B.ST`
-  (Stockholm = `.ST`, share class with a dash). Verify every new ticker by fetching it before saving.
-- **Frontend:** static HTML/CSS/JS (no framework) served by GitHub Pages from the repo root.
-  GitHub Pages can't run Python, so the site reads JSON files in `data/` that the backend exports.
+- **Backend:** FastAPI (Python) in `app/backend/`. Run locally with `uv run fastapi dev app/backend/main.py`.
+- **Market data:** `yfinance` for live key data only. Tickers must be Yahoo Finance format, e.g. `VOLV-B.ST`,
+  `INVE-B.ST` (Stockholm = `.ST`, share class with a dash). Verify every new ticker by fetching it before saving.
+- **Quarterly financials:** extracted by Claude from the official reports (see `AGENT.md`), each quarter
+  with its source link. Check with `uv run python -m app.backend.validate`.
+- **Frontend:** static HTML/CSS/JS (no framework) in `app/frontend/` (`templates/` for HTML, `client/` for JS/CSS),
+  published to GitHub Pages by a GitHub Actions workflow (Pages can only publish the repo root or `/docs`
+  straight from a branch). GitHub Pages can't run Python, so the site reads JSON files in `data/` that the
+  backend exports.
 - **Tests:** pytest (`uv run pytest`). Lint/format: ruff.
 
 ## Data conventions

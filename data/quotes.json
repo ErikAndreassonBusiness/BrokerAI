@@ -1,0 +1,126 @@
+{
+  "updated_at": "2026-09-27T15:04:34+00:00",
+  "quotes": {
+    "INWI.ST": {
+      "price": 181.1,
+      "change_pct": 1.0602729,
+      "market_cap": 10498.8,
+      "pe": 19.922993,
+      "dividend_yield": 3.04,
+      "high_52w": 187.0,
+      "low_52w": 135.1,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:57+00:00"
+    },
+    "NEWA-B.ST": {
+      "price": 89.7,
+      "change_pct": 0.8998823,
+      "market_cap": 11902.0,
+      "pe": 14.826446,
+      "dividend_yield": 3.34,
+      "high_52w": 124.9,
+      "low_52w": 84.7,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:33+00:00"
+    },
+    "VBG-B.ST": {
+      "price": 302.0,
+      "change_pct": 0.33222592,
+      "market_cap": 7551.2,
+      "pe": 18.392204,
+      "dividend_yield": 2.4,
+      "high_52w": 414.0,
+      "low_52w": 301.0,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:37+00:00"
+    },
+    "TOM.OL": {
+      "price": 91.95,
+      "change_pct": 0.9884612,
+      "market_cap": 27189.6,
+      "pe": 31.597937,
+      "dividend_yield": 2.34,
+      "high_52w": 155.0,
+      "low_52w": 89.8,
+      "currency": "NOK",
+      "quote_time": "2026-09-25T14:25:08+00:00"
+    },
+    "NOTE.ST": {
+      "price": 169.1,
+      "change_pct": -1.168907,
+      "market_cap": 4827.6,
+      "pe": 19.347828,
+      "dividend_yield": 3.63,
+      "high_52w": 205.2,
+      "low_52w": 138.1,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:49+00:00"
+    },
+    "AQ.ST": {
+      "price": 234.0,
+      "change_pct": 1.5625026,
+      "market_cap": 21465.5,
+      "pe": 30.46875,
+      "dividend_yield": 0.77,
+      "high_52w": 244.8,
+      "low_52w": 166.1,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:54+00:00"
+    },
+    "INISS-B.ST": {
+      "price": 70.0,
+      "change_pct": 0.57471484,
+      "market_cap": 1615.2,
+      "pe": 20.588234,
+      "dividend_yield": 0.86,
+      "high_52w": 78.8,
+      "low_52w": 38.1,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:36+00:00"
+    },
+    "HANZA.ST": {
+      "price": 149.0,
+      "change_pct": -1.9736841,
+      "market_cap": 9348.5,
+      "pe": 23.801916,
+      "dividend_yield": 1.01,
+      "high_52w": 181.8,
+      "low_52w": 100.2,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:54+00:00"
+    },
+    "WAYS.ST": {
+      "price": 41.8,
+      "change_pct": 0.7228897,
+      "market_cap": 366.6,
+      "pe": 190.0,
+      "dividend_yield": null,
+      "high_52w": 44.9,
+      "low_52w": 31.0,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T12:31:23+00:00"
+    },
+    "RVRC.ST": {
+      "price": 49.04,
+      "change_pct": 0.08163452,
+      "market_cap": 5129.4,
+      "pe": 15.870551,
+      "dividend_yield": 2.75,
+      "high_52w": 71.8,
+      "low_52w": 47.86,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:31+00:00"
+    },
+    "BORG.ST": {
+      "price": 53.3,
+      "change_pct": -0.5597001,
+      "market_cap": 1343.2,
+      "pe": 13.737113,
+      "dividend_yield": 5.63,
+      "high_52w": 78.0,
+      "low_52w": 53.3,
+      "currency": "SEK",
+      "quote_time": "2026-09-25T15:29:57+00:00"
+    }
+  }
+}

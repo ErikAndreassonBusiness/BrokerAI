@@ -1,1 +1,79 @@
-[]
+[
+  {
+    "ticker": "INWI.ST",
+    "name": "Inwido",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.inwido.com/financials"
+  },
+  {
+    "ticker": "NEWA-B.ST",
+    "name": "New Wave Group B",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.nwg.se/en/investor-relations"
+  },
+  {
+    "ticker": "VBG-B.ST",
+    "name": "VBG Group B",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.vbggroup.com/en/investors"
+  },
+  {
+    "ticker": "TOM.OL",
+    "name": "TOMRA Systems",
+    "currency": "NOK",
+    "report_currency": "EUR",
+    "ir_url": "https://www.tomra.com/investor-relations"
+  },
+  {
+    "ticker": "NOTE.ST",
+    "name": "NOTE",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.note-ems.com/investor-relations/"
+  },
+  {
+    "ticker": "AQ.ST",
+    "name": "AQ Group",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.aqgroup.com/en/investor"
+  },
+  {
+    "ticker": "INISS-B.ST",
+    "name": "Inission B",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.inissiongroup.com/financial-reports/"
+  },
+  {
+    "ticker": "HANZA.ST",
+    "name": "HANZA",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://hanza.com/investor/"
+  },
+  {
+    "ticker": "WAYS.ST",
+    "name": "Waystream Holding",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://www.waystream.com/en/investor-relations/"
+  },
+  {
+    "ticker": "RVRC.ST",
+    "name": "RVRC Holding",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://corporate.revolutionrace.com/en/investors/"
+  },
+  {
+    "ticker": "BORG.ST",
+    "name": "Björn Borg",
+    "currency": "SEK",
+    "report_currency": "SEK",
+    "ir_url": "https://corporate.bjornborg.com/financials"
+  }
+]
