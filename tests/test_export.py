@@ -1,5 +1,5 @@
-from backend.export import export_quotes
-from backend.storage import read_json, write_json
+from app.backend.export import export_quotes
+from app.backend.storage import read_json, write_json
 from tests.conftest import yahoo_info
 
 

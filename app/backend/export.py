@@ -1,6 +1,6 @@
 """Fetch live key data for every stock and write data/quotes.json for GitHub Pages.
 
-Usage: uv run python -m backend.export
+Usage: uv run python -m app.backend.export
 """
 
 import logging
@@ -8,8 +8,8 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-from backend import market
-from backend.storage import DATA_DIR, read_json, write_json
+from app.backend import market
+from app.backend.storage import DATA_DIR, read_json, write_json
 
 log = logging.getLogger(__name__)
 

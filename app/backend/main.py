@@ -1,12 +1,12 @@
 """Local API for the stock tracker.
 
-Usage: uv run fastapi dev backend/app/main.py
+Usage: uv run fastapi dev app/backend/main.py
 """
 
 from fastapi import FastAPI, HTTPException
 
-from backend import market
-from backend.storage import DATA_DIR, read_json
+from app.backend import market
+from app.backend.storage import DATA_DIR, read_json
 
 app = FastAPI(title="BrokerAI")
 

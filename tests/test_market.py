@@ -1,6 +1,6 @@
 import pytest
 
-from backend.market import fetch_quote
+from app.backend.market import fetch_quote
 from tests.conftest import yahoo_info
 
 

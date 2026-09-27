@@ -2,7 +2,7 @@ from typing import ClassVar
 
 import pytest
 
-from backend import market
+from app.backend import market
 
 
 class FakeTicker:

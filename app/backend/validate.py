@@ -1,6 +1,6 @@
 """Check the JSON files in data/ before they are committed.
 
-Usage: uv run python -m backend.validate
+Usage: uv run python -m app.backend.validate
 """
 
 import re
@@ -8,7 +8,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from backend.storage import DATA_DIR, read_json
+from app.backend.storage import DATA_DIR, read_json
 
 LINE_ITEMS = [
     "revenue",

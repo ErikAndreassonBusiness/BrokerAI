@@ -1,7 +1,7 @@
 import pytest
 
-from backend.storage import write_json
-from backend.validate import LINE_ITEMS, validate
+from app.backend.storage import write_json
+from app.backend.validate import LINE_ITEMS, validate
 
 COMPANY = {
     "ticker": "INWI.ST",
