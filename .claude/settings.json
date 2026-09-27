@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "defaultMode": "plan",
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(uv run pytest *)",
+      "Bash(uv run ruff check *)"
+    ],
+    "deny": [
+      "Bash(git push origin main)",
+      "Bash(git push origin main *)",
+      "Bash(git push origin HEAD:main *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}
