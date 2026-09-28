@@ -3,6 +3,126 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q3",
+      "report_date": "2024-10-22",
+      "source_url": "https://mb.cision.com/Main/883/4054209/3065562.pdf",
+      "values": {
+        "revenue": 2272.8,
+        "gross_profit": 616.3,
+        "ebit": 288.4,
+        "net_income": 187.3,
+        "eps": 3.22,
+        "cash": 602.7,
+        "inventory": 619.2,
+        "short_term_debt": 177.5,
+        "long_term_debt": 2004.6,
+        "total_equity": 5416.3,
+        "operating_cash_flow": 332.4,
+        "capex": -74.5,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q4",
+      "report_date": "2025-02-04",
+      "source_url": "https://mb.cision.com/Main/883/4099811/3242535.pdf",
+      "values": {
+        "revenue": 2423.4,
+        "gross_profit": 627.1,
+        "ebit": 261.4,
+        "net_income": 183.6,
+        "eps": 3.16,
+        "cash": 935.4,
+        "inventory": 601.7,
+        "short_term_debt": 183.5,
+        "long_term_debt": 2098.7,
+        "total_equity": 5649.5,
+        "operating_cash_flow": 478.7,
+        "capex": -136.5,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q1",
+      "report_date": "2025-04-24",
+      "source_url": "https://mb.cision.com/Main/883/4137086/3404628.pdf",
+      "values": {
+        "revenue": 1998.8,
+        "gross_profit": 457.4,
+        "ebit": 92.3,
+        "net_income": 37.9,
+        "eps": 0.65,
+        "cash": 662.5,
+        "inventory": 597.9,
+        "short_term_debt": 175.6,
+        "long_term_debt": 2010.2,
+        "total_equity": 5428.7,
+        "operating_cash_flow": -145.0,
+        "capex": -42.0,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q2",
+      "report_date": "2025-07-14",
+      "source_url": "https://mb.cision.com/Main/883/4206273/3579211.pdf",
+      "values": {
+        "revenue": 2339.0,
+        "gross_profit": 599.8,
+        "ebit": 237.5,
+        "net_income": 155.9,
+        "eps": 2.68,
+        "cash": 589.5,
+        "inventory": 621.4,
+        "short_term_debt": 119.2,
+        "long_term_debt": 2027.0,
+        "total_equity": 5375.2,
+        "operating_cash_flow": 374.5,
+        "capex": -61.2,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q3",
+      "report_date": "2025-10-21",
+      "source_url": "https://mb.cision.com/Main/883/4248364/3732464.pdf",
+      "values": {
+        "revenue": 2223.8,
+        "gross_profit": 575.1,
+        "ebit": 240.8,
+        "net_income": 153.8,
+        "eps": 2.65,
+        "cash": 752.3,
+        "inventory": 623.3,
+        "short_term_debt": 115.7,
+        "long_term_debt": 1948.2,
+        "total_equity": 5532.5,
+        "operating_cash_flow": 246.5,
+        "capex": -48.3,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q4",
+      "report_date": "2026-02-03",
+      "source_url": "https://storage.mfn.se/64e38691-a624-4864-9f49-d548e040c1cd/q4-2025-en.pdf",
+      "values": {
+        "revenue": 2440.4,
+        "gross_profit": 628.2,
+        "ebit": 261.6,
+        "net_income": 166.6,
+        "eps": 2.87,
+        "cash": 642.9,
+        "inventory": 629.9,
+        "short_term_debt": 139.5,
+        "long_term_debt": 2659.5,
+        "total_equity": 5504.6,
+        "operating_cash_flow": 432.4,
+        "capex": -118.3,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q1",
       "report_date": "2026-04-28",
       "source_url": "https://storage.mfn.se/3934c680-d16e-4a29-90eb-2c8d2da4bc32/q1-2026-eng-inwido.pdf",

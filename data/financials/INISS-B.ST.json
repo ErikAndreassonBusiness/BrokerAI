@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q3",
+      "report_date": "2025-11-07",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2025/11/inission-ab-q3-2025-en.pdf",
+      "values": {
+        "revenue": 531.1,
+        "gross_profit": null,
+        "ebit": 27.7,
+        "net_income": 16.9,
+        "eps": 0.7,
+        "cash": 52.8,
+        "inventory": 620.5,
+        "short_term_debt": 319.0,
+        "long_term_debt": 258.7,
+        "total_equity": 685.6,
+        "operating_cash_flow": 3.6,
+        "capex": -9.7,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q4",
+      "report_date": "2026-02-19",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2026/02/inission-ab-bokslutskommunike-2025-eng.pdf",
+      "values": {
+        "revenue": 657.0,
+        "gross_profit": null,
+        "ebit": 35.9,
+        "net_income": -1.6,
+        "eps": -0.1,
+        "cash": 49.5,
+        "inventory": 578.7,
+        "short_term_debt": 270.0,
+        "long_term_debt": 247.6,
+        "total_equity": 698.5,
+        "operating_cash_flow": 101.1,
+        "capex": -11.3,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q1",
+      "report_date": "2026-05-06",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2026/05/inission-ab-q1-2026-eng2.pdf",
+      "values": {
+        "revenue": 664.3,
+        "gross_profit": null,
+        "ebit": 45.8,
+        "net_income": 34.8,
+        "eps": 1.5,
+        "cash": 51.4,
+        "inventory": 589.6,
+        "short_term_debt": 249.6,
+        "long_term_debt": 267.8,
+        "total_equity": 747.9,
+        "operating_cash_flow": 43.6,
+        "capex": -6.4,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-08-25",
       "source_url": "https://www.inissiongroup.com/app/uploads/2026/08/inission-q2-2026-eng.pdf",

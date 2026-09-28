@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q3",
+      "report_date": "2025-10-23",
+      "source_url": "https://storage.mfn.se/811d0119-b7ff-4819-a774-02a08318e8d0/interim-report-q1-2025-26.pdf",
+      "values": {
+        "revenue": 392,
+        "gross_profit": 273,
+        "ebit": 75,
+        "net_income": 58,
+        "eps": 0.53,
+        "cash": 181,
+        "inventory": 586,
+        "short_term_debt": 7,
+        "long_term_debt": 12,
+        "total_equity": 1247,
+        "operating_cash_flow": 27,
+        "capex": -1,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q4",
+      "report_date": "2026-01-29",
+      "source_url": "https://storage.mfn.se/d9696d2b-25f8-4d97-8592-091c3e67d364/interim-report-q2-2025-26.pdf",
+      "values": {
+        "revenue": 726,
+        "gross_profit": 506,
+        "ebit": 177,
+        "net_income": 140,
+        "eps": 1.29,
+        "cash": 358,
+        "inventory": 494,
+        "short_term_debt": 7,
+        "long_term_debt": 10,
+        "total_equity": 1208,
+        "operating_cash_flow": 360,
+        "capex": -1,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q1",
+      "report_date": "2026-04-28",
+      "source_url": "https://storage.mfn.se/baef8414-dde4-409e-b6aa-aef924850448/interim-report-q3-2025-26.pdf",
+      "values": {
+        "revenue": 487,
+        "gross_profit": 345,
+        "ebit": 105,
+        "net_income": 83,
+        "eps": 0.77,
+        "cash": 368,
+        "inventory": 409,
+        "short_term_debt": 8,
+        "long_term_debt": 9,
+        "total_equity": 1286,
+        "operating_cash_flow": 18,
+        "capex": -1,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-08-11",
       "source_url": "https://storage.mfn.se/b377c295-ea56-470a-a48e-1d0f7790f56a/interim-report-q4-2025-26.pdf",

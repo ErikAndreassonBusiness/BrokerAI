@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q3",
+      "report_date": "2025-10-16",
+      "source_url": "https://storage.mfn.se/958c85d0-8d8b-4ee3-a2b8-155ee49b2d48/waystream-q3-2025.pdf",
+      "values": {
+        "revenue": 30.286,
+        "gross_profit": 18.228,
+        "ebit": 2.841,
+        "net_income": 2.172,
+        "eps": 0.27,
+        "cash": 8.141,
+        "inventory": 40.717,
+        "short_term_debt": 0,
+        "long_term_debt": null,
+        "total_equity": 67.179,
+        "operating_cash_flow": -0.652,
+        "capex": -3.330,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q4",
+      "report_date": "2026-02-19",
+      "source_url": "https://storage.mfn.se/e418cd4b-84b2-4a6e-aee5-b5843f9b9de8/waystream-q4-2025.pdf",
+      "values": {
+        "revenue": 33.640,
+        "gross_profit": 20.299,
+        "ebit": 1.634,
+        "net_income": 0.883,
+        "eps": 0.11,
+        "cash": 21.304,
+        "inventory": 25.781,
+        "short_term_debt": 0.001,
+        "long_term_debt": null,
+        "total_equity": 73.469,
+        "operating_cash_flow": 11.862,
+        "capex": -3.956,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q1",
+      "report_date": "2026-04-16",
+      "source_url": "https://storage.mfn.se/6d6a8acb-baf8-4af6-9501-fac9d1fee38e/waystream-q1-2026.pdf",
+      "values": {
+        "revenue": 32.410,
+        "gross_profit": 17.949,
+        "ebit": 0.164,
+        "net_income": -0.165,
+        "eps": -0.02,
+        "cash": 36.573,
+        "inventory": 28.496,
+        "short_term_debt": 3.601,
+        "long_term_debt": null,
+        "total_equity": 75.842,
+        "operating_cash_flow": 13.242,
+        "capex": -3.790,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-08",
       "source_url": "https://storage.mfn.se/1df8caae-333b-4776-93a2-12ae21a82b51/waystream-q2-2026.pdf",

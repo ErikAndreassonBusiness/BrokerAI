@@ -3,6 +3,86 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q2",
+      "report_date": "2025-07-15",
+      "source_url": "https://mb.cision.com/Main/11536/4206848/3579933.pdf",
+      "values": {
+        "revenue": 2344,
+        "gross_profit": null,
+        "ebit": 218,
+        "net_income": 188,
+        "eps": 2.05,
+        "cash": 888,
+        "inventory": 1437,
+        "short_term_debt": 152,
+        "long_term_debt": 517,
+        "total_equity": 4467,
+        "operating_cash_flow": 232,
+        "capex": -94,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q3",
+      "report_date": "2025-10-16",
+      "source_url": "https://mb.cision.com/Main/11536/4250689/3724132.pdf",
+      "values": {
+        "revenue": 2114,
+        "gross_profit": null,
+        "ebit": 191,
+        "net_income": 154,
+        "eps": 1.67,
+        "cash": 965,
+        "inventory": 1452,
+        "short_term_debt": 141,
+        "long_term_debt": 395,
+        "total_equity": 4593,
+        "operating_cash_flow": 322,
+        "capex": -55,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q4",
+      "report_date": "2026-02-12",
+      "source_url": "https://mb.cision.com/Main/11536/4306155/3930090.pdf",
+      "values": {
+        "revenue": 2323,
+        "gross_profit": null,
+        "ebit": 216,
+        "net_income": 169,
+        "eps": 1.84,
+        "cash": 992,
+        "inventory": 1396,
+        "short_term_debt": 275,
+        "long_term_debt": 290,
+        "total_equity": 4688,
+        "operating_cash_flow": 123,
+        "capex": -53,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q1",
+      "report_date": "2026-04-23",
+      "source_url": "https://mb.cision.com/Main/11536/4338676/4052604.pdf",
+      "values": {
+        "revenue": 2358,
+        "gross_profit": null,
+        "ebit": 225,
+        "net_income": 179,
+        "eps": 1.95,
+        "cash": 1117,
+        "inventory": 1449,
+        "short_term_debt": 145,
+        "long_term_debt": 274,
+        "total_equity": 4925,
+        "operating_cash_flow": 339,
+        "capex": -60,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-14",
       "source_url": "https://mb.cision.com/Main/11536/4374081/4190930.pdf",
