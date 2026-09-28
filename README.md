@@ -40,7 +40,8 @@ API endpoints: `/api/companies`, `/api/quotes/{ticker}` (live from Yahoo) and
 3. **Give the agent access to Claude**: in your own terminal run `claude setup-token`, then
    `gh secret set CLAUDE_CODE_OAUTH_TOKEN` and paste the token there.
 4. **First fill**: Actions → _Report agent_ → _Run workflow_. It reads at most 12 reports per run
-   (adjustable), so the first 15 quarters take several runs. All runs add to the same PR.
+   (adjustable), so filling 5 years of history (from 2021-Q3) takes many runs. All runs add to the
+   same PR.
 
 ## Good to know
 
