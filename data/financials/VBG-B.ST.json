@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q4",
+      "report_date": "2024-02-20",
+      "source_url": "https://storage.mfn.se/805eef5b-6436-43d2-b835-50c80df11856/vbg-group-q4-2023-eng.pdf",
+      "values": {
+        "revenue": 1449.9,
+        "gross_profit": 477.3,
+        "ebit": 209.0,
+        "net_income": 129.5,
+        "eps": 5.18,
+        "cash": 885.9,
+        "inventory": 1039.1,
+        "short_term_debt": 55.7,
+        "long_term_debt": 988.6,
+        "total_equity": 3674.1,
+        "operating_cash_flow": 162.7,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q1",
       "report_date": "2024-04-25",
       "source_url": "https://storage.mfn.se/640accef-ca98-42d6-b2b1-8a7ab1b954b9/vbg-group-delarsrapport-q1-2024.pdf",
