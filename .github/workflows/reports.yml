@@ -39,7 +39,7 @@ jobs:
           fi
           mkdir -p data/financials
 
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
 
       - run: uv sync --locked
 
