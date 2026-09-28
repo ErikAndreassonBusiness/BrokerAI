@@ -8,8 +8,11 @@ notes per stock. Owner: Erik. Keep it simple — no features I didn't ask for.
 1. **Plan first.** When I ask for something, start in plan mode: read the relevant code, then
    present a short plan (what changes, which files, risks, how you'll test). Don't edit
    anything until I approve the plan.
-2. **Ask before every change.** After the plan is approved, stay in the default (manual) permission
-   mode: I want to approve each file edit and command. Never switch to auto-accept or bypass modes yourself.
+2. **Permission mode is my choice.** After the plan is approved, I may switch to auto mode or stay in
+   manual mode; follow whichever is active. Don't switch modes yourself. Auto mode only skips the approval
+   prompts. Every other rule here still applies: stay within the approved plan, work on a branch, never push
+   to `main`, and stop and ask before anything the plan didn't cover (e.g. deleting files, touching my notes,
+   secrets or repo settings).
 3. **Always work on a branch.** Never commit to or push `main` directly.
    - Start from an up-to-date main: `git switch main && git pull`
    - Branch names: `feat/<short-name>`, `fix/<short-name>`, `chore/<short-name>`
