@@ -15,9 +15,12 @@ the owner reviews before merging.
 2. **New quarters first.** For each company, check whether a report newer than its latest stored
    quarter has been published, and add it.
 3. **Backfill.** With the remaining budget, add older quarters, newest missing first, back to and
-   including **2022-Q4**. Don't go further back.
+   including **2021-Q3**. Don't go further back. Before backfilling a company, find out when it
+   published its first quarterly report (e.g. after its stock market listing) and don't search for
+   earlier quarters. Say in your final message which companies have no reports that far back.
 4. Stop after the number of reports the prompt allows. It's fine to leave work for the next run.
-5. **Weekly news.** Add one entry to the top of `data/updates.json` (see below).
+5. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
+   an entry for today's date, don't add another.
 6. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
 
 ## Your tools
