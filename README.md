@@ -12,7 +12,7 @@ Needs [uv](https://docs.astral.sh/uv/). Never use pip.
 
 ```bash
 uv sync                                 # install Python and all packages
-uv run fastapi dev app/backend/main.py  # local API on http://127.0.0.1:8000 (docs at /docs)
+uv run fastapi dev app/backend/main.py  # site + API on http://127.0.0.1:8000 (API docs at /docs)
 uv run python -m app.backend.export     # fetch live key data from Yahoo -> data/quotes.json
 uv run python -m app.backend.validate   # check all files in data/
 uv run pytest                           # run the tests (no network needed)
