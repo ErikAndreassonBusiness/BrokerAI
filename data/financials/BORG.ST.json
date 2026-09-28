@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q2",
+      "report_date": "2025-08-15",
+      "source_url": "https://storage.mfn.se/17d4b9e9-d7f1-41e0-8124-38b5ff6feadb/bjorn-borg-interim-report-q2-2025.pdf",
+      "values": {
+        "revenue": 225.913,
+        "gross_profit": null,
+        "ebit": 10.614,
+        "net_income": 3.953,
+        "eps": 0.16,
+        "cash": 11.264,
+        "inventory": 257.496,
+        "short_term_debt": 105.892,
+        "long_term_debt": 16.045,
+        "total_equity": 349.121,
+        "operating_cash_flow": 89.060,
+        "capex": -4.521,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q3",
       "report_date": "2025-11-14",
       "source_url": "https://storage.mfn.se/e9b1d732-ea39-42e6-bb4a-2698968947a0/bjorn-borg-interim-report-q3-2025.pdf",
