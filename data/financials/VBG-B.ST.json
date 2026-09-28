@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q2",
+      "report_date": "2025-07-17",
+      "source_url": "https://storage.mfn.se/a/vbg-group/8eca7900-f551-4b8f-9ebb-4d1ea8cace1a/vbggroup_q2-2025_eng_v2.pdf",
+      "values": {
+        "revenue": 1362.4,
+        "gross_profit": 438.5,
+        "ebit": 167.1,
+        "net_income": 100.0,
+        "eps": 4.00,
+        "cash": 906.1,
+        "inventory": 984.2,
+        "short_term_debt": 53.9,
+        "long_term_debt": 1438.8,
+        "total_equity": 3930.9,
+        "operating_cash_flow": 83.7,
+        "capex": -30.0,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q3",
+      "report_date": "2025-10-28",
+      "source_url": "https://storage.mfn.se/5ea40d67-401d-4b16-9f90-8405188050ee/vbg-group-q3-2025-eng.pdf",
+      "values": {
+        "revenue": 1367.9,
+        "gross_profit": 427.9,
+        "ebit": 158.3,
+        "net_income": 96.7,
+        "eps": 3.87,
+        "cash": 779.8,
+        "inventory": 1048.9,
+        "short_term_debt": 58.6,
+        "long_term_debt": 1397.2,
+        "total_equity": 3995.4,
+        "operating_cash_flow": 135.9,
+        "capex": -47.4,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q4",
       "report_date": "2026-02-18",
       "source_url": "https://storage.mfn.se/dbc1d9b9-4a32-48ef-b9c6-bed6511c190d/2025-q4-vbg-group-eng.pdf",

@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q4",
+      "report_date": "2026-02-24",
+      "source_url": "https://storage.mfn.se/e419276f-203a-48f8-bbef-5422e95513fa/hanza-year-end-report-2025.pdf",
+      "values": {
+        "revenue": 1779,
+        "gross_profit": null,
+        "ebit": 121,
+        "net_income": 76,
+        "eps": 1.65,
+        "cash": 490,
+        "inventory": 1304,
+        "short_term_debt": 205,
+        "long_term_debt": 1896,
+        "total_equity": 1814,
+        "operating_cash_flow": 225,
+        "capex": -116,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q1",
       "report_date": "2026-05-05",
       "source_url": "https://storage.mfn.se/aef95982-7e94-42d4-b506-77a5f67f24c7/hanza-q1-2026-eng.pdf",

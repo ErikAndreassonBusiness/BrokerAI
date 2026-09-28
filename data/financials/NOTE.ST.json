@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q4",
+      "report_date": "2026-01-26",
+      "source_url": "https://storage.mfn.se/fd965fa6-a3c2-4ca9-a356-8e7041436c6e/year-end-report-2025.pdf",
+      "values": {
+        "revenue": 1001,
+        "gross_profit": 154,
+        "ebit": 113,
+        "net_income": 86,
+        "eps": 3.04,
+        "cash": 293,
+        "inventory": 868,
+        "short_term_debt": 594,
+        "long_term_debt": 229,
+        "total_equity": 1648,
+        "operating_cash_flow": 82,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q1",
       "report_date": "2026-04-23",
       "source_url": "https://storage.mfn.se/923a3220-6d3a-4c7f-980f-323d893e1ebb/note-interim-report-q1-2026.pdf",
