@@ -1,0 +1,26 @@
+{
+  "ticker": "BORG.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-08-14",
+      "source_url": "https://storage.mfn.se/1f741e1b-ce70-4baf-a70f-b79b6cb15fd9/bjorn-borg-interim-report-q2-2026.pdf",
+      "values": {
+        "revenue": 198.445,
+        "gross_profit": null,
+        "ebit": 11.781,
+        "net_income": 8.633,
+        "eps": 0.34,
+        "cash": 14.090,
+        "inventory": 244.261,
+        "short_term_debt": 74.543,
+        "long_term_debt": 26.031,
+        "total_equity": 333.187,
+        "operating_cash_flow": 147.129,
+        "capex": -6.330,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

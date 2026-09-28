@@ -1,0 +1,26 @@
+{
+  "ticker": "TOM.OL",
+  "currency": "EUR",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-17",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/2q/2026-q2_quarterly-report_tomra.pdf",
+      "values": {
+        "revenue": 405,
+        "gross_profit": null,
+        "ebit": 49,
+        "net_income": 28,
+        "eps": 0.10,
+        "cash": 69,
+        "inventory": 236,
+        "short_term_debt": 99,
+        "long_term_debt": 610,
+        "total_equity": 613,
+        "operating_cash_flow": 38,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

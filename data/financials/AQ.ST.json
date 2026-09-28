@@ -1,0 +1,26 @@
+{
+  "ticker": "AQ.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-14",
+      "source_url": "https://mb.cision.com/Main/11536/4374081/4190930.pdf",
+      "values": {
+        "revenue": 2577,
+        "gross_profit": null,
+        "ebit": 255,
+        "net_income": 202,
+        "eps": 2.20,
+        "cash": 849,
+        "inventory": 1588,
+        "short_term_debt": 153,
+        "long_term_debt": 283,
+        "total_equity": 5058,
+        "operating_cash_flow": 23,
+        "capex": -77,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

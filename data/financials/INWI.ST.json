@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-28",
+      "source_url": "https://storage.mfn.se/3934c680-d16e-4a29-90eb-2c8d2da4bc32/q1-2026-eng-inwido.pdf",
+      "values": {
+        "revenue": 2083.2,
+        "gross_profit": 461.0,
+        "ebit": 70.9,
+        "net_income": 10.4,
+        "eps": 0.18,
+        "cash": 400.3,
+        "inventory": 715.4,
+        "short_term_debt": 250.9,
+        "long_term_debt": 2781.0,
+        "total_equity": 5545.8,
+        "operating_cash_flow": -162.2,
+        "capex": -50.3,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-15",
       "source_url": "https://storage.mfn.se/5b74e8a2-b90e-49c1-80ba-f2bde062bcca/q2-2026-en-report.pdf",

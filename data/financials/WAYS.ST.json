@@ -1,0 +1,26 @@
+{
+  "ticker": "WAYS.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-08",
+      "source_url": "https://storage.mfn.se/1df8caae-333b-4776-93a2-12ae21a82b51/waystream-q2-2026.pdf",
+      "values": {
+        "revenue": 37.168,
+        "gross_profit": 21.020,
+        "ebit": -0.770,
+        "net_income": -1.242,
+        "eps": -0.15,
+        "cash": 21.753,
+        "inventory": 36.585,
+        "short_term_debt": 6.343,
+        "long_term_debt": null,
+        "total_equity": 94.777,
+        "operating_cash_flow": -5.764,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}
