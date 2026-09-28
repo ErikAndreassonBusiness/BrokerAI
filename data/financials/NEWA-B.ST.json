@@ -1,0 +1,26 @@
+{
+  "ticker": "NEWA-B.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-08-20",
+      "source_url": "https://storage.mfn.se/2f9e55ad-d377-4efc-a2bb-5eb03c9fb631/q2-nwg-2026-en-lq.pdf",
+      "values": {
+        "revenue": 2611,
+        "gross_profit": null,
+        "ebit": 295,
+        "net_income": 202,
+        "eps": 1.52,
+        "cash": null,
+        "inventory": null,
+        "short_term_debt": null,
+        "long_term_debt": null,
+        "total_equity": null,
+        "operating_cash_flow": 95,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

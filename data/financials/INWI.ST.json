@@ -1,0 +1,26 @@
+{
+  "ticker": "INWI.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-15",
+      "source_url": "https://storage.mfn.se/5b74e8a2-b90e-49c1-80ba-f2bde062bcca/q2-2026-en-report.pdf",
+      "values": {
+        "revenue": 2721,
+        "gross_profit": null,
+        "ebit": 289,
+        "net_income": null,
+        "eps": 3.40,
+        "cash": null,
+        "inventory": null,
+        "short_term_debt": null,
+        "long_term_debt": null,
+        "total_equity": null,
+        "operating_cash_flow": null,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}
