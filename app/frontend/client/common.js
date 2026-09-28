@@ -67,12 +67,18 @@ function fmtTime(iso) {
       });
 }
 
-// Change today in %, green or red.
-function fmtChange(v) {
+// A change in percent (1.5 = +1,5 %), green or red.
+function fmtChange(v, digits = 2) {
   if (!isNum(v)) return "–";
   const cls = v >= 0 ? "up" : "down";
   const sign = v > 0 ? "+" : "";
-  return `<span class="${cls}">${sign}${fmtPct(v, 2)}</span>`;
+  return `<span class="${cls}">${sign}${fmtPct(v, digits)}</span>`;
+}
+
+// " Source" link for a news item; nothing if the URL isn't https.
+function sourceLink(u) {
+  const url = safeUrl(u);
+  return url ? ` <a href="${esc(url)}" rel="noopener">Source</a>` : "";
 }
 
 function parsePeriod(p) {

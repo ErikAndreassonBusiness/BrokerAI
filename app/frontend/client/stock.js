@@ -136,10 +136,7 @@ function renderFinancials(fin) {
 // Latest quarter vs. the same quarter last year, in %.
 function fmtYoy(latest, lastYear, key) {
   const v = lastYear ? change(latest.values[key], lastYear.values[key]) : null;
-  if (v === null) return "–";
-  const cls = v >= 0 ? "up" : "down";
-  const sign = v > 0 ? "+" : "";
-  return `<span class="${cls}">${sign}${fmtPct(v * 100, 0)}</span>`;
+  return v === null ? "–" : fmtChange(v * 100, 0);
 }
 
 function renderNews(updates, ticker) {
@@ -149,9 +146,7 @@ function renderNews(updates, ticker) {
   if (!items.length) return "";
   const list = items
     .map((item) => {
-      const url = safeUrl(item.url);
-      const link = url ? ` <a href="${esc(url)}" rel="noopener">Source</a>` : "";
-      return `<li><span class="muted">${fmtDate(item.date)}:</span> ${esc(item.text)}${link}</li>`;
+      return `<li><span class="muted">${fmtDate(item.date)}:</span> ${esc(item.text)}${sourceLink(item.url)}</li>`;
     })
     .join("");
   return `<h2>News</h2><div class="card"><ul>${list}</ul></div>`;

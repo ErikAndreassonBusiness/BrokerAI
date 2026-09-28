@@ -52,9 +52,7 @@ function renderNews(update, names) {
   if (!update) return "";
   const items = update.items
     .map((item) => {
-      const url = safeUrl(item.url);
-      const link = url ? ` <a href="${esc(url)}" rel="noopener">Source</a>` : "";
-      return `<li><strong>${esc(names[item.ticker] || item.ticker)}:</strong> ${esc(item.text)}${link}</li>`;
+      return `<li><strong>${esc(names[item.ticker] || item.ticker)}:</strong> ${esc(item.text)}${sourceLink(item.url)}</li>`;
     })
     .join("");
   return `
