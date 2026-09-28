@@ -1,0 +1,55 @@
+name: Publish site
+
+# Fetches fresh prices with yfinance and publishes app/frontend + data/ to GitHub Pages.
+on:
+  schedule:
+    - cron: "0 17 * * 1-5" # weekdays 18:00 (winter) / 19:00 (summer) Swedish time, after the close
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10
+
+      - run: uv sync --locked
+
+      - name: Fetch prices
+        run: uv run python -m app.backend.export
+
+      - name: Validate data
+        run: uv run python -m app.backend.validate
+
+      - name: Assemble site
+        run: |
+          mkdir _site
+          cp app/frontend/templates/*.html _site/
+          cp -r app/frontend/client _site/client
+          cp -r data _site/data
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
