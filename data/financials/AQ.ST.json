@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-23",
+      "source_url": "https://mb.cision.com/Main/11536/4338676/4052604.pdf",
+      "values": {
+        "revenue": 2358,
+        "gross_profit": null,
+        "ebit": 225,
+        "net_income": 179,
+        "eps": 1.95,
+        "cash": 1117,
+        "inventory": 1449,
+        "short_term_debt": 145,
+        "long_term_debt": 274,
+        "total_equity": 4925,
+        "operating_cash_flow": 339,
+        "capex": -60,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-14",
       "source_url": "https://mb.cision.com/Main/11536/4374081/4190930.pdf",

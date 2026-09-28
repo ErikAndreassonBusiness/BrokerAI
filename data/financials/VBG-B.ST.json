@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q4",
+      "report_date": "2026-02-18",
+      "source_url": "https://storage.mfn.se/dbc1d9b9-4a32-48ef-b9c6-bed6511c190d/2025-q4-vbg-group-eng.pdf",
+      "values": {
+        "revenue": 1312.5,
+        "gross_profit": 395.2,
+        "ebit": 159.3,
+        "net_income": 110.9,
+        "eps": 4.44,
+        "cash": 1108.8,
+        "inventory": 896.0,
+        "short_term_debt": 60.1,
+        "long_term_debt": 1691.7,
+        "total_equity": 3965.1,
+        "operating_cash_flow": 270.2,
+        "capex": -200.9,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q1",
       "report_date": "2026-04-27",
       "source_url": "https://storage.mfn.se/67703f9d-2798-4d09-8420-eb8560a08d45/vbg-group-q1-2026-eng.pdf",

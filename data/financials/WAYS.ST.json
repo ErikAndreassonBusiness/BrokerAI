@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-16",
+      "source_url": "https://storage.mfn.se/6d6a8acb-baf8-4af6-9501-fac9d1fee38e/waystream-q1-2026.pdf",
+      "values": {
+        "revenue": 32.410,
+        "gross_profit": 17.949,
+        "ebit": 0.164,
+        "net_income": -0.165,
+        "eps": -0.02,
+        "cash": 36.573,
+        "inventory": 28.496,
+        "short_term_debt": 3.601,
+        "long_term_debt": null,
+        "total_equity": 75.842,
+        "operating_cash_flow": 13.242,
+        "capex": -3.790,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-08",
       "source_url": "https://storage.mfn.se/1df8caae-333b-4776-93a2-12ae21a82b51/waystream-q2-2026.pdf",

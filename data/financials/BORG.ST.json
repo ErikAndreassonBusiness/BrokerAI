@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-29",
+      "source_url": "https://storage.mfn.se/fa628db7-7309-45ef-a7d7-851e90bce4ec/bjorn-borg-interim-report-q1-2026.pdf",
+      "values": {
+        "revenue": 300.582,
+        "gross_profit": null,
+        "ebit": 46.851,
+        "net_income": 36.882,
+        "eps": 1.47,
+        "cash": 16.140,
+        "inventory": 184.713,
+        "short_term_debt": 136.280,
+        "long_term_debt": 26.946,
+        "total_equity": 398.967,
+        "operating_cash_flow": -49.027,
+        "capex": -3.425,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-08-14",
       "source_url": "https://storage.mfn.se/1f741e1b-ce70-4baf-a70f-b79b6cb15fd9/bjorn-borg-interim-report-q2-2026.pdf",

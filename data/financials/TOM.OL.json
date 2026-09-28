@@ -3,6 +3,26 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-24",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/1q/tomra-2026-q1-report.pdf",
+      "values": {
+        "revenue": 334,
+        "gross_profit": null,
+        "ebit": 5,
+        "net_income": -3,
+        "eps": -0.01,
+        "cash": 91,
+        "inventory": 263,
+        "short_term_debt": 52,
+        "long_term_debt": 627,
+        "total_equity": 636,
+        "operating_cash_flow": 60,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-07-17",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/2q/2026-q2_quarterly-report_tomra.pdf",
