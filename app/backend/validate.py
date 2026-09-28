@@ -126,6 +126,33 @@ def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
     return errors
 
 
+def _check_updates(updates, tickers: set[str]) -> list[str]:
+    if not isinstance(updates, list):
+        return ["updates.json: must be a list"]
+    errors = []
+    dates = []
+    for i, update in enumerate(updates):
+        at = f"updates.json[{i}]"
+        if not _is_date(update.get("date")):
+            errors.append(f"{at}: date must be YYYY-MM-DD")
+        dates.append(str(update.get("date")))
+        if not update.get("summary"):
+            errors.append(f"{at}: missing summary")
+        if not isinstance(update.get("items"), list):
+            errors.append(f"{at}: items must be a list")
+            continue
+        for j, item in enumerate(update["items"]):
+            if item.get("ticker") not in tickers:
+                errors.append(f"{at}.items[{j}]: ticker not in companies.json")
+            if not item.get("text"):
+                errors.append(f"{at}.items[{j}]: missing text")
+            if not str(item.get("url", "")).startswith("https://"):
+                errors.append(f"{at}.items[{j}]: url must start with https://")
+    if dates != sorted(dates, reverse=True):
+        errors.append("updates.json: entries must be sorted newest first")
+    return errors
+
+
 def validate(data_dir: Path = DATA_DIR) -> list[str]:
     """Returns a list of problems; empty means everything is valid."""
     errors, tickers = _check_companies(read_json(data_dir / "companies.json", []))
@@ -134,6 +161,7 @@ def validate(data_dir: Path = DATA_DIR) -> list[str]:
         errors += _check_quotes(quotes_file, tickers)
     for path in sorted((data_dir / "financials").glob("*.json")):
         errors += _check_financials(path, read_json(path), tickers)
+    errors += _check_updates(read_json(data_dir / "updates.json", []), tickers)
     return errors
 
 
