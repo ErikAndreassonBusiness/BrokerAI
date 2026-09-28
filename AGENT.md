@@ -25,9 +25,13 @@ the owner reviews before merging.
 - Files: use Glob, Grep and Read to find and read files, and Write/Edit to change them. There is no
   `ls`, `cat` or `mkdir` in the shell. Write creates missing folders by itself.
 - Web: WebSearch to find reports, WebFetch to read HTML pages.
-- Shell: only two commands are allowed:
-  - `curl -sL -o /tmp/<file>.pdf <url>` to download a PDF, which you then open with Read
+- Shell: only these commands are allowed:
+  - `curl -sL -o /tmp/<file>.pdf <url>` to download a report PDF
+  - `pdftotext -layout /tmp/<file>.pdf /tmp/<file>.txt` to turn it into text
   - `uv run python -m app.backend.validate`
+- **Reading a report:** download the PDF with curl, convert it with pdftotext, then use Grep on the
+  `.txt` file to find the statements (e.g. "balance sheet", "financial position", "cash flow",
+  "balansräkning", "kassaflöde") and Read the lines around them. Don't open the PDF itself with Read.
 - If a tool is refused, don't give up: use one of the allowed tools instead.
 
 ## Where to look
@@ -35,7 +39,8 @@ the owner reviews before merging.
 - The company's IR page (`ir_url` in `companies.json`), then press releases on mfn.se or
   news.cision.com. Search e.g. `"<name>" interim report Q2 2026` or `"<name>" delårsrapport januari–juni 2026`.
 - Use the report itself (PDF) or the official press release. Never use forums, blogs or data sites.
-- To read a PDF, download it with `curl -sL -o /tmp/<file>.pdf <url>` and read that file.
+- A press release or the summary on the report's first pages is **not enough**: it only has a few
+  headline figures. Always use the full report PDF (see "Reading a report" above).
 
 ## File format
 
@@ -100,8 +105,12 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 
 ## Rules
 
-- **Accuracy over completeness.** If the report doesn't state a figure for the quarter, use `null`.
-  Never estimate, never use 0 for a missing figure.
+- **Take every figure from the report's statements**: the income statement, the balance sheet
+  (statement of financial position) and the cash flow statement, usually in the second half of the report.
+- **Accuracy over completeness.** Use `null` only if the statements don't contain the figure for the
+  quarter. Never estimate, never use 0 for a missing figure.
+- In your final message, list every `null` per company and quarter with a short reason
+  (e.g. "gross_profit: income statement is by nature of expense").
 - The only arithmetic allowed: converting to millions, and adding up the lines of the **same**
   balance sheet for `short_term_debt` and `long_term_debt` (and the two capex lines).
 - **Never change or remove a quarter that is already stored.** Only add missing quarters.
