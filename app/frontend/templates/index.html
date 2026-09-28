@@ -3,23 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Stock Tracker</title>
+    <title>BrokerAI</title>
     <meta name="robots" content="noindex" />
-    <link rel="stylesheet" href="../client/style.css" />
+    <link rel="stylesheet" href="client/style.css" />
   </head>
   <body>
     <header class="top">
-      <a class="brand" href="#/">Stock Tracker</a>
-      <span class="muted" id="last-run"></span>
+      <a class="brand" href="./">BrokerAI</a>
+      <span class="muted" id="updated"></span>
     </header>
     <main id="app" aria-live="polite">
       <p class="muted">Loading…</p>
     </main>
-    <div id="tip" class="tip" role="tooltip" hidden></div>
     <footer class="muted">
-      Figures are pulled from public company reports by a Claude agent. Always
-      check the linked source before acting on a number.
+      Prices from Yahoo Finance (delayed). Quarterly figures are read from the
+      official reports by a Claude agent; check the linked report before acting
+      on a number.
     </footer>
-    <script src="../client/app.js"></script>
+    <script src="client/common.js"></script>
+    <script src="client/overview.js"></script>
   </body>
 </html>
