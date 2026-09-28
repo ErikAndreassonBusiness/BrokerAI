@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q4",
+      "report_date": "2025-02-28",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2025/02/inission-ab-bokslutskommunike-2024-eng.pdf",
+      "values": {
+        "revenue": 531.2,
+        "gross_profit": null,
+        "ebit": 17.0,
+        "net_income": 8.4,
+        "eps": 0.4,
+        "cash": 39.6,
+        "inventory": 557.5,
+        "short_term_debt": 272.9,
+        "long_term_debt": 267.8,
+        "total_equity": 670.0,
+        "operating_cash_flow": 69.9,
+        "capex": -12.9,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q1",
       "report_date": "2025-05-08",
       "source_url": "https://mb.cision.com/Main/12537/4146826/3435840.pdf",

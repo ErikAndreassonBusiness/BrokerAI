@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q1",
+      "report_date": "2024-04-25",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2024/nwg_q1_2024_april_25_en_hq_sdfjdfg.pdf",
+      "values": {
+        "revenue": 1995.2,
+        "gross_profit": 991.9,
+        "ebit": 185.5,
+        "net_income": 121.3,
+        "eps": 0.91,
+        "cash": 475.9,
+        "inventory": 5291.8,
+        "short_term_debt": 206.1,
+        "long_term_debt": 2283.4,
+        "total_equity": 6827.3,
+        "operating_cash_flow": 203.7,
+        "capex": -76.4,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q2",
       "report_date": "2024-08-15",
       "source_url": "https://mb.cision.com/Main/932/4024311/2944945.pdf",

@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q4",
+      "report_date": "2025-02-11",
+      "source_url": "https://mb.cision.com/Main/6093/4103478/3256984.pdf",
+      "values": {
+        "revenue": 1270,
+        "gross_profit": null,
+        "ebit": 67,
+        "net_income": 31,
+        "eps": 0.71,
+        "cash": 276,
+        "inventory": 1137,
+        "short_term_debt": 240,
+        "long_term_debt": 767,
+        "total_equity": 1480,
+        "operating_cash_flow": 289,
+        "capex": -55,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q1",
+      "report_date": "2025-05-06",
+      "source_url": "https://storage.mfn.se/a/hanza/89c9202d-60c6-432e-8ed6-4038dec62dbd/hanza-q1-2025.pdf",
+      "values": {
+        "revenue": 1326,
+        "gross_profit": null,
+        "ebit": 79,
+        "net_income": 40,
+        "eps": 0.90,
+        "cash": 281,
+        "inventory": 1211,
+        "short_term_debt": 425,
+        "long_term_debt": 1463,
+        "total_equity": 1657,
+        "operating_cash_flow": 68,
+        "capex": -30,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q2",
       "report_date": "2025-07-22",
       "source_url": "https://attachment.news.eu.nasdaq.com/a5042ba7710d2f39b89c6ec7e4bb29c21",
