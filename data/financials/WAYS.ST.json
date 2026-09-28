@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q3",
+      "report_date": "2024-11-21",
+      "source_url": "https://storage.mfn.se/001a90b4-9fed-43dd-9f7e-c438d99aba6e/waystream-q3-2024.pdf",
+      "values": {
+        "revenue": 25.405,
+        "gross_profit": 11.971,
+        "ebit": -2.716,
+        "net_income": -2.259,
+        "eps": -0.28,
+        "cash": 3.946,
+        "inventory": 45.075,
+        "short_term_debt": 12.436,
+        "long_term_debt": null,
+        "total_equity": 65.111,
+        "operating_cash_flow": 0.471,
+        "capex": -2.465,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q4",
+      "report_date": "2025-02-20",
+      "source_url": "https://storage.mfn.se/c7178639-c9f1-4ffa-9a29-5482718a5391/waystream-q4-2024.pdf",
+      "values": {
+        "revenue": 20.992,
+        "gross_profit": 6.416,
+        "ebit": -9.337,
+        "net_income": -8.859,
+        "eps": -1.10,
+        "cash": 5.071,
+        "inventory": 48.344,
+        "short_term_debt": 11.170,
+        "long_term_debt": null,
+        "total_equity": 56.984,
+        "operating_cash_flow": 5.390,
+        "capex": -3.030,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q1",
+      "report_date": "2025-04-24",
+      "source_url": "https://storage.mfn.se/f1955d10-e5ea-4434-af61-3e731b1e9deb/waystream-q1-2025.pdf",
+      "values": {
+        "revenue": 37.738,
+        "gross_profit": 22.924,
+        "ebit": 5.384,
+        "net_income": 4.035,
+        "eps": 0.50,
+        "cash": 16.873,
+        "inventory": 45.814,
+        "short_term_debt": 12.246,
+        "long_term_debt": null,
+        "total_equity": 61.068,
+        "operating_cash_flow": 15.153,
+        "capex": -4.386,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q2",
       "report_date": "2025-07-10",
       "source_url": "https://storage.mfn.se/36593227-3b6e-4268-900a-ddb868da52ce/waystream-q2-2025.pdf",

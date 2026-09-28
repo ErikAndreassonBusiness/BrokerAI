@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q3",
+      "report_date": "2023-11-07",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2023/q3_2023_nwg_nov_6_en_lq.pdf",
+      "values": {
+        "revenue": 2337.0,
+        "gross_profit": 1136.4,
+        "ebit": 381.1,
+        "net_income": 270.9,
+        "eps": 2.04,
+        "cash": 299.6,
+        "inventory": 5828.6,
+        "short_term_debt": 225.2,
+        "long_term_debt": 2641.6,
+        "total_equity": 6379.8,
+        "operating_cash_flow": 173.3,
+        "capex": -76.0,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q4",
+      "report_date": "2024-02-08",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2023/q4_2023_feb_6_en_hq_aasf-jfh.pdf",
+      "values": {
+        "revenue": 2735.9,
+        "gross_profit": 1423.6,
+        "ebit": 518.7,
+        "net_income": 366.4,
+        "eps": 2.76,
+        "cash": 372.6,
+        "inventory": 5346.8,
+        "short_term_debt": 206.6,
+        "long_term_debt": 2194.9,
+        "total_equity": 6460.4,
+        "operating_cash_flow": 753.5,
+        "capex": -26.1,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q1",
+      "report_date": "2024-04-25",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2024/nwg_q1_2024_april_25_en_hq_sdfjdfg.pdf",
+      "values": {
+        "revenue": 1995.2,
+        "gross_profit": 991.9,
+        "ebit": 185.5,
+        "net_income": 121.3,
+        "eps": 0.91,
+        "cash": 475.9,
+        "inventory": 5291.8,
+        "short_term_debt": 206.1,
+        "long_term_debt": 2283.4,
+        "total_equity": 6827.3,
+        "operating_cash_flow": 203.7,
+        "capex": -76.4,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q2",
       "report_date": "2024-08-15",
       "source_url": "https://mb.cision.com/Main/932/4024311/2944945.pdf",

@@ -3,6 +3,66 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2024-Q2",
+      "report_date": "2024-07-19",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/2q/2q-2024-report.pdf",
+      "values": {
+        "revenue": 333,
+        "gross_profit": 145,
+        "ebit": 39,
+        "net_income": 23,
+        "eps": 0.08,
+        "cash": 89,
+        "inventory": 254,
+        "short_term_debt": 73,
+        "long_term_debt": 439,
+        "total_equity": 588,
+        "operating_cash_flow": 34,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q3",
+      "report_date": "2024-10-22",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/3q/3q-2024-report.pdf",
+      "values": {
+        "revenue": 326,
+        "gross_profit": 141,
+        "ebit": 39,
+        "net_income": 20,
+        "eps": 0.07,
+        "cash": 93,
+        "inventory": 253,
+        "short_term_debt": 85,
+        "long_term_debt": 392,
+        "total_equity": 600,
+        "operating_cash_flow": 99,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q4",
+      "report_date": "2025-02-14",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/4q/4q-2024-report.pdf",
+      "values": {
+        "revenue": 398,
+        "gross_profit": 181,
+        "ebit": 68,
+        "net_income": 50,
+        "eps": 0.17,
+        "cash": 123,
+        "inventory": 226,
+        "short_term_debt": 70,
+        "long_term_debt": 474,
+        "total_equity": 636,
+        "operating_cash_flow": 83,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q1",
       "report_date": "2025-05-07",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/1q/tomra-1q-2025-report.pdf",
