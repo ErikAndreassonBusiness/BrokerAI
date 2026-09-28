@@ -83,3 +83,38 @@ def test_unknown_ticker_fails(tmp_path):
     write_data(tmp_path, [quarter("2026-Q1")], ticker="XYZ.ST")
 
     assert any("not in companies.json" in e for e in validate(tmp_path))
+
+
+def update(date, **item_overrides):
+    item = {"ticker": "INWI.ST", "text": "Q2 report", "url": "https://example.com/pr"}
+    item.update(item_overrides)
+    return {"date": date, "summary": "Inwido reported Q2.", "items": [item]}
+
+
+def write_updates(tmp_path, updates):
+    write_json(tmp_path / "companies.json", [COMPANY])
+    write_json(tmp_path / "updates.json", updates)
+
+
+def test_valid_updates_pass(tmp_path):
+    write_updates(tmp_path, [update("2026-09-27"), update("2026-09-20")])
+
+    assert validate(tmp_path) == []
+
+
+@pytest.mark.parametrize(
+    ("updates", "expected"),
+    [
+        ([update("2026-09-20"), update("2026-09-27")], "sorted newest first"),
+        ([update("27 Sept")], "date must be"),
+        ([update("2026-09-27", ticker="XYZ.ST")], "ticker not in companies.json"),
+        ([update("2026-09-27", url="http://example.com")], "url must start with"),
+        ([{"date": "2026-09-27", "items": []}], "missing summary"),
+    ],
+)
+def test_bad_updates_fail(tmp_path, updates, expected):
+    write_updates(tmp_path, updates)
+
+    errors = validate(tmp_path)
+
+    assert any(expected in e for e in errors), errors

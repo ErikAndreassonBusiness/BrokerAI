@@ -1,9 +1,10 @@
 # Stock Tracker (BrokerAI)
 
-A free, personal website that shows the latest quarterly reports for my stocks.
-A Claude agent checks for new reports every Monday and updates the data automatically.
+A free, personal website for following my stocks: live key data from Yahoo Finance and
+quarterly financials that a Claude agent reads from the official reports.
 
-**Stack:** GitHub Pages (website) · JSON files in `data/` (storage) · Claude Code in GitHub Actions (weekly agent).
+**Stack:** GitHub Pages (website) · JSON files in `data/` (storage) · Python/uv backend ·
+GitHub Actions (daily prices, weekly report agent).
 
 ## Run locally
 
@@ -21,45 +22,29 @@ uv run ruff check                       # lint
 API endpoints: `/api/companies`, `/api/quotes/{ticker}` (live from Yahoo) and
 `/api/financials/{ticker}` (stored quarters from the reports).
 
-## Setup (one time, ~20 minutes)
+## How updates work
 
-1. **Open in VS Code** and start Claude Code in the terminal: `claude`.
-2. **Add your stocks** to `data/companies.json`, e.g.:
-   ```json
-   [
-     {
-       "id": "volvo",
-       "name": "Volvo B",
-       "ticker": "VOLV B",
-       "currency": "SEK",
-       "ir_url": "https://www.volvogroup.com/en/investors.html"
-     }
-   ]
-   ```
-   (Or ask Claude Code: _"Add Volvo B, Investor B and Evolution to companies.json with their IR pages."_)
-3. **Create a GitHub repo** and push:
-   ```bash
-   git add -A && git commit -m "Initial stock tracker"
-   git remote add origin https://github.com/<you>/stock-tracker.git
-   git push -u origin main
-   ```
-4. **Turn on GitHub Pages**: repo → Settings → Pages → Source: _Deploy from a branch_ → `main` / `(root)`.
-   Your site appears at `https://<you>.github.io/stock-tracker/`.
-5. **Give the agent access to Claude**: in your terminal run `claude setup-token`, log in, and copy the token.
-   Repo → Settings → Secrets and variables → Actions → _New repository secret_:
-   name `CLAUDE_CODE_OAUTH_TOKEN`, value = the token.
-6. **Run it once**: repo → Actions → _Weekly report update_ → _Run workflow_.
-   The first run backfills history; after a few minutes the site shows your numbers.
+- **Publish site** (`.github/workflows/pages.yml`): weekdays after the Stockholm close, on every merge
+  to `main`, or via _Run workflow_. Fetches fresh prices with yfinance and publishes `app/frontend/` and
+  `data/` to GitHub Pages. Prices are not committed.
+- **Report agent** (`.github/workflows/reports.yml`): every Sunday, or via _Run workflow_. Claude follows
+  `AGENT.md`, adds new quarters to `data/financials/` and a weekly news entry to `data/updates.json`,
+  and opens (or adds to) one pull request on the `agent/reports` branch. Review the numbers against
+  each quarter's source link, then merge.
 
-## Everyday use
+## One-time setup
 
-- Open the site. The agent updates it every Monday morning.
-- Want fresh data now? Actions → _Weekly report update_ → _Run workflow_.
-- Change what the agent collects by editing `AGENT.md`.
+1. **Pages**: repo → Settings → Pages → Source: _GitHub Actions_.
+2. **Let workflows open PRs**: Settings → Actions → General → Workflow permissions →
+   tick _Allow GitHub Actions to create and approve pull requests_.
+3. **Give the agent access to Claude**: in your own terminal run `claude setup-token`, then
+   `gh secret set CLAUDE_CODE_OAUTH_TOKEN` and paste the token there.
+4. **First fill**: Actions → _Report agent_ → _Run workflow_. It reads at most 12 reports per run
+   (adjustable), so the first 15 quarters take several runs. All runs add to the same PR.
 
 ## Good to know
 
-- A free GitHub Pages site is **public** if someone knows the URL (the page asks search engines not to index it).
-  Only public company data is stored here, but don't add personal info like number of shares or amounts invested.
+- The GitHub Pages site is **public** (the page asks search engines not to index it).
+  Don't add personal info like number of shares or amounts invested.
 - The agent uses your Claude subscription's usage when it runs.
 - Figures are extracted by AI: check the linked source before acting on a number.

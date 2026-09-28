@@ -1,0 +1,82 @@
+name: Report agent
+
+# Claude reads new quarterly reports (see AGENT.md) and opens or updates one pull request.
+on:
+  schedule:
+    - cron: "0 5 * * 0" # Sundays 06:00 (winter) / 07:00 (summer) Swedish time
+  workflow_dispatch:
+    inputs:
+      max_reports:
+        description: "Max number of reports to read this run"
+        type: number
+        default: 12
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: report-agent
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      BRANCH: agent/reports
+      MAX_REPORTS: ${{ inputs.max_reports || 12 }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Continue the open agent branch, or start a new one
+        run: |
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            git switch "$BRANCH"
+          else
+            git switch -c "$BRANCH"
+          fi
+          mkdir -p data/financials
+
+      - uses: astral-sh/setup-uv@v10
+
+      - run: uv sync --locked
+
+      - name: Today's date
+        id: today
+        run: echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Follow the instructions in AGENT.md.
+            Today is ${{ steps.today.outputs.date }}.
+            Read at most ${{ env.MAX_REPORTS }} reports in this run.
+          claude_args: >-
+            --max-turns 300
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(uv run python -m app.backend.validate)"
+
+      - name: Validate data
+        run: uv run python -m app.backend.validate
+
+      - name: Commit and open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- data/financials data/updates.json
+          if git diff --cached --quiet; then
+            echo "Nothing new this run."
+            exit 0
+          fi
+          git commit -m "Report agent run ${{ steps.today.outputs.date }}"
+          git push origin "$BRANCH"
+          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "Report agent: new quarterly data" \
+              --body "Quarterly figures and weekly news from the report agent (see AGENT.md). Check the numbers against each quarter's source link before merging. New runs add commits to this PR."
+          fi
