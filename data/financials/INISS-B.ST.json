@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q2",
+      "report_date": "2024-08-27",
+      "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2024/08/26184836/Inission-ENG_Q2-2024.pdf",
+      "values": {
+        "revenue": 569.6,
+        "gross_profit": null,
+        "ebit": 27.7,
+        "net_income": 14.4,
+        "eps": 0.65,
+        "cash": 43.9,
+        "inventory": 625.0,
+        "short_term_debt": 221.3,
+        "long_term_debt": 297.2,
+        "total_equity": 647.5,
+        "operating_cash_flow": -3.6,
+        "capex": -16.0,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q3",
+      "report_date": "2024-11-08",
+      "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2024/11/07164917/Inission-AB_Q3-2024_Interim-report-ENG-version.pdf",
+      "values": {
+        "revenue": 467.9,
+        "gross_profit": null,
+        "ebit": 25.8,
+        "net_income": 13.1,
+        "eps": 0.59,
+        "cash": 38.6,
+        "inventory": 596.1,
+        "short_term_debt": 282.0,
+        "long_term_debt": 282.3,
+        "total_equity": 656.0,
+        "operating_cash_flow": -39.5,
+        "capex": -8.9,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q4",
       "report_date": "2025-02-28",
       "source_url": "https://www.inissiongroup.com/app/uploads/2025/02/inission-ab-bokslutskommunike-2024-eng.pdf",

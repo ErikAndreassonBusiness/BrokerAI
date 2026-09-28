@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q3",
+      "report_date": "2024-10-29",
+      "source_url": "https://mb.cision.com/Main/6093/4057786/3079854.pdf",
+      "values": {
+        "revenue": 1107,
+        "gross_profit": null,
+        "ebit": 68,
+        "net_income": 40,
+        "eps": 0.90,
+        "cash": 206,
+        "inventory": 1203,
+        "short_term_debt": 440,
+        "long_term_debt": 688,
+        "total_equity": 1432,
+        "operating_cash_flow": 114,
+        "capex": -64,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q4",
       "report_date": "2025-02-11",
       "source_url": "https://mb.cision.com/Main/6093/4103478/3256984.pdf",
