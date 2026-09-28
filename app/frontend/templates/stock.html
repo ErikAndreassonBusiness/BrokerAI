@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BrokerAI</title>
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="client/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="./">BrokerAI</a>
+    </header>
+    <main id="app" aria-live="polite">
+      <p class="muted">Loading…</p>
+    </main>
+    <footer class="muted">
+      Prices from Yahoo Finance (delayed). Quarterly figures are read from the
+      official reports by a Claude agent; check the linked report before acting
+      on a number.
+    </footer>
+    <script src="client/common.js"></script>
+    <script src="client/stock.js"></script>
+  </body>
+</html>
