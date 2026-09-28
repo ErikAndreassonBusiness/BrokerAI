@@ -20,6 +20,16 @@ the owner reviews before merging.
 5. **Weekly news.** Add one entry to the top of `data/updates.json` (see below).
 6. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
 
+## Your tools
+
+- Files: use Glob, Grep and Read to find and read files, and Write/Edit to change them. There is no
+  `ls`, `cat` or `mkdir` in the shell. Write creates missing folders by itself.
+- Web: WebSearch to find reports, WebFetch to read HTML pages.
+- Shell: only two commands are allowed:
+  - `curl -sL -o /tmp/<file>.pdf <url>` to download a PDF, which you then open with Read
+  - `uv run python -m app.backend.validate`
+- If a tool is refused, don't give up: use one of the allowed tools instead.
+
 ## Where to look
 
 - The company's IR page (`ir_url` in `companies.json`), then press releases on mfn.se or

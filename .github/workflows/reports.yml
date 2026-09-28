@@ -55,6 +55,9 @@ jobs:
             Follow the instructions in AGENT.md.
             Today is ${{ steps.today.outputs.date }}.
             Read at most ${{ env.MAX_REPORTS }} reports in this run.
+            You can only use the tools listed in AGENT.md. If you cannot continue,
+            say exactly what blocked you in your final message.
+          display_report: "true"
           claude_args: >-
             --max-turns 300
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(uv run python -m app.backend.validate)"
