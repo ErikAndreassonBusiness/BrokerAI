@@ -3,6 +3,46 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2025-Q1",
+      "report_date": "2025-05-07",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/1q/tomra-1q-2025-report.pdf",
+      "values": {
+        "revenue": 306,
+        "gross_profit": 130,
+        "ebit": 20,
+        "net_income": 9,
+        "eps": 0.03,
+        "cash": 91,
+        "inventory": 240,
+        "short_term_debt": 64,
+        "long_term_debt": 446,
+        "total_equity": 633,
+        "operating_cash_flow": 65,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q2",
+      "report_date": "2025-07-17",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/2q/tomra-2q-2025-report.pdf",
+      "values": {
+        "revenue": 325,
+        "gross_profit": 144,
+        "ebit": 42,
+        "net_income": 26,
+        "eps": 0.09,
+        "cash": 119,
+        "inventory": 237,
+        "short_term_debt": 48,
+        "long_term_debt": 563,
+        "total_equity": 582,
+        "operating_cash_flow": 17,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q3",
       "report_date": "2025-10-17",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/3q/tomra-3q-2025-report.pdf",

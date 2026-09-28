@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q3",
+      "report_date": "2024-10-23",
+      "source_url": "https://storage.mfn.se/3aa34801-9bdd-4e6e-bd1e-8798b142336f/vbg-group-interim-report-januari-september-2024-eng.pdf",
+      "values": {
+        "revenue": 1272.9,
+        "gross_profit": 401.2,
+        "ebit": 164.1,
+        "net_income": 112.3,
+        "eps": 4.49,
+        "cash": 927.3,
+        "inventory": 1051.2,
+        "short_term_debt": 57.1,
+        "long_term_debt": 843.8,
+        "total_equity": 3962.6,
+        "operating_cash_flow": 153.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q4",
       "report_date": "2025-02-19",
       "source_url": "https://storage.mfn.se/5117ff28-6b1d-43e0-8042-9034379ebf1a/vbg-group-q4-2024-eng.pdf",

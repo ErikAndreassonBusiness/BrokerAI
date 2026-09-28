@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q2",
+      "report_date": "2025-07-22",
+      "source_url": "https://attachment.news.eu.nasdaq.com/a5042ba7710d2f39b89c6ec7e4bb29c21",
+      "values": {
+        "revenue": 1516,
+        "gross_profit": null,
+        "ebit": 106,
+        "net_income": 52,
+        "eps": 1.13,
+        "cash": 301,
+        "inventory": 1207,
+        "short_term_debt": 441,
+        "long_term_debt": 1396,
+        "total_equity": 1704,
+        "operating_cash_flow": 163,
+        "capex": -24,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q3",
       "report_date": "2025-11-04",
       "source_url": "https://storage.mfn.se/c17eeb64-6560-4e03-a3e7-f71e5a939394/hanza-q3-2025-eng.pdf",

@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q4",
+      "report_date": "2025-02-13",
+      "source_url": "https://mb.cision.com/Main/11536/4104373/3260999.pdf",
+      "values": {
+        "revenue": 2126,
+        "gross_profit": null,
+        "ebit": 206,
+        "net_income": 155,
+        "eps": 1.69,
+        "cash": 919,
+        "inventory": 1443,
+        "short_term_debt": 115,
+        "long_term_debt": 520,
+        "total_equity": 4409,
+        "operating_cash_flow": 288,
+        "capex": -46,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q1",
+      "report_date": "2025-04-23",
+      "source_url": "https://mb.cision.com/Main/11536/4138289/3399863.pdf",
+      "values": {
+        "revenue": 2290,
+        "gross_profit": null,
+        "ebit": 215,
+        "net_income": 166,
+        "eps": 1.81,
+        "cash": 914,
+        "inventory": 1474,
+        "short_term_debt": 171,
+        "long_term_debt": 491,
+        "total_equity": 4346,
+        "operating_cash_flow": 244,
+        "capex": -39,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q2",
       "report_date": "2025-07-15",
       "source_url": "https://mb.cision.com/Main/11536/4206848/3579933.pdf",
