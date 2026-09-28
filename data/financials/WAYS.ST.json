@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2025-Q3",
+      "report_date": "2025-10-16",
+      "source_url": "https://storage.mfn.se/958c85d0-8d8b-4ee3-a2b8-155ee49b2d48/waystream-q3-2025.pdf",
+      "values": {
+        "revenue": 30.286,
+        "gross_profit": 18.228,
+        "ebit": 2.841,
+        "net_income": 2.172,
+        "eps": 0.27,
+        "cash": 8.141,
+        "inventory": 40.717,
+        "short_term_debt": 0,
+        "long_term_debt": null,
+        "total_equity": 67.179,
+        "operating_cash_flow": -0.652,
+        "capex": -3.330,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q4",
       "report_date": "2026-02-19",
       "source_url": "https://storage.mfn.se/e418cd4b-84b2-4a6e-aee5-b5843f9b9de8/waystream-q4-2025.pdf",

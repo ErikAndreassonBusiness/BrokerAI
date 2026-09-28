@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q4",
+      "report_date": "2025-02-06",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2024/nwg_q4_2024_feb_4_en_lq_.pdf",
+      "values": {
+        "revenue": 2827.3,
+        "gross_profit": 1412.3,
+        "ebit": 462.7,
+        "net_income": 344.5,
+        "eps": 2.60,
+        "cash": 545.8,
+        "inventory": 5124.2,
+        "short_term_debt": 198.7,
+        "long_term_debt": 2165.9,
+        "total_equity": 7217.1,
+        "operating_cash_flow": 545.7,
+        "capex": -133.0,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2025-Q1",
+      "report_date": "2025-04-24",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2025/q1_nwg_2025_april_24_en_hq.pdf",
+      "values": {
+        "revenue": 2184,
+        "gross_profit": 1087,
+        "ebit": 212,
+        "net_income": 144,
+        "eps": 1.09,
+        "cash": 448,
+        "inventory": 4970,
+        "short_term_debt": 205,
+        "long_term_debt": 2086,
+        "total_equity": 6921,
+        "operating_cash_flow": 219,
+        "capex": -97,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q2",
       "report_date": "2025-08-14",
       "source_url": "https://storage.mfn.se/7cb8f1e2-8b51-4d60-8720-de8dda2bd7d8/q2-nwg-2025-aug-14-en-lq.pdf",

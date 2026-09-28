@@ -3,6 +3,26 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2025-Q3",
+      "report_date": "2025-10-17",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/3q/tomra-3q-2025-report.pdf",
+      "values": {
+        "revenue": 306,
+        "gross_profit": 135,
+        "ebit": 25,
+        "net_income": 14,
+        "eps": 0.05,
+        "cash": 112,
+        "inventory": 258,
+        "short_term_debt": 47,
+        "long_term_debt": 643,
+        "total_equity": 583,
+        "operating_cash_flow": 64,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2025-Q4",
       "report_date": "2026-02-13",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/4q/tomra-2025-q4-report.pdf",
