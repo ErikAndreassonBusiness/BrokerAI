@@ -1,0 +1,26 @@
+{
+  "ticker": "HANZA.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-21",
+      "source_url": "https://storage.mfn.se/eb038eb8-6fa4-4392-8f41-7e3d7180d02f/hanza-q2-2026-eng.pdf",
+      "values": {
+        "revenue": 2573,
+        "gross_profit": null,
+        "ebit": 118,
+        "net_income": 54,
+        "eps": 0.85,
+        "cash": 773,
+        "inventory": 2137,
+        "short_term_debt": 233,
+        "long_term_debt": 2491,
+        "total_equity": 4156,
+        "operating_cash_flow": 273,
+        "capex": -100,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

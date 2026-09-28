@@ -1,0 +1,46 @@
+{
+  "ticker": "VBG-B.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q1",
+      "report_date": "2026-04-27",
+      "source_url": "https://storage.mfn.se/67703f9d-2798-4d09-8420-eb8560a08d45/vbg-group-q1-2026-eng.pdf",
+      "values": {
+        "revenue": 1376.4,
+        "gross_profit": 445.6,
+        "ebit": 161.8,
+        "net_income": 113.2,
+        "eps": 4.53,
+        "cash": 1117.6,
+        "inventory": 997.8,
+        "short_term_debt": 59.2,
+        "long_term_debt": 1707.0,
+        "total_equity": 4149.7,
+        "operating_cash_flow": 92.4,
+        "capex": -74.4,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-17",
+      "source_url": "https://storage.mfn.se/728a152e-2980-4d69-bc4a-4c8876f7920e/vbg-group-q2-2026-eng.pdf",
+      "values": {
+        "revenue": 1480.4,
+        "gross_profit": 429.3,
+        "ebit": 135.5,
+        "net_income": 89.6,
+        "eps": 3.58,
+        "cash": 984.0,
+        "inventory": 1073.3,
+        "short_term_debt": 275.1,
+        "long_term_debt": 1667.6,
+        "total_equity": 4099.8,
+        "operating_cash_flow": 7.4,
+        "capex": -115.1,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}

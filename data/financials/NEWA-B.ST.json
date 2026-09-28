@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2026-Q1",
+      "report_date": "2026-04-23",
+      "source_url": "https://storage.mfn.se/df5b1666-e5bd-4cb1-909c-a52139748ede/q1-nwg-2026-en-lq-jjghfgagfadhafd.pdf",
+      "values": {
+        "revenue": 2328,
+        "gross_profit": 1163,
+        "ebit": 200,
+        "net_income": 129,
+        "eps": 0.97,
+        "cash": 571,
+        "inventory": 5776,
+        "short_term_debt": 228,
+        "long_term_debt": 3364,
+        "total_equity": 7097,
+        "operating_cash_flow": 210,
+        "capex": -126,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2026-Q2",
       "report_date": "2026-08-20",
       "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2026/q2_nwg_2026_en_hq_6.pdf",

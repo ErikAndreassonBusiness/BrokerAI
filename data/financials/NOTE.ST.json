@@ -1,0 +1,26 @@
+{
+  "ticker": "NOTE.ST",
+  "currency": "SEK",
+  "quarters": [
+    {
+      "period": "2026-Q2",
+      "report_date": "2026-07-15",
+      "source_url": "https://storage.mfn.se/ef3d296d-1a70-4ef6-a777-e72b371cf431/note-q2-2026-eng-final.pdf",
+      "values": {
+        "revenue": 1175,
+        "gross_profit": 171,
+        "ebit": 90,
+        "net_income": 56,
+        "eps": 1.95,
+        "cash": 147,
+        "inventory": 1155,
+        "short_term_debt": 903,
+        "long_term_debt": 884,
+        "total_equity": 1831,
+        "operating_cash_flow": -8,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    }
+  ]
+}
