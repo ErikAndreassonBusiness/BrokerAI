@@ -3,6 +3,48 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2021-Q4",
+      "currency": "NOK",
+      "report_date": "2022-02-23",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2021/4q/4q-2021-report.pdf",
+      "values": {
+        "revenue": 3049.7,
+        "gross_profit": 1328.6,
+        "ebit": 480.7,
+        "net_income": 365.4,
+        "eps": 2.47,
+        "cash": 631.6,
+        "inventory": 1883.4,
+        "short_term_debt": null,
+        "long_term_debt": null,
+        "total_equity": 6164.2,
+        "operating_cash_flow": 657.9,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q1",
+      "currency": "NOK",
+      "report_date": "2022-04-29",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2022/1q/1q-2022-report.pdf",
+      "values": {
+        "revenue": 2500.5,
+        "gross_profit": 996.3,
+        "ebit": 188.1,
+        "net_income": 141.2,
+        "eps": 0.96,
+        "cash": 619.5,
+        "inventory": 1920.7,
+        "short_term_debt": null,
+        "long_term_debt": null,
+        "total_equity": 6248.7,
+        "operating_cash_flow": 165.5,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q2",
       "currency": "NOK",
       "report_date": "2022-07-15",

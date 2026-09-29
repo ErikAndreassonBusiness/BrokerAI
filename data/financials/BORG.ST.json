@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q3",
+      "report_date": "2022-11-18",
+      "source_url": "https://storage.mfn.se/156b3645-1160-4185-90e9-41623016ff2e/bjorn-borg-delarsrapport-q3-2022.pdf",
+      "values": {
+        "revenue": 248.59,
+        "gross_profit": null,
+        "ebit": 30.597,
+        "net_income": 22.19,
+        "eps": 0.88,
+        "cash": 14.386,
+        "inventory": 170.016,
+        "short_term_debt": 106.874,
+        "long_term_debt": 33.059,
+        "total_equity": 317.786,
+        "operating_cash_flow": -64.004,
+        "capex": -1.989,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q4",
       "report_date": "2023-02-23",
       "source_url": "https://storage.mfn.se/8b61fa27-0fb1-433b-8b86-838c87d3a97f/bjorn-borg-year-end-report-2022.pdf",
