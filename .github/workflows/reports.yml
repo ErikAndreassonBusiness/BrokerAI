@@ -50,7 +50,8 @@ jobs:
       - name: Install pdftotext
         run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
 
-      - uses: anthropics/claude-code-action@v1
+      - id: claude
+        uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -64,6 +65,13 @@ jobs:
           claude_args: >-
             --max-turns 300
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(pdftotext *),Bash(uv run python -m app.backend.validate)"
+
+      - name: Claude's final message
+        if: always() && steps.claude.outputs.execution_file != ''
+        continue-on-error: true
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: jq -r '[.[] | select(.type == "result")] | last | .result // "(no final message)"' "$EXECUTION_FILE"
 
       - name: Validate data
         run: uv run python -m app.backend.validate
