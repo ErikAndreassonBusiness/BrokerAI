@@ -18,10 +18,19 @@ the owner reviews before merging.
    including **2021-Q3**. Don't go further back. Before backfilling a company, find out when it
    published its first quarterly report (e.g. after its stock market listing) and don't search for
    earlier quarters. Say in your final message which companies have no reports that far back.
-4. Stop after the number of reports the prompt allows. It's fine to leave work for the next run.
-5. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
+   **Spread the work across all companies**: at most 3 reports per company per run, so one company
+   can't use up the whole budget.
+4. **If a report can't be read, skip it and keep going.** If you find no PDF, or `pdftotext` gives no
+   or very little text (an image-only PDF), try the other sources in "Where to look". If none works,
+   skip that quarter and continue with the next older quarter and the other companies. Never end the
+   run because one report is missing, and never ask for help: nobody reads your messages during a run.
+5. Stop after the number of reports the prompt allows. It's fine to leave work for the next run.
+6. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
    an entry for today's date, don't add another.
-6. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
+7. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
+8. **Final message:** which quarters you added per company, every `null` with a short reason
+   (e.g. "gross_profit: income statement is by nature of expense"), and every quarter you skipped
+   with the reason (e.g. "NOTE 2023-Q4: only an image-only PDF found").
 
 ## Your tools
 
@@ -42,8 +51,11 @@ the owner reviews before merging.
 - The company's IR page (`ir_url` in `companies.json`), then press releases on mfn.se or
   news.cision.com. Search e.g. `"<name>" interim report Q2 2026` or `"<name>" delårsrapport januari–juni 2026`.
 - Use the report itself (PDF) or the official press release. Never use forums, blogs or data sites.
-- A press release or the summary on the report's first pages is **not enough**: it only has a few
-  headline figures. Always use the full report PDF (see "Reading a report" above).
+- You need the **full report with its statements**. A short press release or the summary on the
+  report's first pages is not enough: it only has a few headline figures.
+- Preferred: the report PDF (see "Reading a report" above). If the PDF is image-only or can't be
+  found, open the report's page on **mfn.se** or **news.cision.com** with WebFetch: these pages often
+  contain the complete report text, including the statements.
 
 ## File format
 
@@ -112,8 +124,6 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
   (statement of financial position) and the cash flow statement, usually in the second half of the report.
 - **Accuracy over completeness.** Use `null` only if the statements don't contain the figure for the
   quarter. Never estimate, never use 0 for a missing figure.
-- In your final message, list every `null` per company and quarter with a short reason
-  (e.g. "gross_profit: income statement is by nature of expense").
 - The only arithmetic allowed: converting to millions, and adding up the lines of the **same**
   balance sheet for `short_term_debt` and `long_term_debt` (and the two capex lines).
 - **Never change or remove a quarter that is already stored.** Only add missing quarters.
