@@ -79,6 +79,19 @@ def test_bad_financials_fail(tmp_path, quarters, expected):
     assert any(expected in e for e in errors), errors
 
 
+def test_quarter_may_have_its_own_currency(tmp_path):
+    write_data(tmp_path, [quarter("2024-Q1", currency="NOK"), quarter("2024-Q2")])
+
+    assert validate(tmp_path) == []
+
+
+@pytest.mark.parametrize("currency", ["nok", "NOKK", "", None])
+def test_bad_quarter_currency_fails(tmp_path, currency):
+    write_data(tmp_path, [quarter("2024-Q1", currency=currency)])
+
+    assert any("currency must be" in e for e in validate(tmp_path))
+
+
 def test_unknown_ticker_fails(tmp_path):
     write_data(tmp_path, [quarter("2026-Q1")], ticker="XYZ.ST")
 
