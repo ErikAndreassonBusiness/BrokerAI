@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q2",
+      "report_date": "2024-08-15",
+      "source_url": "https://mb.cision.com/Main/13305/4024943/2947206.pdf",
+      "values": {
+        "revenue": 33.207,
+        "gross_profit": 18.919,
+        "ebit": 1.744,
+        "net_income": 1.043,
+        "eps": 0.13,
+        "cash": 10.806,
+        "inventory": 43.872,
+        "short_term_debt": 17.281,
+        "long_term_debt": null,
+        "total_equity": 67.029,
+        "operating_cash_flow": 8.384,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q3",
       "report_date": "2024-11-21",
       "source_url": "https://storage.mfn.se/001a90b4-9fed-43dd-9f7e-c438d99aba6e/waystream-q3-2024.pdf",

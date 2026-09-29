@@ -3,6 +3,86 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q2",
+      "report_date": "2022-07-15",
+      "source_url": "https://mb.cision.com/Main/883/3601463/1604661.pdf",
+      "values": {
+        "revenue": 2475.2,
+        "gross_profit": 615.6,
+        "ebit": 286.9,
+        "net_income": 212.2,
+        "eps": 3.66,
+        "cash": 732.8,
+        "inventory": 849.0,
+        "short_term_debt": 154.0,
+        "long_term_debt": 1853.8,
+        "total_equity": 4682.9,
+        "operating_cash_flow": 350.4,
+        "capex": -42.8,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q3",
+      "report_date": "2022-10-25",
+      "source_url": "https://mb.cision.com/Main/883/3653796/1642912.pdf",
+      "values": {
+        "revenue": 2386.0,
+        "gross_profit": 584.8,
+        "ebit": 292.3,
+        "net_income": 225.0,
+        "eps": 3.88,
+        "cash": 992.6,
+        "inventory": 837.8,
+        "short_term_debt": 149.4,
+        "long_term_debt": 1854.6,
+        "total_equity": 4993.4,
+        "operating_cash_flow": 292.6,
+        "capex": -25.8,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q4",
+      "report_date": "2023-02-07",
+      "source_url": "https://mb.cision.com/Main/883/3709737/1830138.pdf",
+      "values": {
+        "revenue": 2612.7,
+        "gross_profit": 665.0,
+        "ebit": 312.8,
+        "net_income": 238.5,
+        "eps": 4.11,
+        "cash": 1319.0,
+        "inventory": 783.4,
+        "short_term_debt": 152.8,
+        "long_term_debt": 1953.7,
+        "total_equity": 5319.0,
+        "operating_cash_flow": 417.5,
+        "capex": -95.3,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q1",
+      "report_date": "2023-04-25",
+      "source_url": "https://mb.cision.com/Main/883/3756873/2007616.pdf",
+      "values": {
+        "revenue": 2095.2,
+        "gross_profit": 491.1,
+        "ebit": 160.9,
+        "net_income": 110.4,
+        "eps": 1.9,
+        "cash": 1150.9,
+        "inventory": 760.1,
+        "short_term_debt": 160.0,
+        "long_term_debt": 1965.7,
+        "total_equity": 5462.5,
+        "operating_cash_flow": -104.8,
+        "capex": -43.3,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q2",
       "report_date": "2023-07-14",
       "source_url": "https://mb.cision.com/Main/883/3804672/2189071.pdf",

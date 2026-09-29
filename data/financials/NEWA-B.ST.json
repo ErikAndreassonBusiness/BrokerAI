@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q2",
+      "report_date": "2023-08-16",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2023/q2_2023_aug_16_en_hq_sdd76727a.pdf",
+      "values": {
+        "revenue": 2304.5,
+        "gross_profit": 1139.7,
+        "ebit": 363.9,
+        "net_income": 259.6,
+        "eps": 1.96,
+        "cash": 416.5,
+        "inventory": 5714.8,
+        "short_term_debt": 269.3,
+        "long_term_debt": 2797.1,
+        "total_equity": 6186.3,
+        "operating_cash_flow": 230.1,
+        "capex": -91.3,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q3",
       "report_date": "2023-11-07",
       "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2023/q3_2023_nwg_nov_6_en_lq.pdf",
