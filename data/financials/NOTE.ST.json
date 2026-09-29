@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q2",
+      "report_date": "2023-07-13",
+      "source_url": "https://storage.mfn.se/9d1d68a5-946c-4c97-9c92-dd45d58a53fa/interim-report-q2-2023.pdf",
+      "values": {
+        "revenue": 1078.0,
+        "gross_profit": 140.0,
+        "ebit": 106.0,
+        "net_income": 79.0,
+        "eps": 2.73,
+        "cash": 99.0,
+        "inventory": 1401.0,
+        "short_term_debt": 376.0,
+        "long_term_debt": 255.0,
+        "total_equity": 1297.0,
+        "operating_cash_flow": 39.0,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q3",
       "report_date": "2023-10-17",
       "source_url": "https://storage.mfn.se/aa37a03d-839a-4a88-9f48-516394a91907/delarsrapport-q3-2023.pdf",

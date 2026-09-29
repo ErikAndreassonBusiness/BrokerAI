@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2024-Q2",
+      "report_date": "2024-08-13",
+      "source_url": "https://storage.mfn.se/f4105afc-fe7f-4133-8ede-ad8ad2c4214a/delarsrapport-q4-2023-24.pdf",
+      "values": {
+        "revenue": 407,
+        "gross_profit": null,
+        "ebit": 74,
+        "net_income": 61,
+        "eps": 0.53,
+        "cash": 295,
+        "inventory": 448,
+        "short_term_debt": 4,
+        "long_term_debt": 8,
+        "total_equity": 1252,
+        "operating_cash_flow": 92,
+        "capex": -1,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q3",
       "report_date": "2024-11-05",
       "source_url": "https://storage.mfn.se/c4a3caa6-5eb8-4b75-a63d-be67a93c1e96/delarsrapport-q1-2024-25.pdf",

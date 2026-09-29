@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q3",
+      "report_date": "2022-10-26",
+      "source_url": "https://mb.cision.com/Main/1938/3664538/1660763.pdf",
+      "values": {
+        "revenue": 1091.6,
+        "gross_profit": 304.6,
+        "ebit": 104.6,
+        "net_income": 62.7,
+        "eps": 2.51,
+        "cash": 609.8,
+        "inventory": 1162.4,
+        "short_term_debt": 43.7,
+        "long_term_debt": 1141.4,
+        "total_equity": 3156.0,
+        "operating_cash_flow": 18.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q4",
+      "report_date": "2023-02-21",
+      "source_url": "https://www.vbggroup.com/globalassets/finansiella-rapporter/eng/year-end-reports/vbg-group-q4-2022-eng.pdf",
+      "values": {
+        "revenue": 1191.5,
+        "gross_profit": 346.8,
+        "ebit": 127.0,
+        "net_income": 90.6,
+        "eps": 3.62,
+        "cash": 498.8,
+        "inventory": 1110.5,
+        "short_term_debt": 49.1,
+        "long_term_debt": 975.0,
+        "total_equity": 3288.3,
+        "operating_cash_flow": 168.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q1",
       "report_date": "2023-04-27",
       "source_url": "https://mb.cision.com/Main/1938/3766857/2045881.pdf",
