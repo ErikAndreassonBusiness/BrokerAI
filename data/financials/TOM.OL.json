@@ -3,6 +3,48 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2023-Q4",
+      "currency": "NOK",
+      "report_date": "2024-02-15",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2023/4q/4q-2023-report.pdf",
+      "values": {
+        "revenue": 4123,
+        "gross_profit": 1805,
+        "ebit": 173,
+        "net_income": 90,
+        "eps": 0.30,
+        "cash": 1168,
+        "inventory": 2669,
+        "short_term_debt": 781,
+        "long_term_debt": 4145,
+        "total_equity": 6904,
+        "operating_cash_flow": 1316,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2024-Q1",
+      "currency": "NOK",
+      "report_date": "2024-04-26",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/1q/1q-2024-report.pdf",
+      "values": {
+        "revenue": 3322,
+        "gross_profit": 1334,
+        "ebit": 111,
+        "net_income": 15,
+        "eps": 0.05,
+        "cash": 1115,
+        "inventory": 2954,
+        "short_term_debt": 882,
+        "long_term_debt": 4409,
+        "total_equity": 7176,
+        "operating_cash_flow": 228,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q2",
       "report_date": "2024-07-19",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/2q/2q-2024-report.pdf",

@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q4",
+      "report_date": "2024-02-28",
+      "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2024/02/28132755/Inission-AB-Bokslut-Q4-2023_ENG.pdf",
+      "values": {
+        "revenue": 553.6,
+        "gross_profit": null,
+        "ebit": 30.3,
+        "net_income": 13.3,
+        "eps": 0.6,
+        "cash": 42.2,
+        "inventory": 620.5,
+        "short_term_debt": 142.7,
+        "long_term_debt": 290.2,
+        "total_equity": 605.0,
+        "operating_cash_flow": 32.0,
+        "capex": -5.1,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q1",
       "report_date": "2024-05-08",
       "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2024/05/08084139/Inission-AB_Q1-2024_EN_final.pdf",

@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q3",
+      "report_date": "2023-11-17",
+      "source_url": "https://cdn.prod.website-files.com/66a92ebaf5fe2539fb929b6d/66bfc757e7e185314e5b4ce1_bjorn-borg-interim-report-q3-2023-231117.pdf",
+      "values": {
+        "revenue": 262.105,
+        "gross_profit": null,
+        "ebit": 40.893,
+        "net_income": 32.045,
+        "eps": 1.27,
+        "cash": 9.739,
+        "inventory": 150.489,
+        "short_term_debt": 122.017,
+        "long_term_debt": 28.379,
+        "total_equity": 340.186,
+        "operating_cash_flow": -58.631,
+        "capex": -2.869,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q4",
       "report_date": "2024-02-23",
       "source_url": "https://attachment.news.eu.nasdaq.com/aceaf1cfa2b303dc46be8e6f0c747b5c8",

@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q4",
+      "report_date": "2023-02-10",
+      "source_url": "https://mb.cision.com/Main/932/3712101/1838547.pdf",
+      "values": {
+        "revenue": 2815.1,
+        "gross_profit": 1399.7,
+        "ebit": 547.2,
+        "net_income": 446.3,
+        "eps": 6.73,
+        "cash": 419.4,
+        "inventory": 5297.7,
+        "short_term_debt": 330.6,
+        "long_term_debt": 2418.4,
+        "total_equity": 5890.5,
+        "operating_cash_flow": -232.9,
+        "capex": -8.7,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q1",
+      "report_date": "2023-04-26",
+      "source_url": "https://mb.cision.com/Main/932/3757715/2010189.pdf",
+      "values": {
+        "revenue": 2135.5,
+        "gross_profit": 1082.9,
+        "ebit": 313.5,
+        "net_income": 222.2,
+        "eps": 3.35,
+        "cash": 376.7,
+        "inventory": 5544.3,
+        "short_term_debt": 289.8,
+        "long_term_debt": 2651.4,
+        "total_equity": 6106.7,
+        "operating_cash_flow": -193.1,
+        "capex": -41.5,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q2",
       "report_date": "2023-08-16",
       "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2023/q2_2023_aug_16_en_hq_sdd76727a.pdf",
