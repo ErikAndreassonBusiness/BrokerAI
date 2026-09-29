@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q4",
+      "report_date": "2024-02-23",
+      "source_url": "https://attachment.news.eu.nasdaq.com/aceaf1cfa2b303dc46be8e6f0c747b5c8",
+      "values": {
+        "revenue": 197.632,
+        "gross_profit": null,
+        "ebit": 20.172,
+        "net_income": 14.951,
+        "eps": 0.59,
+        "cash": 26.646,
+        "inventory": 184.361,
+        "short_term_debt": 17.379,
+        "long_term_debt": 25.47,
+        "total_equity": 350.817,
+        "operating_cash_flow": 129.392,
+        "capex": -2.921,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q1",
       "report_date": "2024-05-16",
       "source_url": "https://cdn.prod.website-files.com/66a92ebaf5fe2539fb929b6d/66baa1ec0ebc9288362d567e_bjorn-borg-interim-report-q1-2024-240516.pdf",
