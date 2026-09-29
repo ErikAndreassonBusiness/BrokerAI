@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q1",
+      "report_date": "2023-04-27",
+      "source_url": "https://mb.cision.com/Main/1938/3766857/2045881.pdf",
+      "values": {
+        "revenue": 1399.9,
+        "gross_profit": 427.2,
+        "ebit": 194.9,
+        "net_income": 142.1,
+        "eps": 5.68,
+        "cash": 464.7,
+        "inventory": 1073.6,
+        "short_term_debt": 48.5,
+        "long_term_debt": 734.4,
+        "total_equity": 3467.4,
+        "operating_cash_flow": 145.0,
+        "capex": -30.6,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q2",
+      "report_date": "2023-07-20",
+      "source_url": "https://mb.cision.com/Main/1938/3817202/2226869.pdf",
+      "values": {
+        "revenue": 1450.2,
+        "gross_profit": 456.9,
+        "ebit": 204.1,
+        "net_income": 138.2,
+        "eps": 5.53,
+        "cash": 416.6,
+        "inventory": 1157.3,
+        "short_term_debt": 47.5,
+        "long_term_debt": 825.0,
+        "total_equity": 3577.7,
+        "operating_cash_flow": 128.9,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q3",
       "report_date": "2023-10-24",
       "source_url": "https://storage.mfn.se/a/vbg-group/8a1a8571-711a-4ae3-a6e3-25eab783aaa3/vbg-group-q3-2023-eng.pdf",
