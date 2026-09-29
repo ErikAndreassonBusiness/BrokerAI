@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q4",
+      "report_date": "2022-02-10",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2021/q4_2021_en_feb_9_hq_46324x45.pdf",
+      "values": {
+        "revenue": 2306.7,
+        "gross_profit": 1103.4,
+        "ebit": 403.3,
+        "net_income": 305.9,
+        "eps": 4.61,
+        "cash": 327.9,
+        "inventory": 2937.6,
+        "short_term_debt": 229.9,
+        "long_term_debt": 1166.8,
+        "total_equity": 4567.6,
+        "operating_cash_flow": 413.3,
+        "capex": -42.9,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q1",
+      "report_date": "2022-04-26",
+      "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2022/q1_2022_nwg_april_25_en_hq_528yjag2.pdf",
+      "values": {
+        "revenue": 1774.9,
+        "gross_profit": 843.3,
+        "ebit": 209.1,
+        "net_income": 153.5,
+        "eps": 2.31,
+        "cash": 298.6,
+        "inventory": 3200.0,
+        "short_term_debt": 216.7,
+        "long_term_debt": 1177.2,
+        "total_equity": 4791.6,
+        "operating_cash_flow": 5.2,
+        "capex": -28.0,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q2",
       "report_date": "2022-08-17",
       "source_url": "https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2022/q2_2022_en_aug_16_hq_vaksy662.pdf",
