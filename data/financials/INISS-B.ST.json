@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q4",
+      "report_date": "2023-03-01",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2023/02/Inission_Bokslutskommunike-for-2022-EN.pdf",
+      "values": {
+        "revenue": 589.1,
+        "gross_profit": null,
+        "ebit": 26.7,
+        "net_income": 15.7,
+        "eps": 0.75,
+        "cash": 14.6,
+        "inventory": 642.2,
+        "short_term_debt": 229.5,
+        "long_term_debt": 263.6,
+        "total_equity": 424.3,
+        "operating_cash_flow": -10.4,
+        "capex": -6.6,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q1",
+      "report_date": "2023-05-04",
+      "source_url": "https://www.inissiongroup.com/app/uploads/2025/05/inission-q1-2023-final-eng.pdf",
+      "values": {
+        "revenue": 565.1,
+        "gross_profit": null,
+        "ebit": 44.0,
+        "net_income": 29.1,
+        "eps": 1.43,
+        "cash": 19.0,
+        "inventory": 655.3,
+        "short_term_debt": 245.7,
+        "long_term_debt": 262.3,
+        "total_equity": 457.9,
+        "operating_cash_flow": 14.7,
+        "capex": -6.3,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q2",
       "report_date": "2023-08-17",
       "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2023/08/16183001/Inission-AB_Q2-2023-rapport_ENG-1.pdf",
