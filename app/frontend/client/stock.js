@@ -97,13 +97,21 @@ function renderFinancials(fin) {
   if (!quarters.length) {
     return `<p class="card empty muted">No quarterly figures yet. The report agent adds them.</p>`;
   }
+  // A quarter can be reported in another currency than the file's (e.g. TOMRA in NOK before 2024).
+  const currencyOf = (q) => q.currency || fin.currency;
   const latest = quarters[quarters.length - 1];
-  const lastYear = sameQuarterLastYear(quarters, latest);
+  const lastYearSameQuarter = sameQuarterLastYear(quarters, latest);
+  // y/y only makes sense in the same currency.
+  const lastYear =
+    lastYearSameQuarter && currencyOf(lastYearSameQuarter) === currencyOf(latest)
+      ? lastYearSameQuarter
+      : null;
 
   const head = quarters
     .map((q) => {
       const url = safeUrl(q.source_url);
-      const label = esc(q.period);
+      const other = currencyOf(q) !== fin.currency;
+      const label = esc(q.period) + (other ? ` · ${esc(currencyOf(q))}` : "");
       const title = `Report published ${fmtDate(q.report_date)}`;
       return `<th title="${title}">${url ? `<a href="${esc(url)}" rel="noopener">${label}</a>` : label}</th>`;
     })
@@ -124,7 +132,11 @@ function renderFinancials(fin) {
   }).join("");
 
   return `
-    <p class="muted">M${esc(fin.currency)} (EPS in ${esc(fin.currency)} per share). Click a quarter to open its report.</p>
+    <p class="muted">Millions of ${esc(fin.currency)} (EPS in ${esc(fin.currency)} per share)${
+      quarters.some((q) => currencyOf(q) !== fin.currency)
+        ? ", unless another currency is shown next to the quarter"
+        : ""
+    }. Click a quarter to open its report.</p>
     <div class="table-wrap">
       <table class="financials">
         <thead><tr><th>Line item</th>${head}${yoyHead}</tr></thead>

@@ -37,6 +37,7 @@ QUOTE_FIELDS = {
     "quote_time",
 }
 PERIOD = re.compile(r"^\d{4}-Q[1-4]$")
+CURRENCY = re.compile(r"^[A-Z]{3}$")
 
 
 def _is_number_or_null(value) -> bool:
@@ -113,6 +114,8 @@ def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
             errors.append(f"{at}: report_date must be YYYY-MM-DD")
         if not str(quarter.get("source_url", "")).startswith("https://"):
             errors.append(f"{at}: source_url must start with https://")
+        if "currency" in quarter and not CURRENCY.match(str(quarter["currency"])):
+            errors.append(f"{at}: currency must be 3 capital letters, e.g. NOK")
         values = quarter.get("values", {})
         if set(values) != set(LINE_ITEMS):
             errors.append(

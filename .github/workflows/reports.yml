@@ -50,6 +50,15 @@ jobs:
       - name: Install pdftotext
         run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
 
+      - name: To-do list of missing quarters
+        id: todo
+        run: |
+          {
+            echo "list<<END_OF_TODO"
+            uv run python -m app.backend.todo --max "$MAX_REPORTS"
+            echo "END_OF_TODO"
+          } >> "$GITHUB_OUTPUT"
+
       - id: claude
         uses: anthropics/claude-code-action@v1
         with:
@@ -58,12 +67,18 @@ jobs:
           prompt: |
             Follow the instructions in AGENT.md.
             Today is ${{ steps.today.outputs.date }}.
-            Read at most ${{ env.MAX_REPORTS }} reports in this run.
+
+            Your to-do list for this run (ticker and quarter):
+            ${{ steps.todo.outputs.list }}
+
+            Work through EVERY item on the list, in order: add the quarter, or skip it and give
+            the reason in your final message. You are not finished until every item is handled.
+            There is no time limit; don't stop early.
             You can only use the tools listed in AGENT.md. If you cannot continue,
             say exactly what blocked you in your final message.
           display_report: "true"
           claude_args: >-
-            --max-turns 300
+            --max-turns 400
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(pdftotext *),Bash(uv run python -m app.backend.validate)"
 
       - name: Claude's final message
