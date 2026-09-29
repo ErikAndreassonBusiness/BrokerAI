@@ -14,17 +14,17 @@ the owner reviews before merging.
    `data/financials/<ticker>.json`.
 2. **New quarters first.** For each company, check whether a report newer than its latest stored
    quarter has been published, and add it.
-3. **Backfill.** With the remaining budget, add older quarters, newest missing first, back to and
-   including **2021-Q3**. Don't go further back. Before backfilling a company, find out when it
-   published its first quarterly report (e.g. after its stock market listing) and don't search for
-   earlier quarters. Say in your final message which companies have no reports that far back.
-   **Spread the work across all companies**: at most 3 reports per company per run, so one company
-   can't use up the whole budget.
+3. **Backfill: work through the to-do list in the prompt.** It lists the missing quarters for this
+   run (computed from the stored files, back to 2021-Q3). Handle every item, in order: add the
+   quarter, or skip it with a reason. Don't pick other quarters yourself, and don't stop before the
+   list is done. If a company hadn't published a report for that quarter yet (e.g. before its
+   stock market listing), skip it and say so.
 4. **If a report can't be read, skip it and keep going.** If you find no PDF, or `pdftotext` gives no
    or very little text (an image-only PDF), try the other sources in "Where to look". If none works,
-   skip that quarter and continue with the next older quarter and the other companies. Never end the
-   run because one report is missing, and never ask for help: nobody reads your messages during a run.
-5. Stop after the number of reports the prompt allows. It's fine to leave work for the next run.
+   skip that quarter and continue with the next item. Never end the run because one report is
+   missing, and never ask for help: nobody reads your messages during a run.
+5. **Currency:** if a report is in a different currency than the file's `currency` (e.g. TOMRA before
+   2024-Q2 reported in NOK), set `"currency": "NOK"` on **that quarter**. Never convert currencies.
 6. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
    an entry for today's date, don't add another.
 7. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
@@ -91,6 +91,8 @@ the owner reviews before merging.
 ```
 
 - `currency` is the company's `report_currency` from `companies.json` (TOMRA reports in EUR).
+  A quarter reported in another currency gets its own `"currency"` field next to `"period"`
+  (e.g. `"currency": "NOK"`); quarters without it use the file's currency.
 - `quarters` is sorted oldest first. Each quarter has **all 13** keys in `values`.
 - `period` is the **calendar quarter the report period ends in**: `YYYY-Q1` … `YYYY-Q4`. Some companies
   (e.g. RVRC, Inission) use a fiscal year that doesn't follow the calendar year. Always read the actual
