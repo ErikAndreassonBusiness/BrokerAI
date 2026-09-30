@@ -3,6 +3,106 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q4",
+      "report_date": "2022-02-24",
+      "source_url": "https://mb.cision.com/Main/1938/3520922/1545758.pdf",
+      "values": {
+        "revenue": 936.0,
+        "gross_profit": 260.9,
+        "ebit": 72.1,
+        "net_income": 58.0,
+        "eps": 2.32,
+        "cash": 667.4,
+        "inventory": 819.3,
+        "short_term_debt": 22.6,
+        "long_term_debt": 848.3,
+        "total_equity": 2793.5,
+        "operating_cash_flow": 37.1,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q1",
+      "report_date": "2022-04-28",
+      "source_url": "https://mb.cision.com/Main/1938/3563151/1576761.pdf",
+      "values": {
+        "revenue": 1155.5,
+        "gross_profit": 361.5,
+        "ebit": 156.4,
+        "net_income": 114.4,
+        "eps": 4.58,
+        "cash": 709.5,
+        "inventory": 913.9,
+        "short_term_debt": 22.4,
+        "long_term_debt": 850.4,
+        "total_equity": 2976.7,
+        "operating_cash_flow": 79.7,
+        "capex": -37.8,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q2",
+      "report_date": "2022-07-20",
+      "source_url": "https://mb.cision.com/Main/1938/3607975/1609948.pdf",
+      "values": {
+        "revenue": 1141.3,
+        "gross_profit": 334.4,
+        "ebit": 139.2,
+        "net_income": 100.5,
+        "eps": 4.02,
+        "cash": 628.5,
+        "inventory": 1063.6,
+        "short_term_debt": 22.3,
+        "long_term_debt": 869.2,
+        "total_equity": 3039.5,
+        "operating_cash_flow": 46.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q3",
+      "report_date": "2022-10-26",
+      "source_url": "https://mb.cision.com/Main/1938/3664538/1660763.pdf",
+      "values": {
+        "revenue": 1091.6,
+        "gross_profit": 304.6,
+        "ebit": 104.6,
+        "net_income": 62.7,
+        "eps": 2.51,
+        "cash": 609.8,
+        "inventory": 1162.4,
+        "short_term_debt": 43.7,
+        "long_term_debt": 1141.4,
+        "total_equity": 3156.0,
+        "operating_cash_flow": 18.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q4",
+      "report_date": "2023-02-21",
+      "source_url": "https://www.vbggroup.com/globalassets/finansiella-rapporter/eng/year-end-reports/vbg-group-q4-2022-eng.pdf",
+      "values": {
+        "revenue": 1191.5,
+        "gross_profit": 346.8,
+        "ebit": 127.0,
+        "net_income": 90.6,
+        "eps": 3.62,
+        "cash": 498.8,
+        "inventory": 1110.5,
+        "short_term_debt": 49.1,
+        "long_term_debt": 975.0,
+        "total_equity": 3288.3,
+        "operating_cash_flow": 168.3,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q1",
       "report_date": "2023-04-27",
       "source_url": "https://mb.cision.com/Main/1938/3766857/2045881.pdf",

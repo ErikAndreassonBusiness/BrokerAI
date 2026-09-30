@@ -3,6 +3,66 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q1",
+      "report_date": "2023-04-20",
+      "source_url": "https://mb.cision.com/Main/11536/3754237/1995768.pdf",
+      "values": {
+        "revenue": 2253,
+        "gross_profit": null,
+        "ebit": 194,
+        "net_income": 157,
+        "eps": 8.58,
+        "cash": 352,
+        "inventory": 1622,
+        "short_term_debt": 181,
+        "long_term_debt": 860,
+        "total_equity": 3391,
+        "operating_cash_flow": 225,
+        "capex": -66,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q2",
+      "report_date": "2023-07-14",
+      "source_url": "https://mb.cision.com/Main/11536/3804675/2187627.pdf",
+      "values": {
+        "revenue": 2345,
+        "gross_profit": null,
+        "ebit": 203,
+        "net_income": 170,
+        "eps": 9.28,
+        "cash": 289,
+        "inventory": 1610,
+        "short_term_debt": 175,
+        "long_term_debt": 765,
+        "total_equity": 3671,
+        "operating_cash_flow": 177,
+        "capex": -67,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q3",
+      "report_date": "2023-10-19",
+      "source_url": "https://www.aqgroup.com/download/4484-10D18F6D94391C5B1F0F7ECA63AE0334/AQ-Group-Delarsrapport-jan-sep-2023.pdf",
+      "values": {
+        "revenue": 2149,
+        "gross_profit": null,
+        "ebit": 201,
+        "net_income": 171,
+        "eps": 9.32,
+        "cash": 436,
+        "inventory": 1543,
+        "short_term_debt": 166,
+        "long_term_debt": 679,
+        "total_equity": 3734,
+        "operating_cash_flow": 339,
+        "capex": -58,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q4",
       "report_date": "2024-02-15",
       "source_url": "https://mb.cision.com/Main/11536/3927428/2599916.pdf",
