@@ -113,3 +113,10 @@ test("percentages have 2 decimals, and zero has no sign or colour", () => {
   assert.equal(m.fmtChange(-0.004), m.fmtChange(0));
   assert.equal(text(m.fmtPct(46.712, 2)), "46,71 %");
 });
+
+test("growth is shown in whole percent, and below ±0,5 % as a plain 0 %", () => {
+  assert.equal(text(m.fmtChange(12.6, 0)), "+13 %");
+  assert.equal(text(m.fmtChange(-7.14, 0)), "−7 %");
+  assert.equal(text(m.fmtChange(0.4, 0)), "0 %");
+  assert.doesNotMatch(m.fmtChange(-0.4, 0), /class=/);
+});
