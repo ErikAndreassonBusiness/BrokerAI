@@ -14,17 +14,22 @@ const GROUPS = [
   },
   {
     title: "Balance sheet",
+    ratios: true, // followed by the key ratios
     items: [
       ["cash", "Cash"],
       ["inventory", "Inventory"],
+      ["current_assets", "Current assets"],
+      ["total_assets", "Total assets"],
       ["short_term_debt", "Short-term debt"],
       ["long_term_debt", "Long-term debt"],
+      ["current_liabilities", "Current liabilities"],
       ["total_equity", "Total equity"],
     ],
   },
   {
     title: "Cash flow",
     items: [
+      ["depreciation", "Depreciation & amortisation"],
       ["operating_cash_flow", "Operating cash flow"],
       ["capex", "Capex"],
       ["free_cash_flow", "Free cash flow"],
@@ -108,6 +113,35 @@ function renderFinancials(fin) {
   const latest = quarters[quarters.length - 1];
   const lastYear = lastYearOf(latest);
 
+  // EBITDA over the 4 quarters up to q; null unless all 4 are stored, complete and in q's currency.
+  const ebitdaR12 = (q) => {
+    const last4 = lastFourPeriods(q.period).map((p) => quarters.find((x) => x.period === p));
+    if (last4.some((x) => !x || currencyOf(x) !== currencyOf(q))) return null;
+    const ebitda = last4.map((x) => sum(x.values.ebit, x.values.depreciation));
+    return ebitda.every(isNum) ? ebitda.reduce((a, b) => a + b, 0) : null;
+  };
+  const RATIOS = [
+    ["Net debt", (q) => fmtNum(netDebt(q.values), 1)],
+    [
+      "Net debt / EBITDA (R12)",
+      (q) => {
+        const ebitda = ebitdaR12(q);
+        // A negative EBITDA makes the multiple meaningless.
+        const v = ebitda > 0 ? ratio(netDebt(q.values), ebitda) : null;
+        return isNum(v) ? fmtNum(v, 1, 1) + "x" : "–";
+      },
+    ],
+    ["Equity ratio (soliditet)", (q) => fmtShare(q.values.total_equity, q.values.total_assets)],
+    [
+      "Quick ratio (kassalikviditet)",
+      (q) => {
+        const v = q.values;
+        const quick = isNum(v.current_assets) && isNum(v.inventory) ? v.current_assets - v.inventory : null;
+        return fmtShare(quick, v.current_liabilities);
+      },
+    ],
+  ];
+
   const head = quarters
     .map((q) => {
       const url = safeUrl(q.source_url);
@@ -142,7 +176,14 @@ function renderFinancials(fin) {
           })
           .join("")
       : "";
-    return groupRow(group.title) + rows + growth;
+    const ratios = group.ratios
+      ? groupRow("Key ratios") +
+        RATIOS.map(([label, fmt]) => {
+          const cells = quarters.map((q) => `<td>${fmt(q)}</td>`).join("");
+          return `<tr><td>${label}</td>${cells}<td class="yoy"></td></tr>`;
+        }).join("")
+      : "";
+    return groupRow(group.title) + rows + growth + ratios;
   }).join("");
 
   return `
@@ -157,6 +198,32 @@ function renderFinancials(fin) {
         <tbody>${body}</tbody>
       </table>
     </div>`;
+}
+
+// The ratios below give null ("–") when an input is missing; nothing is estimated.
+const sum = (a, b) => (isNum(a) && isNum(b) ? a + b : null);
+const ratio = (a, b) => (isNum(a) && isNum(b) && b !== 0 ? a / b : null);
+// Debt includes lease liabilities (see AGENT.md).
+const netDebt = (v) => {
+  const debt = sum(v.short_term_debt, v.long_term_debt);
+  return isNum(debt) && isNum(v.cash) ? debt - v.cash : null;
+};
+
+// a / b in whole percent.
+function fmtShare(a, b) {
+  const v = ratio(a, b);
+  return isNum(v) ? fmtPct(v * 100, 0) : "–";
+}
+
+// "2026-Q2" -> ["2026-Q2", "2026-Q1", "2025-Q4", "2025-Q3"].
+function lastFourPeriods(period) {
+  let { y, q } = parsePeriod(period);
+  const periods = [];
+  for (let i = 0; i < 4; i++) {
+    periods.push(`${y}-Q${q}`);
+    [y, q] = q === 1 ? [y - 1, 4] : [y, q - 1];
+  }
+  return periods;
 }
 
 // A quarter vs. the same quarter last year, in %, green or red.
