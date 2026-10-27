@@ -281,6 +281,26 @@
         "capex": -100,
         "free_cash_flow": null
       }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-27",
+      "source_url": "https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf",
+      "values": {
+        "revenue": 2487,
+        "gross_profit": null,
+        "ebit": 196,
+        "net_income": 123,
+        "eps": 1.96,
+        "cash": 710,
+        "inventory": 2360,
+        "short_term_debt": 207,
+        "long_term_debt": 2454,
+        "total_equity": 4324,
+        "operating_cash_flow": 118,
+        "capex": -86,
+        "free_cash_flow": null
+      }
     }
   ]
 }

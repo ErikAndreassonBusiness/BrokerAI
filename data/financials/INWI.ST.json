@@ -401,6 +401,26 @@
         "capex": -103.4,
         "free_cash_flow": null
       }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-21",
+      "source_url": "https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf",
+      "values": {
+        "revenue": 2724.0,
+        "gross_profit": 708.0,
+        "ebit": 309.2,
+        "net_income": 202.6,
+        "eps": 3.48,
+        "cash": 650.4,
+        "inventory": 870.5,
+        "short_term_debt": 747.0,
+        "long_term_debt": 2838.6,
+        "total_equity": 5749.3,
+        "operating_cash_flow": 304.9,
+        "capex": -52.7,
+        "free_cash_flow": null
+      }
     }
   ]
 }

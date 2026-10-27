@@ -3,6 +3,27 @@
   "currency": "EUR",
   "quarters": [
     {
+      "period": "2021-Q3",
+      "currency": "NOK",
+      "report_date": "2021-10-21",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2021/3q/3q-2021-report.pdf",
+      "values": {
+        "revenue": 2882.8,
+        "gross_profit": 1276.2,
+        "ebit": 478.7,
+        "net_income": 331.6,
+        "eps": 2.25,
+        "cash": 477.3,
+        "inventory": 1795.3,
+        "short_term_debt": null,
+        "long_term_debt": null,
+        "total_equity": 5876.3,
+        "operating_cash_flow": 595.8,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2021-Q4",
       "currency": "NOK",
       "report_date": "2022-02-23",
@@ -388,6 +409,26 @@
         "long_term_debt": 610,
         "total_equity": 613,
         "operating_cash_flow": 38,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-23",
+      "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf",
+      "values": {
+        "revenue": 366,
+        "gross_profit": null,
+        "ebit": 39,
+        "net_income": 24,
+        "eps": 0.08,
+        "cash": 67,
+        "inventory": 244,
+        "short_term_debt": 50,
+        "long_term_debt": 606,
+        "total_equity": 646,
+        "operating_cash_flow": 112,
         "capex": null,
         "free_cash_flow": null
       }

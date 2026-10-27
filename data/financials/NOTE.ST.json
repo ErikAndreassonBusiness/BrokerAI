@@ -301,6 +301,26 @@
         "capex": null,
         "free_cash_flow": null
       }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-23",
+      "source_url": "https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf",
+      "values": {
+        "revenue": 1057,
+        "gross_profit": 153,
+        "ebit": 91,
+        "net_income": 57,
+        "eps": 1.98,
+        "cash": 144,
+        "inventory": 1248,
+        "short_term_debt": 516,
+        "long_term_debt": 1283,
+        "total_equity": 1949,
+        "operating_cash_flow": 16,
+        "capex": null,
+        "free_cash_flow": null
+      }
     }
   ]
 }

@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q3",
+      "report_date": "2022-10-20",
+      "source_url": "https://mb.cision.com/Main/11536/3651236/1640820.pdf",
+      "values": {
+        "revenue": 1711,
+        "gross_profit": null,
+        "ebit": 123,
+        "net_income": 99,
+        "eps": 5.41,
+        "cash": 154,
+        "inventory": 1604,
+        "short_term_debt": 234,
+        "long_term_debt": 769,
+        "total_equity": 3010,
+        "operating_cash_flow": 3,
+        "capex": -92,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q4",
+      "report_date": "2023-02-16",
+      "source_url": "https://www.aqgroup.com/download/2412-B20F5AC80842A1C4BB24DFAF91C227C5/AQ-Group-Year-End-Report-2022.pdf",
+      "values": {
+        "revenue": 1974,
+        "gross_profit": null,
+        "ebit": 148,
+        "net_income": 133,
+        "eps": 7.27,
+        "cash": 231,
+        "inventory": 1629,
+        "short_term_debt": 180,
+        "long_term_debt": 861,
+        "total_equity": 3180,
+        "operating_cash_flow": 140,
+        "capex": -75,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q1",
       "report_date": "2023-04-20",
       "source_url": "https://mb.cision.com/Main/11536/3754237/1995768.pdf",
@@ -279,6 +319,26 @@
         "total_equity": 5058,
         "operating_cash_flow": 23,
         "capex": -77,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-15",
+      "source_url": "https://mb.cision.com/Main/11536/4408713/4317820.pdf",
+      "values": {
+        "revenue": 2566,
+        "gross_profit": null,
+        "ebit": 259,
+        "net_income": 205,
+        "eps": 2.23,
+        "cash": 904,
+        "inventory": 1696,
+        "short_term_debt": 157,
+        "long_term_debt": 279,
+        "total_equity": 5349,
+        "operating_cash_flow": 269,
+        "capex": -64,
         "free_cash_flow": null
       }
     }
