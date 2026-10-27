@@ -237,6 +237,13 @@
       "period": "2024-Q2",
       "report_date": "2024-07-19",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/2q/2q-2024-report.pdf",
+      "comparatives": {
+        "revenue": 332,
+        "gross_profit": 141,
+        "ebit": 42,
+        "net_income": 26,
+        "eps": 0.09
+      },
       "values": {
         "revenue": 333,
         "gross_profit": 145,
@@ -257,6 +264,13 @@
       "period": "2024-Q3",
       "report_date": "2024-10-22",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/3q/3q-2024-report.pdf",
+      "comparatives": {
+        "revenue": 308,
+        "gross_profit": 134,
+        "ebit": 24,
+        "net_income": 15,
+        "eps": 0.05
+      },
       "values": {
         "revenue": 326,
         "gross_profit": 141,
@@ -281,6 +295,13 @@
       "period": "2024-Q4",
       "report_date": "2025-02-14",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2024/4q/4q-2024-report.pdf",
+      "comparatives": {
+        "revenue": 354,
+        "gross_profit": 155,
+        "ebit": 15,
+        "net_income": 8,
+        "eps": 0.03
+      },
       "values": {
         "revenue": 398,
         "gross_profit": 181,
@@ -305,6 +326,13 @@
       "period": "2025-Q1",
       "report_date": "2025-05-07",
       "source_url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2025/1q/tomra-1q-2025-report.pdf",
+      "comparatives": {
+        "revenue": 291,
+        "gross_profit": 117,
+        "ebit": 10,
+        "net_income": 1,
+        "eps": 0.00
+      },
       "values": {
         "revenue": 306,
         "gross_profit": 130,
