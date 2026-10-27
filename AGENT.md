@@ -83,12 +83,16 @@ the owner reviews before merging.
         "revenue": 2345.6,
         "gross_profit": null,
         "ebit": 234.5,
+        "depreciation": 98.7,
         "net_income": 150.2,
         "eps": 2.59,
         "cash": 512.0,
         "inventory": 890.3,
+        "current_assets": 3120.4,
+        "total_assets": 11250.8,
         "short_term_debt": 420.0,
         "long_term_debt": 1650.7,
+        "current_liabilities": 2480.2,
         "total_equity": 5210.4,
         "operating_cash_flow": 310.9,
         "capex": -45.1,
@@ -118,12 +122,16 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 | `revenue` | Net sales | Nettoomsättning |
 | `gross_profit` | Gross profit, only if the income statement shows it | Bruttoresultat |
 | `ebit` | Operating profit as reported (not adjusted) | Rörelseresultat |
+| `depreciation` | Depreciation, amortisation and impairment of tangible, intangible and right-of-use assets, as a **positive** number. From the income statement, or from the cash flow statement's adjustments if the income statement doesn't show it | Av- och nedskrivningar |
 | `net_income` | Profit for the period attributable to the parent company's shareholders | Periodens resultat hänförligt till moderbolagets aktieägare |
 | `eps` | Earnings per share after dilution | Resultat per aktie efter utspädning |
 | `cash` | Cash and cash equivalents | Likvida medel |
 | `inventory` | Inventories | Varulager |
+| `current_assets` | Total current assets | Summa omsättningstillgångar |
+| `total_assets` | Total assets | Summa tillgångar |
 | `short_term_debt` | Sum of all current interest-bearing liabilities incl. lease liabilities | Kortfristiga räntebärande skulder + leasingskulder |
 | `long_term_debt` | Sum of all non-current interest-bearing liabilities incl. lease liabilities | Långfristiga räntebärande skulder + leasingskulder |
+| `current_liabilities` | Total current liabilities (all of them, not only interest-bearing) | Summa kortfristiga skulder |
 | `total_equity` | Total equity (incl. non-controlling interests) | Summa eget kapital |
 | `operating_cash_flow` | Cash flow from operating activities | Kassaflöde från den löpande verksamheten |
 | `capex` | Investments in tangible and intangible assets, negative as in the cash flow statement | Investeringar i materiella och immateriella anläggningstillgångar |
@@ -136,7 +144,8 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 - **Accuracy over completeness.** Use `null` only if the statements don't contain the figure for the
   quarter. Never estimate, never use 0 for a missing figure.
 - The only arithmetic allowed: converting to millions, and adding up the lines of the **same**
-  balance sheet for `short_term_debt` and `long_term_debt` (and the two capex lines).
+  balance sheet for `short_term_debt` and `long_term_debt`, the two capex lines, and the
+  depreciation, amortisation and impairment lines of the **same** statement for `depreciation`.
 - **Never change or remove a quarter that is already stored.** Only add missing quarters, and add the
   keys on the refill list to the quarters it names.
 - Keep the JSON valid, 2-space indented, and in the order described above.
