@@ -3,6 +3,30 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q1",
+      "report_date": "2022-04-20",
+      "source_url": "https://mb.cision.com/Main/165/3548144/1565549.pdf",
+      "values": {
+        "revenue": 821.0,
+        "gross_profit": 106.0,
+        "ebit": 76.0,
+        "depreciation": 20.0,
+        "net_income": 56.0,
+        "eps": 1.94,
+        "cash": 64.0,
+        "inventory": 879.0,
+        "current_assets": 1685.0,
+        "total_assets": 2136.0,
+        "short_term_debt": 264.0,
+        "long_term_debt": 150.0,
+        "current_liabilities": 1085.0,
+        "total_equity": 874.0,
+        "operating_cash_flow": 18.0,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q2",
       "report_date": "2022-07-14",
       "source_url": "https://mb.cision.com/Main/165/3600915/1604128.pdf",
