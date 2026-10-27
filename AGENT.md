@@ -106,6 +106,10 @@ the owner reviews before merging.
 - `currency` is the company's `report_currency` from `companies.json` (TOMRA reports in EUR).
   A quarter reported in another currency gets its own `"currency"` field next to `"period"`
   (e.g. `"currency": "NOK"`); quarters without it use the file's currency.
+- **After a currency change**, a quarter whose same quarter last year is stored in another currency also
+  gets `"comparatives"` next to `"values"`: that year-earlier quarter's `revenue`, `gross_profit`, `ebit`,
+  `net_income` and `eps` **as printed in this report's comparison column**, in this report's currency
+  (e.g. TOMRA's 2024-Q2 report shows 2Q23 revenue as 332 MEUR). Same rules as `values`; never convert.
 - `quarters` is sorted oldest first. A new quarter has **every** key from the table below in `values`.
 - `period` is the **calendar quarter the report period ends in**: `YYYY-Q1` … `YYYY-Q4`. Some companies
   (e.g. RVRC, Inission) use a fiscal year that doesn't follow the calendar year. Always read the actual

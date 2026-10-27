@@ -29,6 +29,8 @@ LINE_ITEMS = [
     "capex",
     "free_cash_flow",
 ]
+# Same quarter last year as printed in a quarter's own report; only for a currency change (see AGENT.md).
+COMPARATIVE_ITEMS = ["revenue", "gross_profit", "ebit", "net_income", "eps"]
 QUOTE_FIELDS = {
     "price",
     "change_pct",
@@ -131,6 +133,16 @@ def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
         for item, value in values.items():
             if not _is_number_or_null(value):
                 errors.append(f"{at}: {item} must be a number or null")
+        comparatives = quarter.get("comparatives", {})
+        unknown = sorted(set(comparatives) - set(COMPARATIVE_ITEMS))
+        if unknown:
+            errors.append(
+                f"{at}: unknown keys in comparatives: {', '.join(unknown)} "
+                f"(allowed: {', '.join(COMPARATIVE_ITEMS)})"
+            )
+        for item, value in comparatives.items():
+            if not _is_number_or_null(value):
+                errors.append(f"{at}: comparatives {item} must be a number or null")
     if periods != sorted(periods, key=str):
         errors.append(f"{name}: quarters must be sorted oldest first")
     return errors

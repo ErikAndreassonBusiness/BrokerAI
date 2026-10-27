@@ -84,6 +84,18 @@ def test_missing_key_passes_because_it_goes_on_the_refill_list(tmp_path):
     assert validate(tmp_path) == []
 
 
+def test_comparatives_are_optional_and_checked(tmp_path):
+    ok = quarter("2024-Q2", comparatives={"revenue": 332.0, "eps": None})
+    write_data(tmp_path, [ok])
+    assert validate(tmp_path) == []
+
+    write_data(tmp_path, [quarter("2024-Q2", comparatives={"cash": 1.0})])
+    assert any("unknown keys in comparatives: cash" in e for e in validate(tmp_path))
+
+    write_data(tmp_path, [quarter("2024-Q2", comparatives={"revenue": "332"})])
+    assert any("comparatives revenue must be" in e for e in validate(tmp_path))
+
+
 def test_quarter_may_have_its_own_currency(tmp_path):
     write_data(tmp_path, [quarter("2024-Q1", currency="NOK"), quarter("2024-Q2")])
 
