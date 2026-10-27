@@ -1,5 +1,6 @@
 from app.backend.storage import write_json
-from app.backend.todo import missing_quarters, todo
+from app.backend.todo import missing_quarters, refill, todo
+from app.backend.validate import LINE_ITEMS
 
 
 def setup(tmp_path, stored: dict[str, list[str]]):
@@ -52,3 +53,56 @@ def test_todo_is_empty_when_everything_is_stored(tmp_path):
     setup(tmp_path, {"A.ST": ["2021-Q3", "2021-Q4"]})
 
     assert todo(tmp_path) == []
+
+
+def stored_quarter(period, missing=()):
+    values = {k: 1.0 for k in LINE_ITEMS if k not in missing}
+    return {
+        "period": period,
+        "source_url": f"https://example.com/{period}.pdf",
+        "values": values,
+    }
+
+
+def setup_refill(tmp_path, stored: dict[str, list[dict]]):
+    write_json(tmp_path / "companies.json", [{"ticker": t} for t in stored])
+    for ticker, quarters in stored.items():
+        write_json(tmp_path / "financials" / f"{ticker}.json", {"quarters": quarters})
+
+
+def test_refill_lists_missing_keys_with_the_saved_link(tmp_path):
+    setup_refill(
+        tmp_path,
+        {
+            "A.ST": [
+                stored_quarter("2026-Q1", missing=("cash", "inventory")),
+                stored_quarter("2026-Q2"),
+            ]
+        },
+    )
+
+    assert refill(tmp_path) == [
+        "A.ST 2026-Q1 | cash, inventory | https://example.com/2026-Q1.pdf"
+    ]
+
+
+def test_refill_is_newest_first_round_robin_with_cap(tmp_path):
+    setup_refill(
+        tmp_path,
+        {
+            "A.ST": [
+                stored_quarter(p, missing=("cash",)) for p in ("2026-Q1", "2026-Q2")
+            ],
+            "B.ST": [stored_quarter("2026-Q2", missing=("cash",))],
+        },
+    )
+
+    items = refill(tmp_path, total=2)
+
+    assert [i.split(" |")[0] for i in items] == ["A.ST 2026-Q2", "B.ST 2026-Q2"]
+
+
+def test_refill_is_empty_when_every_key_is_stored(tmp_path):
+    setup_refill(tmp_path, {"A.ST": [stored_quarter("2026-Q1")], "B.ST": []})
+
+    assert refill(tmp_path) == []

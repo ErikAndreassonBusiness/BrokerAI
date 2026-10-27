@@ -51,14 +51,13 @@ def test_real_data_folder_is_valid():
         ([quarter("2026-Q2"), quarter("2026-Q1")], "sorted oldest first"),
         ([quarter("2026-Q1", source_url="")], "source_url"),
         ([quarter("2026-Q1", report_date="17/07/2026")], "report_date"),
-        ([quarter("2026-Q1", values={"revenue": 1.0})], "values must have exactly"),
         (
             [
                 quarter(
                     "2026-Q1", values={**dict.fromkeys(LINE_ITEMS, 1.0), "ebitda": 1.0}
                 )
             ],
-            "values must have exactly",
+            "unknown keys in values: ebitda",
         ),
         (
             [
@@ -77,6 +76,12 @@ def test_bad_financials_fail(tmp_path, quarters, expected):
     errors = validate(tmp_path)
 
     assert any(expected in e for e in errors), errors
+
+
+def test_missing_key_passes_because_it_goes_on_the_refill_list(tmp_path):
+    write_data(tmp_path, [quarter("2026-Q1", values={"revenue": 1.0})])
+
+    assert validate(tmp_path) == []
 
 
 def test_quarter_may_have_its_own_currency(tmp_path):
