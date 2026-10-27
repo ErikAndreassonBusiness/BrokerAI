@@ -3,6 +3,7 @@
 const GROUPS = [
   {
     title: "Income statement",
+    growth: true, // followed by a y/y growth row per line item
     items: [
       ["revenue", "Revenue"],
       ["gross_profit", "Gross profit"],
@@ -99,13 +100,13 @@ function renderFinancials(fin) {
   }
   // A quarter can be reported in another currency than the file's (e.g. TOMRA in NOK before 2024).
   const currencyOf = (q) => q.currency || fin.currency;
-  const latest = quarters[quarters.length - 1];
-  const lastYearSameQuarter = sameQuarterLastYear(quarters, latest);
   // y/y only makes sense in the same currency.
-  const lastYear =
-    lastYearSameQuarter && currencyOf(lastYearSameQuarter) === currencyOf(latest)
-      ? lastYearSameQuarter
-      : null;
+  const lastYearOf = (q) => {
+    const prev = sameQuarterLastYear(quarters, q);
+    return prev && currencyOf(prev) === currencyOf(q) ? prev : null;
+  };
+  const latest = quarters[quarters.length - 1];
+  const lastYear = lastYearOf(latest);
 
   const head = quarters
     .map((q) => {
@@ -128,7 +129,20 @@ function renderFinancials(fin) {
         return `<tr><td>${label}</td>${cells}<td class="yoy">${fmtYoy(latest, lastYear, key)}</td></tr>`;
       })
       .join("");
-    return `<tr class="group"><td colspan="${quarters.length + 2}">${group.title}</td></tr>${rows}`;
+    const groupRow = (title) =>
+      `<tr class="group"><td colspan="${quarters.length + 2}">${title}</td></tr>`;
+    const growth = group.growth
+      ? groupRow("Growth y/y (vs. same quarter last year)") +
+        group.items
+          .map(([key, label]) => {
+            const cells = quarters
+              .map((q) => `<td>${fmtYoy(q, lastYearOf(q), key)}</td>`)
+              .join("");
+            return `<tr><td>${label}</td>${cells}<td class="yoy"></td></tr>`;
+          })
+          .join("")
+      : "";
+    return groupRow(group.title) + rows + growth;
   }).join("");
 
   return `
@@ -145,9 +159,9 @@ function renderFinancials(fin) {
     </div>`;
 }
 
-// Latest quarter vs. the same quarter last year, in %.
-function fmtYoy(latest, lastYear, key) {
-  const v = lastYear ? change(latest.values[key], lastYear.values[key]) : null;
+// A quarter vs. the same quarter last year, in %, green or red.
+function fmtYoy(quarter, lastYear, key) {
+  const v = lastYear ? change(quarter.values[key], lastYear.values[key]) : null;
   return v === null ? "–" : fmtChange(v * 100, 0);
 }
 
