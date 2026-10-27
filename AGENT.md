@@ -14,21 +14,30 @@ the owner reviews before merging.
    `data/financials/<ticker>.json`.
 2. **New quarters first.** For each company, check whether a report newer than its latest stored
    quarter has been published, and add it.
-3. **Backfill: work through the to-do list in the prompt.** It lists the missing quarters for this
+3. **Refill: work through the refill list in the prompt.** Each item is a stored quarter that lacks
+   some line items (e.g. a key that was added to the table later), with the keys and the quarter's
+   saved `source_url`. Open **only that link** (curl + pdftotext for a PDF, WebFetch for an HTML
+   page). Never search the web for a refill item and never use another report. Add only the listed
+   keys to that quarter's `values`, and never change a value that is already there. A figure that
+   isn't in the report's statements gets `null`. If the link is dead or unreadable, skip the item
+   and say so.
+4. **Backfill: work through the to-do list in the prompt.** It lists the missing quarters for this
    run (computed from the stored files, back to 2021-Q3). Handle every item, in order: add the
    quarter, or skip it with a reason. Don't pick other quarters yourself, and don't stop before the
    list is done. If a company hadn't published a report for that quarter yet (e.g. before its
    stock market listing), skip it and say so.
-4. **If a report can't be read, skip it and keep going.** If you find no PDF, or `pdftotext` gives no
-   or very little text (an image-only PDF), try the other sources in "Where to look". If none works,
-   skip that quarter and continue with the next item. Never end the run because one report is
-   missing, and never ask for help: nobody reads your messages during a run.
-5. **Currency:** if a report is in a different currency than the file's `currency` (e.g. TOMRA before
+5. **If a report can't be read, skip it and keep going.** If you find no PDF, or `pdftotext` gives no
+   or very little text (an image-only PDF), try the other sources in "Where to look" (not for a
+   refill item: skip it right away). If none works, skip that quarter and continue with the next
+   item. Never end the run because one report is missing, and never ask for help: nobody reads your
+   messages during a run.
+6. **Currency:** if a report is in a different currency than the file's `currency` (e.g. TOMRA before
    2024-Q2 reported in NOK), set `"currency": "NOK"` on **that quarter**. Never convert currencies.
-6. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
+7. **Weekly news.** Add one entry to the top of `data/updates.json` (see below). If it already has
    an entry for today's date, don't add another.
-7. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
-8. **Final message:** which quarters you added per company, every `null` with a short reason
+8. Run `uv run python -m app.backend.validate` and fix every problem it reports before you finish.
+9. **Final message:** which quarters you added per company, which quarters you refilled (and with
+   which keys), every `null` with a short reason
    (e.g. "gross_profit: income statement is by nature of expense"), and every quarter you skipped
    with the reason (e.g. "NOTE 2023-Q4: only an image-only PDF found").
 
@@ -93,7 +102,7 @@ the owner reviews before merging.
 - `currency` is the company's `report_currency` from `companies.json` (TOMRA reports in EUR).
   A quarter reported in another currency gets its own `"currency"` field next to `"period"`
   (e.g. `"currency": "NOK"`); quarters without it use the file's currency.
-- `quarters` is sorted oldest first. Each quarter has **all 13** keys in `values`.
+- `quarters` is sorted oldest first. A new quarter has **every** key from the table below in `values`.
 - `period` is the **calendar quarter the report period ends in**: `YYYY-Q1` … `YYYY-Q4`. Some companies
   (e.g. RVRC, Inission) use a fiscal year that doesn't follow the calendar year. Always read the actual
   dates of the period in the report (e.g. "1 July – 30 September 2026" = `2026-Q3`), never the fiscal quarter name.
@@ -128,7 +137,8 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
   quarter. Never estimate, never use 0 for a missing figure.
 - The only arithmetic allowed: converting to millions, and adding up the lines of the **same**
   balance sheet for `short_term_debt` and `long_term_debt` (and the two capex lines).
-- **Never change or remove a quarter that is already stored.** Only add missing quarters.
+- **Never change or remove a quarter that is already stored.** Only add missing quarters, and add the
+  keys on the refill list to the quarters it names.
 - Keep the JSON valid, 2-space indented, and in the order described above.
 
 ## Weekly news (`data/updates.json`)

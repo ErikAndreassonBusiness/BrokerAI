@@ -10,6 +10,10 @@ on:
         description: "Max number of reports to read this run"
         type: number
         default: 12
+      max_refill:
+        description: "Max number of stored quarters to refill from their saved link"
+        type: number
+        default: 10
 
 permissions:
   contents: write
@@ -25,6 +29,7 @@ jobs:
     env:
       BRANCH: agent/reports
       MAX_REPORTS: ${{ inputs.max_reports || 12 }}
+      MAX_REFILL: ${{ inputs.max_refill || 10 }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -34,6 +39,10 @@ jobs:
         run: |
           if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
             git switch "$BRANCH"
+            # Bring in the latest AGENT.md, todo.py and validate.py from main.
+            git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              merge --no-edit origin/main
           else
             git switch -c "$BRANCH"
           fi
@@ -59,6 +68,16 @@ jobs:
             echo "END_OF_TODO"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Refill list of stored quarters with missing line items
+        id: refill
+        run: |
+          items=$(uv run python -m app.backend.todo --refill --max "$MAX_REFILL")
+          {
+            echo "list<<END_OF_REFILL"
+            echo "${items:-(none)}"
+            echo "END_OF_REFILL"
+          } >> "$GITHUB_OUTPUT"
+
       - id: claude
         uses: anthropics/claude-code-action@v1
         with:
@@ -68,11 +87,15 @@ jobs:
             Follow the instructions in AGENT.md.
             Today is ${{ steps.today.outputs.date }}.
 
+            Your refill list for this run (ticker, quarter | missing keys | saved report link).
+            Open only the given link, never search the web for these:
+            ${{ steps.refill.outputs.list }}
+
             Your to-do list for this run (ticker and quarter):
             ${{ steps.todo.outputs.list }}
 
-            Work through EVERY item on the list, in order: add the quarter, or skip it and give
-            the reason in your final message. You are not finished until every item is handled.
+            Work through EVERY item on both lists, in order: refill or add the quarter, or skip it
+            and give the reason in your final message. You are not finished until every item is handled.
             There is no time limit; don't stop early.
             You can only use the tools listed in AGENT.md. If you cannot continue,
             say exactly what blocked you in your final message.

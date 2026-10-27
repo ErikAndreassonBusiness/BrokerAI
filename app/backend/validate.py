@@ -117,9 +117,12 @@ def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
         if "currency" in quarter and not CURRENCY.match(str(quarter["currency"])):
             errors.append(f"{at}: currency must be 3 capital letters, e.g. NOK")
         values = quarter.get("values", {})
-        if set(values) != set(LINE_ITEMS):
+        # A missing key is allowed: it hasn't been read yet and goes on the refill list (todo.py).
+        unknown = sorted(set(values) - set(LINE_ITEMS))
+        if unknown:
             errors.append(
-                f"{at}: values must have exactly these keys: {', '.join(LINE_ITEMS)}"
+                f"{at}: unknown keys in values: {', '.join(unknown)} "
+                f"(allowed: {', '.join(LINE_ITEMS)})"
             )
         for item, value in values.items():
             if not _is_number_or_null(value):
