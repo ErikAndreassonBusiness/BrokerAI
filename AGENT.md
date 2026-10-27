@@ -127,11 +127,11 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 | `eps` | Earnings per share after dilution | Resultat per aktie efter utspädning |
 | `cash` | Cash and cash equivalents | Likvida medel |
 | `inventory` | Inventories | Varulager |
-| `current_assets` | Total current assets | Summa omsättningstillgångar |
+| `current_assets` | Total current assets (if there's no total line: the sum of the current asset lines) | Summa omsättningstillgångar |
 | `total_assets` | Total assets | Summa tillgångar |
 | `short_term_debt` | Sum of all current interest-bearing liabilities incl. lease liabilities | Kortfristiga räntebärande skulder + leasingskulder |
 | `long_term_debt` | Sum of all non-current interest-bearing liabilities incl. lease liabilities | Långfristiga räntebärande skulder + leasingskulder |
-| `current_liabilities` | Total current liabilities (all of them, not only interest-bearing) | Summa kortfristiga skulder |
+| `current_liabilities` | Total current liabilities, all of them, not only interest-bearing (if there's no total line: the sum of the current liability lines) | Summa kortfristiga skulder |
 | `total_equity` | Total equity (incl. non-controlling interests) | Summa eget kapital |
 | `operating_cash_flow` | Cash flow from operating activities | Kassaflöde från den löpande verksamheten |
 | `capex` | Investments in tangible and intangible assets, negative as in the cash flow statement | Investeringar i materiella och immateriella anläggningstillgångar |
@@ -146,6 +146,8 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 - The only arithmetic allowed: converting to millions, and adding up the lines of the **same**
   balance sheet for `short_term_debt` and `long_term_debt`, the two capex lines, and the
   depreciation, amortisation and impairment lines of the **same** statement for `depreciation`.
+  For `current_assets` and `current_liabilities`, add up the current lines of the **same** balance sheet
+  **only if it has no total line** for them, and say so in your final message.
 - **Never change or remove a quarter that is already stored.** Only add missing quarters, and add the
   keys on the refill list to the quarters it names.
 - Keep the JSON valid, 2-space indented, and in the order described above.
