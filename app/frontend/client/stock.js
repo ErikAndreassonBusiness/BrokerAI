@@ -103,50 +103,14 @@ function renderFinancials(fin) {
   if (!quarters.length) {
     return `<p class="card empty muted">No quarterly figures yet. The report agent adds them.</p>`;
   }
-  // A quarter can be reported in another currency than the file's (e.g. TOMRA in NOK before 2024).
-  const currencyOf = (q) => q.currency || fin.currency;
-  // y/y only makes sense in the same currency.
-  const lastYearOf = (q) => {
-    const prev = sameQuarterLastYear(quarters, q);
-    return prev && currencyOf(prev) === currencyOf(q) ? prev : null;
-  };
   const latest = quarters[quarters.length - 1];
-  const lastYear = lastYearOf(latest);
-
-  // EBITDA over the 4 quarters up to q; null unless all 4 are stored, complete and in q's currency.
-  const ebitdaR12 = (q) => {
-    const last4 = lastFourPeriods(q.period).map((p) => quarters.find((x) => x.period === p));
-    if (last4.some((x) => !x || currencyOf(x) !== currencyOf(q))) return null;
-    const ebitda = last4.map((x) => sum(x.values.ebit, x.values.depreciation));
-    return ebitda.every(isNum) ? ebitda.reduce((a, b) => a + b, 0) : null;
-  };
-  const RATIOS = [
-    ["Net debt", (q) => fmtNum(netDebt(q.values), 1)],
-    [
-      "Net debt / EBITDA (R12)",
-      (q) => {
-        const ebitda = ebitdaR12(q);
-        // A negative EBITDA makes the multiple meaningless.
-        const v = ebitda > 0 ? ratio(netDebt(q.values), ebitda) : null;
-        return isNum(v) ? fmtNum(v, 1, 1) + "x" : "–";
-      },
-    ],
-    ["Equity ratio (soliditet)", (q) => fmtShare(q.values.total_equity, q.values.total_assets)],
-    [
-      "Quick ratio (kassalikviditet)",
-      (q) => {
-        const v = q.values;
-        const quick = isNum(v.current_assets) && isNum(v.inventory) ? v.current_assets - v.inventory : null;
-        return fmtShare(quick, v.current_liabilities);
-      },
-    ],
-  ];
+  const lastYear = lastYearOf(fin, latest);
 
   const head = quarters
     .map((q) => {
       const url = safeUrl(q.source_url);
-      const other = currencyOf(q) !== fin.currency;
-      const label = esc(q.period) + (other ? ` · ${esc(currencyOf(q))}` : "");
+      const other = currencyOf(fin, q) !== fin.currency;
+      const label = esc(q.period) + (other ? ` · ${esc(currencyOf(fin, q))}` : "");
       const title = `Report published ${fmtDate(q.report_date)}`;
       return `<th title="${title}">${url ? `<a href="${esc(url)}" rel="noopener">${label}</a>` : label}</th>`;
     })
@@ -160,35 +124,28 @@ function renderFinancials(fin) {
         const cells = quarters
           .map((q) => `<td>${fmtNum(q.values[key], digits, key === "eps" ? 2 : 0)}</td>`)
           .join("");
-        return `<tr><td>${label}</td>${cells}<td class="yoy">${fmtYoy(latest, lastYear, key)}</td></tr>`;
+        return `<tr><td>${label}</td>${cells}<td class="yoy">${fmtGrowth(fin, latest, key)}</td></tr>`;
       })
       .join("");
     const groupRow = (title) =>
       `<tr class="group"><td colspan="${quarters.length + 2}">${title}</td></tr>`;
+    // A calculated row: one cell per quarter, nothing in the y/y column.
+    const metricRow = (label, cell) =>
+      `<tr><td>${label}</td>${quarters.map((q) => `<td>${cell(q)}</td>`).join("")}<td class="yoy"></td></tr>`;
     const growth = group.growth
       ? groupRow("Growth y/y (vs. same quarter last year)") +
-        group.items
-          .map(([key, label]) => {
-            const cells = quarters
-              .map((q) => `<td>${fmtYoy(q, lastYearOf(q), key)}</td>`)
-              .join("");
-            return `<tr><td>${label}</td>${cells}<td class="yoy"></td></tr>`;
-          })
-          .join("")
+        group.items.map(([key, label]) => metricRow(label, (q) => fmtGrowth(fin, q, key))).join("")
       : "";
     const ratios = group.ratios
       ? groupRow("Key ratios") +
-        RATIOS.map(([label, fmt]) => {
-          const cells = quarters.map((q) => `<td>${fmt(q)}</td>`).join("");
-          return `<tr><td>${label}</td>${cells}<td class="yoy"></td></tr>`;
-        }).join("")
+        RATIOS.map(([label, cell]) => metricRow(label, (q) => cell(fin, q))).join("")
       : "";
     return groupRow(group.title) + rows + growth + ratios;
   }).join("");
 
   return `
     <p class="muted">Millions of ${esc(fin.currency)} (EPS in ${esc(fin.currency)} per share)${
-      quarters.some((q) => currencyOf(q) !== fin.currency)
+      quarters.some((q) => currencyOf(fin, q) !== fin.currency)
         ? ", unless another currency is shown next to the quarter"
         : ""
     }. Click a quarter to open its report.</p>
@@ -200,37 +157,20 @@ function renderFinancials(fin) {
     </div>`;
 }
 
-// The ratios below give null ("–") when an input is missing; nothing is estimated.
-const sum = (a, b) => (isNum(a) && isNum(b) ? a + b : null);
-const ratio = (a, b) => (isNum(a) && isNum(b) && b !== 0 ? a / b : null);
-// Debt includes lease liabilities (see AGENT.md).
-const netDebt = (v) => {
-  const debt = sum(v.short_term_debt, v.long_term_debt);
-  return isNum(debt) && isNum(v.cash) ? debt - v.cash : null;
+// The calculations are in metrics.js; these only format them.
+const fmtShare = (v) => (isNum(v) ? fmtPct(v * 100, 2) : "–");
+const fmtMultiple = (v) => (isNum(v) ? fmtNum(v, 1, 1) + "x" : "–");
+const fmtGrowth = (fin, q, key) => {
+  const v = growth(fin, q, key);
+  return isNum(v) ? fmtChange(v * 100) : "–";
 };
 
-// a / b in whole percent.
-function fmtShare(a, b) {
-  const v = ratio(a, b);
-  return isNum(v) ? fmtPct(v * 100, 0) : "–";
-}
-
-// "2026-Q2" -> ["2026-Q2", "2026-Q1", "2025-Q4", "2025-Q3"].
-function lastFourPeriods(period) {
-  let { y, q } = parsePeriod(period);
-  const periods = [];
-  for (let i = 0; i < 4; i++) {
-    periods.push(`${y}-Q${q}`);
-    [y, q] = q === 1 ? [y - 1, 4] : [y, q - 1];
-  }
-  return periods;
-}
-
-// A quarter vs. the same quarter last year, in %, green or red.
-function fmtYoy(quarter, lastYear, key) {
-  const v = lastYear ? change(quarter.values[key], lastYear.values[key]) : null;
-  return v === null ? "–" : fmtChange(v * 100, 0);
-}
+const RATIOS = [
+  ["Net debt", (fin, q) => fmtNum(netDebt(q.values), 1)],
+  ["Net debt / EBITDA (R12)", (fin, q) => fmtMultiple(netDebtToEbitda(fin, q))],
+  ["Equity ratio (soliditet)", (fin, q) => fmtShare(equityRatio(q.values))],
+  ["Quick ratio (kassalikviditet)", (fin, q) => fmtShare(quickRatio(q.values))],
+];
 
 function renderNews(updates, ticker) {
   const items = updates.flatMap((u) =>

@@ -67,34 +67,21 @@ function fmtTime(iso) {
       });
 }
 
-// A change in percent (1.5 = +1,5 %), green or red.
+// A change in percent (1.5 = +1,50 %), green or red. The colour and sign follow the rounded value,
+// so a change that rounds to zero is a plain "0,00 %".
 function fmtChange(v, digits = 2) {
   if (!isNum(v)) return "–";
-  const cls = v >= 0 ? "up" : "down";
-  const sign = v > 0 ? "+" : "";
-  return `<span class="${cls}">${sign}${fmtPct(v, digits)}</span>`;
+  const rounded = Number(v.toFixed(digits));
+  if (rounded === 0) return fmtPct(0, digits);
+  const cls = rounded > 0 ? "up" : "down";
+  const sign = rounded > 0 ? "+" : "";
+  return `<span class="${cls}">${sign}${fmtPct(rounded, digits)}</span>`;
 }
 
 // " Source" link for a news item; nothing if the URL isn't https.
 function sourceLink(u) {
   const url = safeUrl(u);
   return url ? ` <a href="${esc(url)}" rel="noopener">Source</a>` : "";
-}
-
-function parsePeriod(p) {
-  const m = /^(\d{4})-Q([1-4])$/.exec(p || "");
-  return m ? { y: +m[1], q: +m[2] } : null;
-}
-
-function sameQuarterLastYear(quarters, quarter) {
-  const p = parsePeriod(quarter.period);
-  return p ? quarters.find((x) => x.period === `${p.y - 1}-Q${p.q}`) : null;
-}
-
-// Relative change; the base is taken as an absolute value so a smaller loss counts as an improvement.
-function change(cur, prev) {
-  if (!isNum(cur) || !isNum(prev) || prev === 0) return null;
-  return (cur - prev) / Math.abs(prev);
 }
 
 function showError(el, e) {
