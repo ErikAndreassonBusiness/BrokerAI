@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q4",
+      "report_date": "2024-01-30",
+      "source_url": "https://storage.mfn.se/75934c4f-8d4d-432d-acf5-d20b790f340b/rvrc-holding-ab-interim-report-q2-2023-24.pdf",
+      "values": {
+        "revenue": 613,
+        "gross_profit": null,
+        "ebit": 143,
+        "net_income": 114,
+        "eps": 1.0,
+        "cash": 353,
+        "inventory": 438,
+        "short_term_debt": 3,
+        "long_term_debt": 10,
+        "total_equity": 1209,
+        "operating_cash_flow": 281,
+        "capex": -8,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2024-Q1",
       "report_date": "2024-05-07",
       "source_url": "https://storage.mfn.se/23644b96-1759-4844-b6ee-54cac268f67c/interim-report-q3-2023-24.pdf",

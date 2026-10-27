@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q3",
+      "report_date": "2023-10-19",
+      "source_url": "https://mb.cision.com/Main/13305/3856292/2368245.pdf",
+      "values": {
+        "revenue": 26.808,
+        "gross_profit": 17.518,
+        "ebit": 1.285,
+        "net_income": 0.751,
+        "eps": 0.09,
+        "cash": 10.018,
+        "inventory": 50.046,
+        "short_term_debt": 17.498,
+        "long_term_debt": null,
+        "total_equity": 70.184,
+        "operating_cash_flow": 6.186,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q4",
       "report_date": "2024-02-15",
       "source_url": "https://mb.cision.com/Main/13305/3928375/2604146.pdf",
@@ -218,6 +238,26 @@
         "long_term_debt": null,
         "total_equity": 94.777,
         "operating_cash_flow": -5.764,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-07",
+      "source_url": "https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf",
+      "values": {
+        "revenue": 41.787,
+        "gross_profit": 23.987,
+        "ebit": 3.353,
+        "net_income": 2.313,
+        "eps": 0.26,
+        "cash": 12.399,
+        "inventory": 33.131,
+        "short_term_debt": 2.165,
+        "long_term_debt": null,
+        "total_equity": 97.252,
+        "operating_cash_flow": 0.255,
         "capex": null,
         "free_cash_flow": null
       }

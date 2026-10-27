@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-10-27",
+    "summary": "Inwido, TOMRA, NOTE and HANZA published Q3 reports, all with higher sales and operating profit than a year earlier; for NOTE, HANZA and Inwido part of the growth came from acquisitions. VBG Group reports its Q3 later today, and New Wave, Björn Borg, RevolutionRace and Inission have not yet reported.",
+    "items": [
+      { "ticker": "INWI.ST", "text": "Q3: net sales +22 % y/y to SEK 2,724 M (5 % organic), EBIT SEK 309 M (241); operational EBITA SEK 334 M (268), the highest for a single quarter.", "url": "https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf" },
+      { "ticker": "TOM.OL", "text": "Q3: revenues +20 % y/y to EUR 366 M, EBITA (adj.) EUR 47 M (30), cash flow from operations EUR 112 M (64); gross margin 43.0 % (44.1 %).", "url": "https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf" },
+      { "ticker": "NOTE.ST", "text": "Q3: net sales SEK 1,057 M (830), EBIT SEK 91 M (74); net debt up after acquisitions earlier in the year, cash flow from operations SEK 16 M (133).", "url": "https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf" },
+      { "ticker": "HANZA.ST", "text": "Q3: net sales SEK 2,487 M (1,404), EBIT SEK 196 M (116); balance sheet reflects the acquisitions made this year (goodwill SEK 2,210 M vs 717 M).", "url": "https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf" }
+    ]
+  },
+  {
     "date": "2026-09-29",
     "summary": "No major news this week.",
     "items": []
