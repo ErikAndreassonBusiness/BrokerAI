@@ -35,14 +35,28 @@ jobs:
         with:
           fetch-depth: 0
 
+      # The bot may only push changes in data/: GitHub refuses its push if the branch's workflow file
+      # differs from main's. So the agent branch never gets anything but data commits.
       - name: Continue the open agent branch, or start a new one
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          open_pr=""
           if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            open_pr=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')
+            if [ -z "$open_pr" ]; then
+              echo "The agent PR for $BRANCH is already merged or closed: starting fresh from main."
+              git push origin --delete "$BRANCH"
+            fi
+          fi
+          if [ -n "$open_pr" ]; then
             git switch "$BRANCH"
-            # Bring in the latest AGENT.md, todo.py and validate.py from main.
-            git -c user.name="github-actions[bot]" \
-              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              merge --no-edit origin/main
+            if ! git diff --quiet origin/main HEAD -- .github; then
+              echo "::error::Merge or close the open agent PR #$open_pr first: main's workflow changed."
+              exit 1
+            fi
+            # Use the latest instructions and scripts from main without committing them.
+            git restore --source origin/main --worktree -- AGENT.md app
           else
             git switch -c "$BRANCH"
           fi
