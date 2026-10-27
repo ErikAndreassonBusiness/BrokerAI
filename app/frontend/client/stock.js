@@ -162,7 +162,7 @@ const fmtShare = (v) => (isNum(v) ? fmtPct(v * 100, 2) : "–");
 const fmtMultiple = (v) => (isNum(v) ? fmtNum(v, 1, 1) + "x" : "–");
 const fmtGrowth = (fin, q, key) => {
   const v = growth(fin, q, key);
-  return isNum(v) ? fmtChange(v * 100) : "–";
+  return isNum(v) ? fmtChange(v * 100, 0) : "–"; // whole percent: the reports are rounded too
 };
 
 const RATIOS = [
