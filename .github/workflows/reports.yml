@@ -79,6 +79,7 @@ jobs:
           display_report: "true"
           claude_args: >-
             --max-turns 400
+            --permission-mode default
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(pdftotext *),Bash(uv run python -m app.backend.validate)"
 
       - name: Claude's final message
