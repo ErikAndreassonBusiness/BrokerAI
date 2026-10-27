@@ -3,6 +3,46 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2023-Q1",
+      "report_date": "2023-04-13",
+      "source_url": "https://mb.cision.com/Main/13305/3749662/1979977.pdf",
+      "values": {
+        "revenue": 30.38,
+        "gross_profit": 18.624,
+        "ebit": 0.354,
+        "net_income": 0.295,
+        "eps": 0.04,
+        "cash": 27.557,
+        "inventory": 34.567,
+        "short_term_debt": 9.371,
+        "long_term_debt": null,
+        "total_equity": 70.265,
+        "operating_cash_flow": 1.668,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2023-Q2",
+      "report_date": "2023-07-13",
+      "source_url": "https://mb.cision.com/Main/13305/3803952/2185563.pdf",
+      "values": {
+        "revenue": 24.555,
+        "gross_profit": 14.544,
+        "ebit": -2.166,
+        "net_income": -1.834,
+        "eps": -0.23,
+        "cash": 3.213,
+        "inventory": 50.311,
+        "short_term_debt": 14.013,
+        "long_term_debt": null,
+        "total_equity": 68.943,
+        "operating_cash_flow": -25.969,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q3",
       "report_date": "2023-10-19",
       "source_url": "https://mb.cision.com/Main/13305/3856292/2368245.pdf",

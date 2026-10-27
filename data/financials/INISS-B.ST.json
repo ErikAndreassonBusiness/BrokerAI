@@ -3,6 +3,26 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q3",
+      "report_date": "2021-11-11",
+      "source_url": "https://mb.cision.com/Main/12537/3451036/1494189.pdf",
+      "values": {
+        "revenue": 226.4,
+        "gross_profit": null,
+        "ebit": 16.0,
+        "net_income": 11.9,
+        "eps": 0.66,
+        "cash": 0.0,
+        "inventory": 290.7,
+        "short_term_debt": 79.3,
+        "long_term_debt": 54.5,
+        "total_equity": 282.3,
+        "operating_cash_flow": -37.7,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2021-Q4",
       "report_date": "2022-02-24",
       "source_url": "https://inission-prod-media.ams3.cdn.digitaloceanspaces.com/app/uploads/2022/02/22073727/Inission-AB_Bokslutskommunike-2021_final-1.pdf",
