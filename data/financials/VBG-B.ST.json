@@ -481,6 +481,30 @@
         "capex": -115.1,
         "free_cash_flow": null
       }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-10-27",
+      "source_url": "https://storage.mfn.se/1b2772ae-675e-4e40-8b61-3916c9730e07/vbg-group-q3-2026-eng.pdf",
+      "values": {
+        "revenue": 1447.2,
+        "gross_profit": 433.3,
+        "ebit": 139.6,
+        "depreciation": 49.1,
+        "net_income": 104.1,
+        "eps": 4.16,
+        "cash": 1084.0,
+        "inventory": 1126.0,
+        "current_assets": 3509.9,
+        "total_assets": 7937.4,
+        "short_term_debt": 333.1,
+        "long_term_debt": 1639.2,
+        "current_liabilities": 1273.3,
+        "total_equity": 4267.8,
+        "operating_cash_flow": 264.6,
+        "capex": -156.5,
+        "free_cash_flow": null
+      }
     }
   ]
 }

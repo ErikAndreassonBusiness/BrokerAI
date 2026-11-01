@@ -3,6 +3,54 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q1",
+      "report_date": "2022-04-21",
+      "source_url": "https://mb.cision.com/Main/13305/3548945/1566130.pdf",
+      "values": {
+        "revenue": 25.296,
+        "gross_profit": 17.224,
+        "ebit": 4.211,
+        "depreciation": 1.524,
+        "net_income": 3.288,
+        "eps": 0.41,
+        "cash": 32.647,
+        "inventory": 10.332,
+        "current_assets": 64.190,
+        "total_assets": 87.372,
+        "short_term_debt": 1.969,
+        "long_term_debt": null,
+        "current_liabilities": 28.640,
+        "total_equity": 57.724,
+        "operating_cash_flow": 8.379,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2022-Q2",
+      "report_date": "2022-07-07",
+      "source_url": "https://mb.cision.com/Main/13305/3597520/1601780.pdf",
+      "values": {
+        "revenue": 28.884,
+        "gross_profit": 20.347,
+        "ebit": 5.269,
+        "depreciation": 1.527,
+        "net_income": 4.158,
+        "eps": 0.52,
+        "cash": 18.111,
+        "inventory": 10.001,
+        "current_assets": 60.905,
+        "total_assets": 85.707,
+        "short_term_debt": 2.013,
+        "long_term_debt": null,
+        "current_liabilities": 22.679,
+        "total_equity": 62.020,
+        "operating_cash_flow": -11.524,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q3",
       "report_date": "2022-10-13",
       "source_url": "https://mb.cision.com/Main/13305/3647146/1637795.pdf",
