@@ -32,6 +32,8 @@ API endpoints: `/api/companies`, `/api/quotes/{ticker}` (live from Yahoo) and
   `AGENT.md`, adds new quarters to `data/financials/` and a weekly news entry to `data/updates.json`,
   and opens (or adds to) one pull request on the `agent/reports` branch. Review the numbers against
   each quarter's source link, then merge.
+- **Tests** (`.github/workflows/tests.yml`): ruff, pytest and data validation on every pull request,
+  the report agent's included (`reports.yml` starts it there), and before every site publish.
 
 ## One-time setup
 

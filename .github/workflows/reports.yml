@@ -18,6 +18,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write # to start tests.yml on the agent branch
 
 concurrency:
   group: report-agent
@@ -114,10 +115,12 @@ jobs:
             You can only use the tools listed in AGENT.md. If you cannot continue,
             say exactly what blocked you in your final message.
           display_report: "true"
+          # The Agent tool needs no permission, so only --disallowedTools keeps the agent from using subagents.
           claude_args: >-
             --max-turns 400
             --permission-mode default
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(pdftotext *),Bash(uv run python -m app.backend.validate)"
+            --disallowedTools "Agent"
 
       - name: Claude's final message
         if: always() && steps.claude.outputs.execution_file != ''
@@ -147,3 +150,6 @@ jobs:
               --title "Report agent: new quarterly data" \
               --body "Quarterly figures and weekly news from the report agent (see AGENT.md). Check the numbers against each quarter's source link before merging. New runs add commits to this PR."
           fi
+          # GitHub doesn't run workflows for the bot's own pushes and PRs, so start the tests on the PR here.
+          # Last, so a failed start can never leave pushed data without a PR (the next run would delete it).
+          gh workflow run tests.yml --ref "$BRANCH"

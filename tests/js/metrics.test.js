@@ -1,5 +1,5 @@
 // Tests for app/frontend/client/metrics.js and the number formatting in common.js.
-// Run with `uv run pytest` (tests/test_js.py) or directly: node --test tests/js
+// Run with `uv run pytest` (tests/test_js.py) or directly: node --test tests/js/*.test.js
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
