@@ -115,10 +115,12 @@ jobs:
             You can only use the tools listed in AGENT.md. If you cannot continue,
             say exactly what blocked you in your final message.
           display_report: "true"
+          # The Agent tool needs no permission, so only --disallowedTools keeps the agent from using subagents.
           claude_args: >-
             --max-turns 400
             --permission-mode default
             --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(curl *),Bash(pdftotext *),Bash(uv run python -m app.backend.validate)"
+            --disallowedTools "Agent"
 
       - name: Claude's final message
         if: always() && steps.claude.outputs.execution_file != ''
