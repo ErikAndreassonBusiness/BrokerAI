@@ -1,5 +1,12 @@
 [
   {
+    "date": "2026-11-01",
+    "summary": "VBG Group published its Q3 report with higher sales but lower operating profit than a year earlier. New Wave, Inission (5 November) and RevolutionRace (19 November) have not yet reported Q3.",
+    "items": [
+      { "ticker": "VBG-B.ST", "text": "Q3: net sales +5.8 % y/y to SEK 1,447 M (1,368), EBIT SEK 139.6 M (158.3), margin 9.6 % (11.6 %); cash flow from operations SEK 265 M (136).", "url": "https://storage.mfn.se/1b2772ae-675e-4e40-8b61-3916c9730e07/vbg-group-q3-2026-eng.pdf" }
+    ]
+  },
+  {
     "date": "2026-10-27",
     "summary": "Inwido, TOMRA, NOTE and HANZA published Q3 reports, all with higher sales and operating profit than a year earlier; for NOTE, HANZA and Inwido part of the growth came from acquisitions. VBG Group reports its Q3 later today, and New Wave, Björn Borg, RevolutionRace and Inission have not yet reported.",
     "items": [
