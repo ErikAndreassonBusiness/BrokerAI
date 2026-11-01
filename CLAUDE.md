@@ -26,6 +26,33 @@ notes per stock. Owner: Erik. Keep it simple — no features I didn't ask for.
    - Then give me a short summary: what changed, what you tested, anything you're unsure about.
 5. If something is unclear, ask me instead of guessing.
 
+## Team workflow
+
+The main session (me + Claude) dispatches the subagents in `.claude/agents/`; they do focused work and
+return short summaries. All work is tracked as GitHub Issues on the "BrokerAI" Projects board
+(Backlog → Ready → In progress → In review → Done). The report agent in GitHub Actions follows only
+`AGENT.md` and doesn't use these subagents.
+
+1. **Plan:** `project-manager` creates or updates issues and plans the iteration. At the start of an
+   iteration, or when the architecture may change, it brings in `architect`.
+2. **Specify:** `requirements-writer` adds the user story, Gherkin scenarios and EARS requirements to the
+   issue, and I approve them.
+3. **Red:** `tester` writes failing tests from the requirements on a feature branch.
+4. **Green and refactor:** `backend-dev` and/or `frontend-dev` make the tests pass. They run in parallel
+   only when they touch different files.
+5. **Review:** `reviewer` checks the branch, `tester` re-runs everything after fixes, and `designer`
+   reviews any visible UI change.
+6. **CI and merge:** open the PR with `Closes #<n>`. `tests.yml` must pass. I review and merge, and the
+   issue moves to Done.
+
+- Small fixes (typos, one-line changes) can skip steps 1–2, but they still need an issue, a test and CI.
+- Use `Explore` before reading many files yourself. Ask subagents for summaries, not full output.
+- The main session moves the issue to In progress when its branch is created, and to In review when the
+  PR opens.
+- `data-auditor` reviews an `agent/reports` PR when I ask for it.
+- Subagent memory in `.claude/agent-memory/` is committed with the next PR. The repo is public: no
+  personal info.
+
 ## Security
 
 - The GitHub token lives in my `gh` login / keychain. Never print it, write it to a file, or commit it.
