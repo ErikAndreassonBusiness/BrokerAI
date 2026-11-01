@@ -1,0 +1,1 @@
+- [Company quirks](company-quirks.md) — TOMRA NOK→EUR at 2024-Q2, RVRC/Inission fiscal years, where gross_profit is null
