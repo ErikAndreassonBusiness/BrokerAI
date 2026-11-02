@@ -67,6 +67,8 @@ async function init() {
     return;
   }
 
+  const summary = await loadSummary(ticker);
+
   document.title = company.name + " – BrokerAI";
   const irUrl = safeUrl(company.ir_url);
   app.innerHTML = `
@@ -76,7 +78,18 @@ async function init() {
     ${renderKeyData(quotesFile.quotes[ticker] || {}, company)}
     <h2>Quarterly financials</h2>
     ${renderFinancials(financials)}
-    ${renderNews(updates, ticker)}`;
+    ${renderNews(updates, ticker)}
+    ${renderSummary(summary)}`;
+}
+
+// A missing or invalid summary file is not an error: the section just says there is none yet.
+async function loadSummary(ticker) {
+  try {
+    const s = await loadJSON("data/summaries/" + encodeURIComponent(ticker) + ".json", null);
+    return s && typeof s.summary === "string" && s.swot ? s : null;
+  } catch (e) {
+    return null;
+  }
 }
 
 function renderKeyData(q, company) {
@@ -183,6 +196,40 @@ function renderNews(updates, ticker) {
     })
     .join("");
   return `<h2>News</h2><div class="card"><ul>${list}</ul></div>`;
+}
+
+const SWOT_GROUPS = [
+  ["strengths", "Strengths"],
+  ["weaknesses", "Weaknesses"],
+  ["opportunities", "Opportunities"],
+  ["threats", "Threats"],
+];
+
+function renderSwotItem(item) {
+  const links = (Array.isArray(item.sources) ? item.sources : [])
+    .map((u, i) => {
+      const url = safeUrl(u);
+      return url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">[${i + 1}]</a>` : "";
+    })
+    .join("");
+  return `<li>${esc(item.text)}${links}</li>`;
+}
+
+function renderSummary(data) {
+  const head = `<h2>AI summary and SWOT</h2>`;
+  if (!data) {
+    return `<section class="ai-summary">${head}<p class="card empty muted">No summary yet. The report agent adds one.</p></section>`;
+  }
+  const groups = SWOT_GROUPS.map(([key, title]) => {
+    const items = Array.isArray(data.swot[key]) ? data.swot[key] : [];
+    const body = items.length ? `<ul>${items.map(renderSwotItem).join("")}</ul>` : `<p>–</p>`;
+    return `<div class="card"><div class="label">${title}</div>${body}</div>`;
+  }).join("");
+  return `<section class="ai-summary">${head}
+    <p class="muted">AI-generated, last updated ${fmtDate(data.updated)}. Check the sources.</p>
+    <div class="card"><p>${esc(data.summary)}</p></div>
+    <div class="swot">${groups}</div>
+  </section>`;
 }
 
 init();
