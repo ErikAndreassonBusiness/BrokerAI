@@ -226,7 +226,7 @@ function renderSummary(data) {
     return `<div class="card"><div class="label">${title}</div>${body}</div>`;
   }).join("");
   return `<section class="ai-summary">${head}
-    <p class="muted">AI-generated, last updated ${fmtDate(data.updated)}. Check the sources.</p>
+    <p class="muted">AI-generated, last updated ${fmtDate(data.updated)}.</p>
     <div class="card"><p>${esc(data.summary)}</p></div>
     <div class="swot">${groups}</div>
   </section>`;
