@@ -29,7 +29,7 @@ change in the same PR so they cannot drift.
 
 **Monthly refresh:** no second workflow. The weekly run stays the only run. `todo.py` gets a
 "summary due" list (like the refill list): a ticker is due when its file is missing or its `updated` is
-in an earlier calendar month than today, capped per run. The prompt passes that list; the agent reads
+in an earlier calendar month than today. A named per-run cap exists but is "no limit" for now. The prompt passes that list; the agent reads
 that month's entries in `updates.json` plus the latest stored quarters. Result: the first Sunday run
 of each month refreshes summaries, other Sundays do none. Same branch, same PR, same tests.
 
@@ -39,7 +39,7 @@ shows them in separate sections.
 
 ## Consequences
 - New folder, new validator rules, AGENT.md and `reports.yml` widened deliberately (not by this ADR).
-- A monthly run touches many tickers, so the cap may spread a refresh over several Sundays.
+- A monthly run touches every due ticker in one run (no cap for now), so that run uses more tokens; lowering the cap would spread a refresh over several Sundays.
 - Summaries can only be as good as the weekly news; weeks with "No major news" give thin input.
 - Follow-ups: (a) `validate.py` + format + fixtures; (b) `todo.py` summary-due list; (c) AGENT.md and
   `reports.yml` changes (merge when no agent PR is open: `.github/` rule); (d) frontend section.
