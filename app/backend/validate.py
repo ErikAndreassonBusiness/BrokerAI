@@ -42,6 +42,11 @@ QUOTE_FIELDS = {
     "currency",
     "quote_time",
 }
+MAX_SUMMARY_SENTENCES = 4
+MAX_SUMMARY_CHARS = 600
+MAX_ITEM_CHARS = 120
+MAX_SWOT_ITEMS = 4
+SWOT_LISTS = ["strengths", "weaknesses", "opportunities", "threats"]
 PERIOD = re.compile(r"^\d{4}-Q[1-4]$")
 CURRENCY = re.compile(r"^[A-Z]{3}$")
 
@@ -175,6 +180,69 @@ def _check_updates(updates, tickers: set[str]) -> list[str]:
     return errors
 
 
+def _sentences(text: str) -> int:
+    return len([s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s])
+
+
+def _check_swot_item(at: str, item) -> list[str]:
+    if not isinstance(item, dict):
+        return [f"{at}: must be an object"]
+    errors = []
+    text = item.get("text")
+    if not isinstance(text, str) or not text.strip():
+        errors.append(f"{at}: missing text")
+    elif _sentences(text) > 1 or len(text) > MAX_ITEM_CHARS:
+        errors.append(
+            f"{at}: text must be one sentence of at most {MAX_ITEM_CHARS} characters"
+        )
+    sources = item.get("sources")
+    if not isinstance(sources, list) or not sources:
+        errors.append(f"{at}: needs at least one source")
+    elif not all(str(s).startswith("https://") for s in sources):
+        errors.append(f"{at}: sources must start with https://")
+    return errors
+
+
+def _check_summary(path: Path, summary_file) -> list[str]:
+    name = f"summaries/{path.name}"
+    if not isinstance(summary_file, dict):
+        return [f"{name}: must be an object"]
+    errors = []
+    if "ticker" not in summary_file:
+        errors.append(f"{name}: missing ticker")
+    elif summary_file["ticker"] != path.stem:
+        errors.append(f"{name}: ticker must match the file name")
+    if "updated" not in summary_file:
+        errors.append(f"{name}: missing updated")
+    elif not _is_date(summary_file["updated"]):
+        errors.append(f"{name}: updated must be YYYY-MM-DD")
+    summary = summary_file.get("summary")
+    if summary is None:
+        errors.append(f"{name}: missing summary")
+    elif (
+        not isinstance(summary, str)
+        or _sentences(summary) > MAX_SUMMARY_SENTENCES
+        or len(summary) > MAX_SUMMARY_CHARS
+    ):
+        errors.append(
+            f"{name}: summary must be at most {MAX_SUMMARY_SENTENCES} sentences "
+            f"and {MAX_SUMMARY_CHARS} characters"
+        )
+    swot = summary_file.get("swot")
+    if not isinstance(swot, dict):
+        return errors + [f"{name}: missing swot"]
+    for key in SWOT_LISTS:
+        items = swot.get(key)
+        if not isinstance(items, list):
+            errors.append(f"{name}: swot {key} must be a list")
+            continue
+        if len(items) > MAX_SWOT_ITEMS:
+            errors.append(f"{name}: swot {key} has more than {MAX_SWOT_ITEMS} items")
+        for i, item in enumerate(items):
+            errors += _check_swot_item(f"{name} swot {key}[{i}]", item)
+    return errors
+
+
 def validate(data_dir: Path = DATA_DIR) -> list[str]:
     """Returns a list of problems; empty means everything is valid."""
     errors, tickers = _check_companies(read_json(data_dir / "companies.json", []))
@@ -183,6 +251,8 @@ def validate(data_dir: Path = DATA_DIR) -> list[str]:
         errors += _check_quotes(quotes_file, tickers)
     for path in sorted((data_dir / "financials").glob("*.json")):
         errors += _check_financials(path, read_json(path), tickers)
+    for path in sorted((data_dir / "summaries").glob("*.json")):
+        errors += _check_summary(path, read_json(path))
     errors += _check_updates(read_json(data_dir / "updates.json", []), tickers)
     return errors
 

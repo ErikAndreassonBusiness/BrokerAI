@@ -93,6 +93,16 @@ jobs:
             echo "END_OF_REFILL"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Summary list (tickers due a new summary and SWOT)
+        id: summaries
+        run: |
+          items=$(uv run python -m app.backend.todo --summaries)
+          {
+            echo "list<<END_OF_SUMMARIES"
+            echo "${items:-(none)}"
+            echo "END_OF_SUMMARIES"
+          } >> "$GITHUB_OUTPUT"
+
       - id: claude
         uses: anthropics/claude-code-action@v1
         with:
@@ -109,7 +119,10 @@ jobs:
             Your to-do list for this run (ticker and quarter):
             ${{ steps.todo.outputs.list }}
 
-            Work through EVERY item on both lists, in order: refill or add the quarter, or skip it
+            Your summary list for this run (tickers needing a new data/summaries file, see AGENT.md):
+            ${{ steps.summaries.outputs.list }}
+
+            Work through EVERY item on all three lists, in order: refill or add the quarter, or skip it
             and give the reason in your final message. You are not finished until every item is handled.
             There is no time limit; don't stop early.
             You can only use the tools listed in AGENT.md. If you cannot continue,
@@ -138,7 +151,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- data/financials data/updates.json
+          git add -A -- data/financials data/updates.json data/summaries
           if git diff --cached --quiet; then
             echo "Nothing new this run."
             exit 0
