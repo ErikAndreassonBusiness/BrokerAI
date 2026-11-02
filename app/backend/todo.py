@@ -2,9 +2,11 @@
 
 Usage: uv run python -m app.backend.todo --max 15
        uv run python -m app.backend.todo --refill --max 10  (stored quarters with missing line items)
+       uv run python -m app.backend.todo --summaries  (tickers whose AI summary is due this month)
 """
 
 import argparse
+from datetime import UTC, date, datetime
 from itertools import zip_longest
 from pathlib import Path
 
@@ -12,6 +14,7 @@ from app.backend.storage import DATA_DIR, read_json
 from app.backend.validate import LINE_ITEMS
 
 HISTORY_START = "2021-Q3"
+SUMMARY_CAP = None  # max summaries per run; None = no limit
 
 
 def _parse(period: str) -> tuple[int, int]:
@@ -83,12 +86,31 @@ def refill(data_dir: Path = DATA_DIR, total: int = 10) -> list[str]:
     return _round_robin(queues, total)
 
 
+def summary_due(data_dir: Path, today: date) -> list[str]:
+    """Tickers whose summary file is missing or last updated in an earlier calendar month."""
+    due = []
+    for company in read_json(data_dir / "companies.json", []):
+        ticker = company["ticker"]
+        updated = (read_json(data_dir / "summaries" / f"{ticker}.json") or {}).get(
+            "updated"
+        )
+        if not updated or updated[:7] < today.isoformat()[:7]:
+            due.append(ticker)
+    return due[:SUMMARY_CAP]
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--max", type=int, default=15)
     parser.add_argument(
         "--refill", action="store_true", help="list quarters with missing line items"
     )
+    parser.add_argument(
+        "--summaries", action="store_true", help="list tickers due a new summary"
+    )
     args = parser.parse_args()
-    items = refill(total=args.max) if args.refill else todo(total=args.max)
+    if args.summaries:
+        items = summary_due(DATA_DIR, datetime.now(UTC).date())
+    else:
+        items = refill(total=args.max) if args.refill else todo(total=args.max)
     print("\n".join(items))
