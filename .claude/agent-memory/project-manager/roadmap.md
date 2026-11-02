@@ -19,3 +19,4 @@ Update 2026-11-02 (Erik's decisions):
 - SWOT/summary refreshed monthly from weekly news (#41/#42).
 - Valuation = one number; range is optional/low priority, source of range undecided (#46).
 - CEO letter full text stays local and gitignored; only derived comparison committed (#51-#53). #51 no longer blocked by #47.
+- ADRs 0001/0002 in PR #55. New issues: #56 Supabase setup+RLS tests (arch), #57 frontend sign-in client, #58 export button. #45/#46/#50/#54 blocked by #56/#57. #42 holds validate+todo+AGENT/reports.yml (+ AGENT.md hosted-data line); #43 UI.
