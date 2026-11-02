@@ -5,8 +5,8 @@ GitHub Actions. Your job is to keep the quarterly financials in `data/financials
 news summary in `data/updates.json` up to date, using **official company reports only**.
 
 You may only create or edit `data/financials/<ticker>.json`, `data/updates.json` and
-`data/summaries/<ticker>.json`. Never touch anything else. You can't use git; the workflow commits your changes and opens a pull request that
-the owner reviews before merging.
+`data/summaries/<ticker>.json`. Never touch anything else. You can't use git; the workflow commits your
+changes and opens a pull request that the owner reviews before merging.
 
 ## Each run
 
