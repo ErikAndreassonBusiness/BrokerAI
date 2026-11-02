@@ -111,7 +111,8 @@ h2 {
   gap: 10px;
   margin-top: 16px;
 }
-.keydata .label {
+.keydata .label,
+.ai-summary .label {
   font-size: 12px;
   color: var(--muted);
 }
@@ -188,4 +189,34 @@ tbody tr:hover {
 .empty {
   text-align: center;
   padding: 32px 16px;
+}
+
+/* AI summary and SWOT: set apart from the figures (and from the user's own notes) */
+.ai-summary {
+  margin-top: 24px;
+  padding-left: 12px;
+  border-left: 3px solid var(--border);
+}
+.ai-summary .swot {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.ai-summary .label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.ai-summary .empty {
+  text-align: left;
+  padding: 10px 16px;
+}
+.ai-summary .swot a {
+  white-space: nowrap;
+  padding: 2px 3px;
+}
+@media (max-width: 600px) {
+  .ai-summary .swot {
+    grid-template-columns: 1fr;
+  }
 }
