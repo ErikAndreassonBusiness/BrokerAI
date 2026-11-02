@@ -1,6 +1,6 @@
 # 0002 - Hosted backend for data Erik enters himself (issue #44)
 
-Status: proposed (Erik approves). Date: 2026-11-02.
+Status: accepted. Date: 2026-11-02.
 
 ## Context
 Valuations (#45/#46), known customers (#50) and notes (#54) are typed by Erik. GitHub Pages is static,
@@ -23,7 +23,7 @@ feature reaches "Ready".
   config. Safety comes from row-level security on every table: writes only for Erik's user id. The
   `service_role` key never goes in the repo, the browser or `reports.yml`; if ever needed, it is a
   GitHub Actions secret in a workflow the report agent cannot influence.
-- **Read access:** recommended private (select also requires sign-in), because notes are personal and the
+- **Read access:** private (select also requires sign-in) for all three tables, because notes are personal and the
   site is public. Signed out, the site shows only the JSON-based pages.
 - **How Pages reads it:** the browser calls Supabase directly with the anon key plus Erik's session. If
   the service is down or Erik is signed out, those sections show a short "unavailable / sign in"
@@ -40,7 +40,7 @@ feature reaches "Ready".
 
 ## Consequences
 - First time the site holds state outside git: an external service, an account, a free-tier pause policy
-  (projects pause after inactivity; Erik must keep it active) and a new failure mode.
+  (projects pause after inactivity; Erik accepts this and keeps it active) and a new failure mode.
 - The CSP/connect to `*.supabase.co` must be allowed in the frontend; the supabase-js load is a new
   dependency (CDN or vendored, to be decided in the frontend issue).
 - Follow-up issues: (1) Supabase project, auth, RLS and migrations setup; (2) frontend sign-in and

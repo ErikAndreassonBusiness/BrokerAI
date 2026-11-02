@@ -1,0 +1,1 @@
+- [Architecture decisions](architecture-decisions.md) — ADRs 0001 (#41 summaries) and 0002 (#44 Supabase), in docs/decisions/

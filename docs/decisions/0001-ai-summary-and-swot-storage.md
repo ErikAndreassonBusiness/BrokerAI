@@ -1,6 +1,6 @@
 # 0001 - Where the AI company summary and SWOT are stored (issue #41)
 
-Status: proposed (Erik approves). Date: 2026-11-02.
+Status: accepted. Date: 2026-11-02.
 
 ## Context
 The report agent should write a short company summary and SWOT bullets per stock, refreshed once a
