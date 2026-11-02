@@ -209,7 +209,7 @@ function renderSwotItem(item) {
   const links = (Array.isArray(item.sources) ? item.sources : [])
     .map((u, i) => {
       const url = safeUrl(u);
-      return url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">[${i + 1}]</a>` : "";
+      return url ? ` <a href="${esc(url)}" target="_blank" rel="noopener" aria-label="Source ${i + 1}">[${i + 1}]</a>` : "";
     })
     .join("");
   return `<li>${esc(item.text)}${links}</li>`;
@@ -222,7 +222,7 @@ function renderSummary(data) {
   }
   const groups = SWOT_GROUPS.map(([key, title]) => {
     const items = Array.isArray(data.swot[key]) ? data.swot[key] : [];
-    const body = items.length ? `<ul>${items.map(renderSwotItem).join("")}</ul>` : `<p>–</p>`;
+    const body = items.length ? `<ul>${items.map(renderSwotItem).join("")}</ul>` : `<p aria-label="None">–</p>`;
     return `<div class="card"><div class="label">${title}</div>${body}</div>`;
   }).join("");
   return `<section class="ai-summary">${head}
