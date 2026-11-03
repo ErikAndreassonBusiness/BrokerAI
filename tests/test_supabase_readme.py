@@ -1,4 +1,4 @@
-"""Content checks for supabase/README.md Google setup docs (issue #78, ADR 0006)."""
+"""Content checks for supabase/README.md and ADR 0008 (issue #92, email + password sign-in)."""
 
 import re
 from pathlib import Path
@@ -6,166 +6,228 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 README = ROOT / "supabase" / "README.md"
 CONFIG = ROOT / "app" / "frontend" / "client" / "config.js"
+DECISIONS = ROOT / "docs" / "decisions"
 
 
 def text():
     return README.read_text(encoding="utf-8").lower()
 
 
-def has_all(*phrases):
-    t = text()
-    missing = [p for p in phrases if p.lower() not in t]
-    assert not missing, f"README is missing: {missing}"
-
-
 def lines():
     return text().splitlines()
 
 
-def test_req_78_1_google_cloud_steps():
-    """REQ-78-1"""
-    has_all("google cloud", "web application")
+def line_with(*patterns):
+    """True if one single line (bullet) matches every regex."""
+    return any(all(re.search(p, ln) for p in patterns) for ln in lines())
+
+
+def adr(number):
+    files = list(DECISIONS.glob(f"{number}-*.md"))
+    assert len(files) == 1, number
+    return files[0]
+
+
+def test_req_92_1_no_google_oauth_or_linking_steps():
+    """REQ-92-1"""
     t = text()
-    assert re.search(r"publish\w*[^.\n]*production|production[^.\n]*publish", t), (
-        "publish to production"
+    for word in ("google", "oauth", "client secret", "linking", "authorize?provider"):
+        assert word not in t, f"README still mentions {word!r}"
+    assert not re.search(r"\bm4\b", t), "M4 linking test must be gone"
+
+
+def test_req_92_2_signups_off():
+    """REQ-92-2"""
+    assert line_with(r"sign-?ups?[^.\n]*\boff\b|\boff\b[^.\n]*sign-?ups?")
+
+
+def test_req_92_2_min_password_length_10():
+    """REQ-92-2"""
+    assert line_with(
+        r"minimum password length[^.\n]*\b10\b|\b10\b[^.\n]*minimum password length"
     )
-    assert any(
-        "consent screen" in ln
-        and "external" in ln
-        and re.search(r"openid[^.\n]*email[^.\n]*profile", ln)
-        for ln in lines()
-    ), (
-        "consent screen step must name External and the scopes openid, email, profile together"
+
+
+def test_req_92_2_secure_password_change_off():
+    """REQ-92-2"""
+    assert line_with(r"secure password change[^.\n]*\boff\b")
+
+
+def test_req_92_3_smtp_gmail_app_password_route():
+    """REQ-92-3: Erik's chosen route, with its prerequisites"""
+    assert line_with(r"smtp\.gmail\.com")
+    assert line_with(r"app password", r"2-step verification")
+
+
+def test_req_92_3_transactional_provider_alternative():
+    """REQ-92-3"""
+    assert line_with(r"transactional", r"provider")
+
+
+def test_req_92_3_smtp_credential_only_in_supabase():
+    """REQ-92-3: one line ties the app password to Supabase only and never the repo"""
+    assert line_with(
+        r"app password",
+        r"\bonly\b[^.\n]*supabase",
+        r"\bnever\b[^.\n]*repo",
     )
 
 
-def test_req_78_2_redirect_uri_is_pattern():
-    """REQ-78-2"""
-    has_all("https://<project-ref>.supabase.co/auth/v1/callback")
+def test_req_92_3_smtp_sender_fields():
+    """REQ-92-3: the SMTP step names Sender email (the Gmail address) and Sender name"""
+    assert line_with(r"smtp settings", r"sender email", r"sender name")
 
 
-def test_req_78_2_8_no_real_project_ref():
-    """REQ-78-2, REQ-78-8"""
-    m = re.search(r"https://([a-z0-9]+)\.supabase\.co", CONFIG.read_text())
-    assert m, "config.js should hold the project url"
-    assert m.group(1) not in text()
-    for ref in re.findall(r"https://([a-z0-9<>-]+)\.supabase\.co", text()):
-        assert ref == "<project-ref>", f"real-looking project ref: {ref}"
+def test_req_92_3_smtp_settings_location():
+    """REQ-92-3: where the SMTP credentials go"""
+    assert line_with(r"authentication", r"smtp settings")
 
 
-def test_req_78_3_client_secret_only_in_supabase():
-    """REQ-78-3"""
-    has_all("authentication > providers > google", "client secret", "skip nonce check")
-    t = text()
-    assert re.search(r"(never|not)[^.\n]*(repo|commit)", t), "secret never in the repo"
-    assert re.search(r"skip nonce check[^.\n]*off|off[^.\n]*skip nonce check", t)
+def test_req_92_4_builtin_mailer_team_members_only():
+    """REQ-92-4"""
+    assert line_with(
+        r"built-in (email|mailer|email service)",
+        r"only[^.\n]*team members|team members[^.\n]*only",
+    )
 
 
-def test_req_78_4_invite_with_auto_confirm():
-    """REQ-78-4"""
-    has_all("authentication > users", "auto confirm", "exact", "google address")
-    t = text()
-    assert any(
-        "create new user" in ln
-        and "auto confirm" in ln
-        and re.search(r"\+`?\s*aliases?", ln)
-        for ln in lines()
-    ), "invite step must say no + aliases"
-    assert re.search(r"sign-?ups[^.\n]*off", t)
+def test_req_92_5_reset_password_template():
+    """REQ-92-5"""
+    assert line_with(r"reset password", r"template")
 
 
-def test_req_78_4_signups_off_before_google_provider():
-    """REQ-78-4: sign-ups are switched off before the Google provider is enabled"""
-    t = text()
-    off = t.find("allow new users to sign up")
-    google = t.find("authentication > providers > google")
-    assert off != -1 and google != -1
-    assert off < google, "sign-ups off step must come before the Google provider step"
+def test_req_92_5_redirect_url_allowlist():
+    """REQ-92-5"""
+    assert line_with(r"redirect urls", r"/brokerai/\*\*")
 
 
-def test_req_78_5_url_configuration_kept():
-    """REQ-78-5"""
-    has_all("url configuration", "site url", "redirect urls", "/brokerai/**")
+def test_req_92_6_invite_auto_confirm():
+    """REQ-92-6"""
+    assert line_with(r"create new user", r"auto confirm user")
 
 
-def m4_section():
-    t = text()
-    m = re.search(r"^#+[^\n]*m4[^\n]*\n(.*?)(?=^## |\Z)", t, re.DOTALL | re.MULTILINE)
-    assert m, "no heading containing M4"
+def test_req_92_6_random_temporary_password_16_chars_private():
+    """REQ-92-6"""
+    assert line_with(
+        r"random", r"temporary password", r"\b(16|[2-9]\d)\b[^.\n]*characters"
+    ) or line_with(r"random", r"temporary password", r"16 or more")
+    assert line_with(r"temporary password", r"privately")
+
+
+def section(heading_pattern):
+    """Text from the matching '## ' heading to the next '## ' heading."""
+    m = re.search(
+        rf"^## [^\n]*{heading_pattern}[^\n]*\n(.*?)(?=^## |\Z)",
+        text(),
+        re.DOTALL | re.MULTILINE,
+    )
+    assert m, f"no '## ' heading matching {heading_pattern}"
     return m.group(1)
 
 
-def test_req_78_6_m4_linking_test():
-    """REQ-78-6"""
-    has_all("m4", "linking", "auto confirm")
-    has_all(
-        "https://<project-ref>.supabase.co/auth/v1/authorize?provider=google&redirect_to="
+def test_req_92_7_own_account_steps_in_order():
+    """REQ-92-7: set password -> private-window check -> forgot-password test -> #85"""
+    t = section(r"own account")
+    steps = [
+        r"set[^.\n]*(your )?own password[^.\n]*magic link|magic link[^.\n]*still works",
+        r"private[^.\n]*window[^.\n]*user id|user id[^.\n]*private[^.\n]*window",
+        r"forgot[- ]password",
+        r"only then[^.\n]*#85",
+    ]
+    positions = []
+    for pattern in steps:
+        m = re.search(pattern, t)
+        assert m, f"missing own-account step: {pattern}"
+        positions.append(m.start())
+    assert positions == sorted(positions) and len(set(positions)) == 4, (
+        f"own-account steps out of order: {positions}"
     )
-    has_all("browser")
-    t = text()
-    assert re.search(r"no new user", t)
-    assert re.search(r"identity[^.\n]*linked|linked[^.\n]*identity", t)
-    assert re.search(r"uninvited[^.\n]*refused|refused[^.\n]*uninvited", t)
 
 
-def test_req_78_6_own_account_checked():
-    """REQ-78-6: Erik signs in with his existing user; id unchanged; data still shows"""
-    t = text()
-    assert re.search(r"\bown\b[^.\n]*existing user|existing user[^.\n]*\bown\b", t), (
-        "own existing user"
+def test_req_92_7_precondition_81_and_93_before_first_step():
+    """REQ-92-7: a line before the first step says the steps wait for #81 and #93"""
+    t = section(r"own account")
+    first = re.search(r"set[^.\n]*(your )?own password[^.\n]*magic link", t)
+    assert first, "first own-account step not found"
+    before = t[: first.start()]
+    assert any(
+        "#81" in ln and "#93" in ln and re.search(r"only after|after .*merged", ln)
+        for ln in before.splitlines()
+    ), "no precondition line naming #81 and #93 before the first step"
+
+
+def test_req_92_6_invite_section_needs_81():
+    """REQ-92-6: the invite section says it needs #81 (the first-login prompt)"""
+    t = section(r"invite")
+    assert re.search(r"#81", t)
+
+
+def test_req_92_7_private_window_checks_data_unchanged():
+    """REQ-92-7"""
+    assert line_with(
+        r"private[^.\n]*window",
+        r"user id[^.\n]*unchanged",
+        r"valuations[^.\n]*customers[^.\n]*notes",
     )
+
+
+def test_req_92_7_send_password_recovery_fallback():
+    """REQ-92-7"""
+    assert line_with(r"send password recovery", r"(fallback|way back in|locked out)")
+
+
+def test_req_92_8_no_invites_before_reset_mail_reached_non_team_address():
+    """REQ-92-8"""
+    assert line_with(
+        r"(do not|don't|never) invite anyone|not invite anyone",
+        r"reset (email|mail)",
+        r"non-team",
+    )
+
+
+def test_req_92_8_gate_comes_before_create_new_user_step():
+    """REQ-92-8"""
+    t = text()
+    gate = re.search(
+        r"(do not|don't|never) invite anyone[^.\n]*reset (email|mail)[^.\n]*non-team", t
+    )
+    create = t.find("create new user")
+    assert gate and create != -1
+    assert gate.start() < create, "gate must come before the Create new user step"
+
+
+def test_req_92_9_no_real_project_ref():
+    """REQ-92-9"""
+    m = re.search(r"https://([a-z0-9]+)\.supabase\.co", CONFIG.read_text())
+    assert m, "config.js should hold the project url"
+    for doc in (text(), adr("0008").read_text(encoding="utf-8").lower()):
+        assert m.group(1) not in doc
+        for ref in re.findall(r"https://([a-z0-9<>-]+)\.supabase\.co", doc):
+            assert ref == "<project-ref>", f"real-looking project ref: {ref}"
+
+
+def test_req_92_9_no_emails_or_secrets():
+    """REQ-92-9"""
+    for path in (README, adr("0008")):
+        raw = path.read_text(encoding="utf-8")
+        assert not re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", raw), f"email in {path.name}"
+        assert not re.search(r"eyJ[\w-]{10,}\.[\w-]{10,}", raw), "JWT"
+        assert not re.search(r"sb_(publishable|secret)_\w+", raw)
+        assert not re.search(r"GOCSPX-\w+", raw)
+        assert not re.search(r"\b[a-p]{4}( [a-p]{4}){3}\b", raw), "app password"
+        assert not re.search(r"(?i)password\s*[:=]\s*`?\w{8,}", raw), "password value"
+
+
+def test_req_92_10_adr_0008_accepted():
+    """REQ-92-10"""
     assert re.search(
-        r"\bown\b[^.\n]*google[^.\n]*address|google[^.\n]*address[^.\n]*\bown\b", t
-    )
-    assert re.search(r"\bown\b[^.\n]*user id[^.\n]*unchanged", t), (
-        "own user id unchanged"
-    )
-    assert re.search(r"valuations[^.\n]*customers[^.\n]*notes[^.\n]*still show", t), (
-        "data still shows"
+        r"^Status:\s*accepted",
+        adr("0008").read_text(encoding="utf-8"),
+        re.IGNORECASE | re.MULTILINE,
     )
 
 
-def test_req_78_6_anon_check_outside_m4_section():
-    """REQ-78-6: the signed-out anon check is its own step, not part of the linking test"""
-    section = m4_section()
-    assert "valuations" not in section and "anon" not in section
-    t = text()
-    assert re.search(r"signed-out[^.\n]*anon key[^.\n]*valuations", t), (
-        "anon check must still exist"
-    )
-
-
-def test_req_78_6_fallback_adr_0006_option_b():
-    """REQ-78-6"""
-    t = text()
-    assert re.search(r"0006[^.\n]*option b|option b[^.\n]*0006", t)
-    assert "fall back" in t or "fallback" in t
-
-
-def test_req_78_7_email_provider_disabled_last():
-    """REQ-78-7"""
-    t = text()
-    assert re.search(r"disable[^.\n]*email provider|email provider[^.\n]*disabl", t)
-    assert re.search(r"only after[^.\n]*home page[^.\n]*google", t)
-    assert re.search(r"only after[^.\n]*\bown\b[^.\n]*(user|account)", t), (
-        "after your own user works with Google"
-    )
-
-
-def test_req_78_8_no_emails_or_secrets():
-    """REQ-78-8"""
-    raw = README.read_text(encoding="utf-8")
-    assert not re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", raw), "email address in README"
-    assert not re.search(r"eyJ[\w-]{10,}\.[\w-]{10,}", raw), "JWT in README"
-    assert not re.search(r"sb_(publishable|secret)_\w+", raw)
-    assert not re.search(r"GOCSPX-\w+", raw)
-
-
-def test_req_78_adrs_accepted():
-    """ADR 0006 and 0007 flipped to accepted in this PR (approved by Erik)"""
-    for pattern in ("0006-*.md", "0007-*.md"):
-        files = list((ROOT / "docs" / "decisions").glob(pattern))
-        assert len(files) == 1, pattern
-        assert re.search(
-            r"^Status:\s*accepted", files[0].read_text(), re.IGNORECASE | re.MULTILINE
-        ), files[0].name
+def test_req_92_11_adr_0006_line_3_superseded_by_0008():
+    """REQ-92-11"""
+    line3 = adr("0006").read_text(encoding="utf-8").splitlines()[2].lower()
+    assert re.search(r"sign-in[^.\n]*superseded[^.\n]*0008", line3), line3
