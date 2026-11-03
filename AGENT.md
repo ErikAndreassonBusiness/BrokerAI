@@ -18,7 +18,7 @@ changes and opens a pull request that the owner reviews before merging.
    some line items (e.g. a key that was added to the table later), with the keys and the quarter's
    saved `source_url`. Open **only that link** (curl + pdftotext for a PDF, WebFetch for an HTML
    page). Never search the web for a refill item and never use another report. Add only the listed
-   keys to that quarter's `values`, and never change a value that is already there. A figure that
+   keys to that quarter's `values` (or, for `breakdown.*` keys, see "Revenue breakdown"), and never change a value that is already there. A figure that
    isn't in the report's statements gets `null`. If the link is dead or unreadable, skip the item
    and say so.
 4. **Backfill: work through the to-do list in the prompt.** It lists the missing quarters for this
@@ -140,6 +140,30 @@ quarter itself** (three months), never year-to-date, and never derive a quarter 
 | `operating_cash_flow` | Cash flow from operating activities | Kassaflöde från den löpande verksamheten |
 | `capex` | Investments in tangible and intangible assets, negative as in the cash flow statement | Investeringar i materiella och immateriella anläggningstillgångar |
 | `free_cash_flow` | Free cash flow, only if the report states it | Fritt kassaflöde |
+
+## Revenue breakdown (`breakdown`)
+
+Optionally, a quarter has `"breakdown"` next to `"values"`: revenue split by `geography` (country or
+region) and by `segment` (business area or industry), amounts in millions, as the report gives them:
+
+```json
+"breakdown": {
+  "geography": {"Sverige": 410, "Norden": 220, "Övrigt": null},
+  "segment": null
+}
+```
+
+- The refill list names missing parts with the keys `breakdown.geography` and `breakdown.segment`.
+  Add only those dimensions, from the saved `source_url`, and only for the quarters on the list.
+- **Reuse the names already stored** for that ticker (look at the latest stored quarter first). A renamed
+  part keeps its old name. A new or merged part gets a new name; never rewrite stored quarters to fit it.
+- Use `null` for a part the report doesn't give that quarter. If the company doesn't report the
+  dimension at all, set the whole dimension to `null` (that means "looked, not reported"). Never estimate,
+  never use 0 for an unknown figure.
+- A remainder the report states ("Övrigt", eliminations) is stored under its own name.
+- `uv run python -m app.backend.validate` checks it: only `geography` and `segment`, names up to 60
+  characters, and when revenue and every part are numbers the sum must be within 2 % of
+  `values.revenue` (at least the number of parts), otherwise a part is wrong or missing.
 
 ## Rules
 

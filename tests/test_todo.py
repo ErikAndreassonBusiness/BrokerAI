@@ -61,6 +61,7 @@ def stored_quarter(period, missing=()):
         "period": period,
         "source_url": f"https://example.com/{period}.pdf",
         "values": values,
+        "breakdown": {"geography": None, "segment": None},
     }
 
 

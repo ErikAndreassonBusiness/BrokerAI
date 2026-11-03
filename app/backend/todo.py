@@ -11,9 +11,10 @@ from itertools import zip_longest
 from pathlib import Path
 
 from app.backend.storage import DATA_DIR, read_json
-from app.backend.validate import LINE_ITEMS
+from app.backend.validate import BREAKDOWN_DIMENSIONS, LINE_ITEMS
 
 HISTORY_START = "2021-Q3"
+BREAKDOWN_DEPTH = 8  # newest quarters per ticker asked for a breakdown
 SUMMARY_CAP = None  # max summaries per run; None = no limit
 
 
@@ -69,6 +70,12 @@ def todo(data_dir: Path = DATA_DIR, total: int = 15, per_company: int = 3) -> li
     return _round_robin(queues, total)
 
 
+def _missing_breakdown(quarter: dict) -> list[str]:
+    """Pseudo keys for the breakdown dimensions that are absent (null means "not reported")."""
+    stored = quarter.get("breakdown", {})
+    return [f"breakdown.{d}" for d in BREAKDOWN_DIMENSIONS if d not in stored]
+
+
 def refill(data_dir: Path = DATA_DIR, total: int = 10) -> list[str]:
     """Stored quarters that lack line items, newest first, with the saved report link."""
     queues = []
@@ -76,8 +83,10 @@ def refill(data_dir: Path = DATA_DIR, total: int = 10) -> list[str]:
         ticker = company["ticker"]
         file = read_json(data_dir / "financials" / f"{ticker}.json", {"quarters": []})
         queue = []
-        for quarter in reversed(file["quarters"]):
+        for age, quarter in enumerate(reversed(file["quarters"])):
             keys = [k for k in LINE_ITEMS if k not in quarter.get("values", {})]
+            if age < BREAKDOWN_DEPTH:
+                keys += _missing_breakdown(quarter)
             if keys:
                 queue.append(
                     f"{ticker} {quarter['period']} | {', '.join(keys)} | {quarter['source_url']}"
