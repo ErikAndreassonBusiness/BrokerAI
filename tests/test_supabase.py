@@ -427,3 +427,56 @@ def test_req_79_9_empty_migrations_folder_is_clean(tmp_path):
     d = tmp_path / "migrations"
     d.mkdir()
     assert check().check_migrations(d) == []
+
+
+# --- Ticker rule edge cases after review (issue #79) ---
+
+TICKER_CHECK = "check (ticker ~ '^[A-Za-z0-9.-]{1,20}$')"
+NO_CHECK = WATCHLIST_SQL.replace(" " + TICKER_CHECK, "")
+
+
+def ticker_missing(out):
+    return any("watchlist" in p and "ticker check is missing" in p for p in out)
+
+
+def test_req_79_8_check_on_another_table_does_not_count(tmp_path):
+    """REQ-79-8: the ticker check must belong to the watchlist table"""
+    other = (
+        "create table public.other (\n"
+        "  user_id uuid not null default auth.uid(),\n"
+        f"  ticker text not null {TICKER_CHECK}\n);\n"
+        "alter table public.other enable row level security;\n"
+        "create policy other_select on public.other for select to authenticated\n"
+        "  using (auth.uid() = user_id);\n"
+    )
+    assert "ticker ~" not in NO_CHECK
+    assert ticker_missing(problems(tmp_path, NO_CHECK + other))
+
+
+def test_req_79_8_check_only_in_a_comment_is_missing(tmp_path):
+    """REQ-79-8: a commented-out check does not count"""
+    sql = f"-- ticker text not null {TICKER_CHECK}\n" + NO_CHECK
+    assert ticker_missing(problems(tmp_path, sql))
+
+
+def test_req_79_8_check_before_not_null_is_accepted(tmp_path):
+    """REQ-79-8: column order does not matter"""
+    sql = WATCHLIST_SQL.replace(
+        f"ticker text not null {TICKER_CHECK}",
+        f"ticker text {TICKER_CHECK} not null",
+    )
+    assert sql != WATCHLIST_SQL
+    assert problems(tmp_path, sql) == []
+
+
+def test_req_79_8_table_level_constraint_is_accepted(tmp_path):
+    """REQ-79-8: a named table constraint is a valid ticker check"""
+    sql = WATCHLIST_SQL.replace(
+        f"ticker text not null {TICKER_CHECK},",
+        "ticker text not null,",
+    ).replace(
+        "primary key (user_id, ticker)",
+        f"primary key (user_id, ticker),\n  constraint watchlist_ticker {TICKER_CHECK}",
+    )
+    assert "constraint watchlist_ticker" in sql
+    assert problems(tmp_path, sql) == []
