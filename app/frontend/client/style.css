@@ -220,3 +220,19 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* CEO letter comparison */
+.ceo-letters .card {
+  margin-top: 12px;
+}
+.ceo-letters .tone-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ceo-letters details {
+  margin-top: 12px;
+}
+.ceo-letters summary {
+  cursor: pointer;
+}

@@ -68,6 +68,7 @@ async function init() {
   }
 
   const summary = await loadSummary(ticker);
+  const letters = await loadLetters(ticker);
 
   document.title = company.name + " – BrokerAI";
   const irUrl = safeUrl(company.ir_url);
@@ -79,7 +80,8 @@ async function init() {
     <h2>Quarterly financials</h2>
     ${renderFinancials(financials)}
     ${renderNews(updates, ticker)}
-    ${renderSummary(summary)}`;
+    ${renderSummary(summary)}
+    ${renderLetters(letters)}`;
 }
 
 // A missing or invalid summary file is not an error: the section just says there is none yet.
@@ -229,6 +231,66 @@ function renderSummary(data) {
     <p class="muted">AI-generated, last updated ${fmtDate(data.updated)}.</p>
     <div class="card"><p>${esc(data.summary)}</p></div>
     <div class="swot">${groups}</div>
+  </section>`;
+}
+
+// CEO letter comparison (AI-generated). A missing or invalid file just hides the section.
+async function loadLetters(ticker) {
+  try {
+    const d = await loadJSON("data/ceo_letters/" + encodeURIComponent(ticker) + ".json", null);
+    const ok = d && Array.isArray(d.comparisons) && d.comparisons.length && d.comparisons.every((c) => c && c.tone);
+    return ok ? d : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function letterList(items) {
+  return items.length ? `<ul>${items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : `<p aria-label="None">–</p>`;
+}
+
+function renderComparison(c) {
+  const url = safeUrl(c.source_url);
+  const link = url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">Report</a>` : "";
+  const dropped = Array.isArray(c.dropped_topics) ? c.dropped_topics : [];
+  const added = Array.isArray(c.new_topics) ? c.new_topics : [];
+  const wording = (Array.isArray(c.changed_wording) ? c.changed_wording : []).map(
+    (w) => `${w.topic}: ${w.before} → ${w.after}`,
+  );
+  return `<div class="card">
+    <div class="label">${esc(c.period)} vs ${esc(c.compared_to)}${link}</div>
+    <p>Tone: ${esc(c.tone.previous)} → ${esc(c.tone.current)}</p>
+    <div class="label">Dropped topics</div>${letterList(dropped)}
+    <div class="label">New topics</div>${letterList(added)}
+    <div class="label">Changed wording</div>${letterList(wording)}
+    <p>${esc(c.summary)}</p>
+  </div>`;
+}
+
+function renderLetterTrend(data) {
+  const t = data.trend;
+  if (!t || typeof t.summary !== "string") return "";
+  const cells = data.comparisons
+    .filter((c) => c.period >= t.from && c.period <= t.to)
+    .sort((a, b) => (a.period < b.period ? -1 : 1))
+    .map((c) => `<span class="tone"><span class="muted">${esc(c.period)}</span> ${esc(c.tone.current)}</span>`)
+    .join("");
+  return `<div class="card"><div class="label">Trend ${esc(t.from)} → ${esc(t.to)}</div>
+    <p>${esc(t.summary)}</p><div class="tone-row">${cells}</div></div>`;
+}
+
+function renderLetters(data) {
+  if (!data) return "";
+  const [latest, ...older] = [...data.comparisons].reverse();
+  const olderHtml = older
+    .map((c) => `<details><summary>${esc(c.period)} vs ${esc(c.compared_to)}</summary>${renderComparison(c)}</details>`)
+    .join("");
+  return `<section class="ai-summary ceo-letters">
+    <h2>CEO letter comparison</h2>
+    <p class="muted">AI-generated</p>
+    ${renderLetterTrend(data)}
+    ${renderComparison(latest)}
+    ${olderHtml}
   </section>`;
 }
 
