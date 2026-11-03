@@ -172,3 +172,23 @@ test("REQ-53-8: the section has no score, rating or recommendation", async () =>
   assert.ok(s.length > TITLE.length, "the section exists");
   assert.ok(!/\b(score|rating|recommend\w*|buy|sell|hold)\b/i.test(s), s);
 });
+
+test("robustness: null entries and missing wording fields do not break the page", async () => {
+  const bad = comparison("2026-Q3", "2026-Q2", {
+    dropped_topics: [null, "Kept topic"],
+    changed_wording: [null, { topic: "T", after: "only after" }],
+  });
+  const { html } = await openStockPage({ ticker: "A.ST", comparisons: [null, bad] });
+  assert.ok(html.includes("Quarterly financials"));
+  const s = section(html);
+  assert.ok(s.includes("Kept topic"));
+  assert.ok(!/undefined|null/.test(s));
+  assert.match(text(s), /–\s*→\s*only after/);
+});
+
+test("ordering: the latest comparison is the newest period, whatever the file order", async () => {
+  const s = section((await openStockPage({ ticker: "A.ST", comparisons: [Q3, Q2] })).html);
+  const older = detailsBlocks(s).find((b) => b.html.includes("Summary 2026-Q2."));
+  assert.ok(older && !older.open);
+  assert.ok(!detailsBlocks(s).some((b) => b.html.includes("Summary 2026-Q3.")));
+});
