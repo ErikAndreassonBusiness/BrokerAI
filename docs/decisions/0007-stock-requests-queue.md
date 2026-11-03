@@ -1,6 +1,6 @@
 # 0007 - Users request new stocks; Erik adds them (request queue)
 
-Status: proposed. Date: 2026-11-03. Needs ADR 0006 (user identity). Replaces an earlier draft of this ADR
+Status: accepted. Date: 2026-11-03. Needs ADR 0006 (user identity). Replaces an earlier draft of this ADR
 (user-provided AI loading with a shared cache), which Erik rejected.
 
 ## Context

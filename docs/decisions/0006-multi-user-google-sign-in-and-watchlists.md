@@ -1,6 +1,6 @@
 # 0006 - Small multi-user site: Google sign-in, invite only, per-user watchlist
 
-Status: proposed. Date: 2026-11-03. Builds on ADR 0002 and 0005. Requesting new stocks is ADR 0007.
+Status: accepted. Date: 2026-11-03. Builds on ADR 0002 and 0005. Requesting new stocks is ADR 0007.
 
 ## Context
 Erik wants a few invited people to use the site. Decided by Erik: (1) sign-in with Google only, replacing
