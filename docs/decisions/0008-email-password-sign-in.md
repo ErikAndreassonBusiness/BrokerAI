@@ -1,6 +1,6 @@
 # 0008 - Sign in with email and password (replaces Google sign-in)
 
-Status: proposed. Date: 2026-11-03. Supersedes the sign-in part of ADR 0006 (Google, OAuth, linking test,
+Status: accepted. Date: 2026-11-03. Supersedes the sign-in part of ADR 0006 (Google, OAuth, linking test,
 Google setup steps). Everything else in 0006 (invite only, `watchlist`, landing page, home page) and ADR
 0005/0007 stands. Issues: #92 (this ADR and README), #93 (forgot password), #81 and #85 change scope.
 
