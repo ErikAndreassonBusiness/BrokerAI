@@ -14,9 +14,7 @@ from app.backend.storage import DATA_DIR, read_json
 from app.backend.validate import BREAKDOWN_DIMENSIONS, LINE_ITEMS
 
 HISTORY_START = "2021-Q3"
-BREAKDOWN_DEPTH = (
-    8  # only the newest quarters per ticker are asked for a revenue breakdown
-)
+BREAKDOWN_DEPTH = 8  # newest quarters per ticker asked for a breakdown
 SUMMARY_CAP = None  # max summaries per run; None = no limit
 
 
