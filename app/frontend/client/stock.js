@@ -238,8 +238,19 @@ function renderSummary(data) {
 async function loadLetters(ticker) {
   try {
     const d = await loadJSON("data/ceo_letters/" + encodeURIComponent(ticker) + ".json", null);
-    const ok = d && Array.isArray(d.comparisons) && d.comparisons.length && d.comparisons.every((c) => c && c.tone);
-    return ok ? d : null;
+    if (!d || !Array.isArray(d.comparisons)) return null;
+    const isObj = (x) => x && typeof x === "object";
+    const strings = (a) => (Array.isArray(a) ? a.filter((x) => typeof x === "string") : []);
+    const comparisons = d.comparisons
+      .filter((c) => isObj(c) && isObj(c.tone) && typeof c.period === "string")
+      .map((c) => ({
+        ...c,
+        dropped_topics: strings(c.dropped_topics),
+        new_topics: strings(c.new_topics),
+        changed_wording: (Array.isArray(c.changed_wording) ? c.changed_wording : []).filter(isObj),
+      }))
+      .sort((a, b) => (a.period < b.period ? -1 : 1));
+    return comparisons.length ? { ...d, comparisons } : null;
   } catch (e) {
     return null;
   }
@@ -252,11 +263,9 @@ function letterList(items) {
 function renderComparison(c) {
   const url = safeUrl(c.source_url);
   const link = url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">Report</a>` : "";
-  const dropped = Array.isArray(c.dropped_topics) ? c.dropped_topics : [];
-  const added = Array.isArray(c.new_topics) ? c.new_topics : [];
-  const wording = (Array.isArray(c.changed_wording) ? c.changed_wording : []).map(
-    (w) => `${w.topic}: ${w.before} → ${w.after}`,
-  );
+  const dropped = c.dropped_topics;
+  const added = c.new_topics;
+  const wording = c.changed_wording.map((w) => `${w.topic ?? "–"}: ${w.before ?? "–"} → ${w.after ?? "–"}`);
   return `<div class="card">
     <div class="label">${esc(c.period)} vs ${esc(c.compared_to)}${link}</div>
     <p>Tone: ${esc(c.tone.previous)} → ${esc(c.tone.current)}</p>
@@ -279,9 +288,17 @@ function renderLetterTrend(data) {
     <p>${esc(t.summary)}</p><div class="tone-row">${cells}</div></div>`;
 }
 
+// Never lets a bad letter file break the page.
 function renderLetters(data) {
-  if (!data) return "";
-  const [latest, ...older] = [...data.comparisons].reverse();
+  try {
+    return data ? renderLettersSection(data) : "";
+  } catch (e) {
+    return "";
+  }
+}
+
+function renderLettersSection(data) {
+  const [latest, ...older] = [...data.comparisons].reverse(); // loadLetters sorts oldest first
   const olderHtml = older
     .map((c) => `<details><summary>${esc(c.period)} vs ${esc(c.compared_to)}</summary>${renderComparison(c)}</details>`)
     .join("");
