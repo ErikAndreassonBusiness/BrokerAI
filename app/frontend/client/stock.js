@@ -81,6 +81,7 @@ async function init() {
     ${renderRevenueCharts(financials)}
     ${renderNews(updates, ticker)}
     ${renderSummary(summary)}`;
+  scrollChartsToNewest(app);
 }
 
 // A missing or invalid summary file is not an error: the section just says there is none yet.
@@ -233,8 +234,6 @@ function renderSummary(data) {
   </section>`;
 }
 
-init();
-
 // Revenue stacked bars by geography and by segment (issue #49). One column per quarter, oldest left.
 const REVENUE_DIMENSIONS = [
   ["geography", "Revenue by geography", "geography"],
@@ -253,32 +252,53 @@ function breakdownParts(quarters, dim) {
   return parts;
 }
 
-function renderBreakdownColumn(fin, q, dim, parts) {
+function breakdownMap(q, dim) {
   const map = q.breakdown && q.breakdown[dim];
-  const has = map && typeof map === "object";
+  return map && typeof map === "object" ? map : null;
+}
+
+function renderBreakdownColumn(fin, q, dim, parts, maxTotal) {
+  const map = breakdownMap(q, dim);
+  const foot = `<div class="rev-label">${esc(q.period)}</div><div class="rev-unit">M${esc(currencyOf(fin, q))}</div>`;
+  if (!map) return `<div class="rev-col"><div class="rev-bar"></div>${foot}</div>`;
+  const total = parts.reduce((t, n) => t + (isNum(map[n]) && map[n] >= 0 ? map[n] : 0), 0);
+  const negatives = [];
   const segs = parts
     .map((name, i) => {
-      const v = has ? map[name] : null;
+      const v = map[name];
       const cls = `rev-seg rev-c${i % 8}`;
-      if (!isNum(v) || v <= 0) return `<div class="${cls} rev-gap" title="${esc(name)}: –">–</div>`;
+      if (!isNum(v)) return `<div class="${cls} rev-gap" title="${esc(name)}: –">–</div>`;
+      if (v < 0) {
+        negatives.push(`${esc(name)}: \u2212${fmtNum(-v)}`);
+        return "";
+      }
       return `<div class="${cls}" style="flex-grow:${v}" title="${esc(name)}: ${fmtNum(v)}">${fmtNum(v)}</div>`;
     })
     .reverse()
     .join("");
-  return `<div class="rev-col"><div class="rev-stack">${segs}</div>
-    <div class="rev-label">${esc(q.period)}</div><div class="rev-unit">M${esc(currencyOf(fin, q))}</div></div>`;
+  const height = maxTotal > 0 ? (total / maxTotal) * 100 : 0;
+  const note = negatives.length ? `<div class="rev-neg">${negatives.join("<br>")}</div>` : "";
+  const title = negatives.length ? ` title="${negatives.join(", ")}"` : "";
+  return `<div class="rev-col"${title}><div class="rev-bar"><div class="rev-stack" style="height:${Math.round(height * 100) / 100}%">${segs}</div></div>${note}${foot}</div>`;
 }
 
 function renderBreakdownChart(fin, dim, title, noun) {
-  const quarters = [...fin.quarters].sort((a, b) => String(a.period).localeCompare(String(b.period)));
+  const sorted = [...fin.quarters].sort((a, b) => String(a.period).localeCompare(String(b.period)));
+  const first = sorted.findIndex((q) => breakdownMap(q, dim));
+  const quarters = first < 0 ? sorted : sorted.slice(first);
   const parts = breakdownParts(quarters, dim);
   let body;
   if (parts.length) {
     const legend = parts
       .map((name, i) => `<span class="rev-key"><span class="rev-swatch rev-c${i % 8}"></span>${esc(name)}</span>`)
       .join("");
-    body = `<div class="rev-legend">${legend}</div>
-      <div class="rev-chart">${quarters.map((q) => renderBreakdownColumn(fin, q, dim, parts)).join("")}</div>`;
+    const totals = quarters.map((q) => {
+      const map = breakdownMap(q, dim);
+      return map ? parts.reduce((t, n) => t + (isNum(map[n]) && map[n] >= 0 ? map[n] : 0), 0) : 0;
+    });
+    const maxTotal = Math.max(...totals);
+    body = `<div class="rev-legend">${legend}</div><p class="muted">– = not reported</p>
+      <div class="rev-chart">${quarters.map((q) => renderBreakdownColumn(fin, q, dim, parts, maxTotal)).join("")}</div>`;
   } else if (quarters.some((q) => q.breakdown && q.breakdown[dim] === null)) {
     body = `<p class="muted">The company does not report revenue by ${noun}.</p>`;
   } else {
@@ -292,3 +312,11 @@ function renderRevenueCharts(fin) {
     renderBreakdownChart(fin, dim, title, noun),
   ).join("")}</section>`;
 }
+
+// The charts are wider than the screen on a phone: show the newest quarters first.
+function scrollChartsToNewest(root) {
+  if (!root.querySelectorAll) return;
+  for (const el of root.querySelectorAll(".rev-chart")) el.scrollLeft = el.scrollWidth;
+}
+
+init();
