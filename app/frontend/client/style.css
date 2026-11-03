@@ -221,6 +221,22 @@ tbody tr:hover {
   }
 }
 
+/* CEO letter comparison */
+.ceo-letters .card {
+  margin-top: 12px;
+}
+.ceo-letters .tone-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ceo-letters details {
+  margin-top: 12px;
+}
+.ceo-letters summary {
+  cursor: pointer;
+}
+
 /* Revenue breakdown charts (issue #49) */
 .rev-section { margin-top: 2rem; }
 .rev-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0.5rem 0 0; font-size: 0.85rem; }

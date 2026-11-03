@@ -68,6 +68,7 @@ async function init() {
   }
 
   const summary = await loadSummary(ticker);
+  const letters = await loadLetters(ticker);
 
   document.title = company.name + " – BrokerAI";
   const irUrl = safeUrl(company.ir_url);
@@ -80,7 +81,8 @@ async function init() {
     ${renderFinancials(financials)}
     ${renderRevenueCharts(financials)}
     ${renderNews(updates, ticker)}
-    ${renderSummary(summary)}`;
+    ${renderSummary(summary)}
+    ${renderLetters(letters)}`;
   scrollChartsToNewest(app);
 }
 
@@ -231,6 +233,83 @@ function renderSummary(data) {
     <p class="muted">AI-generated, last updated ${fmtDate(data.updated)}.</p>
     <div class="card"><p>${esc(data.summary)}</p></div>
     <div class="swot">${groups}</div>
+  </section>`;
+}
+
+// CEO letter comparison (AI-generated). A missing or invalid file just hides the section.
+async function loadLetters(ticker) {
+  try {
+    const d = await loadJSON("data/ceo_letters/" + encodeURIComponent(ticker) + ".json", null);
+    if (!d || !Array.isArray(d.comparisons)) return null;
+    const isObj = (x) => x && typeof x === "object";
+    const strings = (a) => (Array.isArray(a) ? a.filter((x) => typeof x === "string") : []);
+    const comparisons = d.comparisons
+      .filter((c) => isObj(c) && isObj(c.tone) && typeof c.period === "string")
+      .map((c) => ({
+        ...c,
+        dropped_topics: strings(c.dropped_topics),
+        new_topics: strings(c.new_topics),
+        changed_wording: (Array.isArray(c.changed_wording) ? c.changed_wording : []).filter(isObj),
+      }))
+      .sort((a, b) => (a.period < b.period ? -1 : 1));
+    return comparisons.length ? { ...d, comparisons } : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function letterList(items) {
+  return items.length ? `<ul>${items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : `<p aria-label="None">–</p>`;
+}
+
+function renderComparison(c) {
+  const url = safeUrl(c.source_url);
+  const link = url ? ` <a href="${esc(url)}" target="_blank" rel="noopener">Report</a>` : "";
+  const dropped = c.dropped_topics;
+  const added = c.new_topics;
+  const wording = c.changed_wording.map((w) => `${w.topic ?? "–"}: ${w.before ?? "–"} → ${w.after ?? "–"}`);
+  return `<div class="card">
+    <div class="label">${esc(c.period)} vs ${esc(c.compared_to)}${link}</div>
+    <p>Tone: ${esc(c.tone.previous)} → ${esc(c.tone.current)}</p>
+    <div class="label">Dropped topics</div>${letterList(dropped)}
+    <div class="label">New topics</div>${letterList(added)}
+    <div class="label">Changed wording</div>${letterList(wording)}
+    <p>${esc(c.summary)}</p>
+  </div>`;
+}
+
+function renderLetterTrend(data) {
+  const t = data.trend;
+  if (!t || typeof t.summary !== "string") return "";
+  const cells = data.comparisons
+    .filter((c) => c.period >= t.from && c.period <= t.to)
+    .sort((a, b) => (a.period < b.period ? -1 : 1))
+    .map((c) => `<span class="tone"><span class="muted">${esc(c.period)}</span> ${esc(c.tone.current)}</span>`)
+    .join("");
+  return `<div class="card"><div class="label">Trend ${esc(t.from)} → ${esc(t.to)}</div>
+    <p>${esc(t.summary)}</p><div class="tone-row">${cells}</div></div>`;
+}
+
+// Never lets a bad letter file break the page.
+function renderLetters(data) {
+  try {
+    return data ? renderLettersSection(data) : "";
+  } catch (e) {
+    return "";
+  }
+}
+
+function renderLettersSection(data) {
+  const [latest, ...older] = [...data.comparisons].reverse(); // loadLetters sorts oldest first
+  const olderHtml = older
+    .map((c) => `<details><summary>${esc(c.period)} vs ${esc(c.compared_to)}</summary>${renderComparison(c)}</details>`)
+    .join("");
+  return `<section class="ai-summary ceo-letters">
+    <h2>CEO letter comparison</h2>
+    <p class="muted">AI-generated</p>
+    ${renderLetterTrend(data)}
+    ${renderComparison(latest)}
+    ${olderHtml}
   </section>`;
 }
 
