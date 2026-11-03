@@ -1,6 +1,6 @@
 # 0004 - CEO letter ("VD har ordet"): local text, committed comparison (issue #51)
 
-Status: proposed. Date: 2026-11-03.
+Status: accepted. Date: 2026-11-03.
 
 ## Context
 Erik wants to see how the CEO's tone and topics change from quarter to quarter. Erik's decision: the full
@@ -25,8 +25,13 @@ Option 2.
   source_url, tone: {previous, current}, dropped_topics[], new_topics[], changed_wording: [{topic,
   before, after}], summary} ]}`. `tone` is negative/neutral/positive. Limits: topics max 6 each and 40
   chars; wording `before`/`after` max 6 words; `summary` max 300 chars (own words). No quote longer than
-  6 words. Erik commits it in a normal PR, so `tests.yml` runs.
-- **validate.py:** checks the limits and enums above; `period` and `compared_to` exist in the ticker's
+  6 words. Comparisons are appended and never rewritten, so the file keeps the history of how the letters
+  changed. A `trend` block, `{from, to, summary}` (max 300 chars, own words), describes how tone and topics
+  moved over the newest 8 comparisons (about two years). It is rewritten at each run from the stored
+  comparisons, not from old letter texts, so older `.txt` files are not needed for it. Erik commits it in a
+  normal PR, so `tests.yml` runs.
+- **validate.py:** checks the limits and enums above (including `trend`: `from` and `to` are stored
+  comparison periods, `from` before `to`); `period` and `compared_to` exist in the ticker's
   financials with `compared_to` earlier; `source_url` equals the stored one; and fails if `git ls-files
   private` returns anything (the repo-side guard against committing the text). It cannot see the full
   text, so quote length limits are the check.
@@ -34,7 +39,8 @@ Option 2.
   `reports.yml`'s `git add`, so the agent neither writes nor commits it.
 - **Site (#53):** a section "VD-brev, jämförelse" on the stock page, labelled AI-generated, with the
   latest comparison: tone before → now, dropped/new topics, wording changes as `bra → mycket starkt`, link
-  to the report. Older comparisons collapsed. Hidden when no file exists. No letter text.
+  to the report. The trend summary for the period above it, and tone per
+  quarter over the period as a simple row. Older comparisons collapsed. Hidden when no file exists. No letter text.
 
 ## Consequences
 - Manual per quarter; a quarter without a local run simply has no comparison. Erik's text goes to

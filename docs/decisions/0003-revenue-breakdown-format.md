@@ -1,6 +1,6 @@
 # 0003 - Revenue by geography and by segment: data format and refill (issue #47)
 
-Status: proposed. Date: 2026-11-03.
+Status: accepted. Date: 2026-11-03.
 
 ## Context
 Erik wants revenue per quarter split by geography and by segment/industry (charts in #49). Today
@@ -43,7 +43,8 @@ Option 3. Per quarter:
 
 ## Consequences
 - `AGENT.md`, `validate.py` and `todo.py` change in the same PR (#48) so they cannot drift. Existing
-  quarters have no `breakdown`, so the first refill runs list every quarter, newest first, capped as now.
+  quarters have no `breakdown`, so the breakdown refill only lists the newest 8 quarters per ticker (a named constant in `todo.py`,
+  `BREAKDOWN_DEPTH = 8`), newest first, capped as now. Older quarters stay without a breakdown.
 - Harder: name drift is handled by agent instructions, not code; the sum check is the safety net.
 - Follow-ups: #48 implements the above (fixtures for sum-ok, sum-off, null dimension); #49 reads the
   maps; no change to #50.
