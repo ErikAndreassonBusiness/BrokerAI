@@ -84,6 +84,29 @@
     }
   }
 
+  const SIGN_IN_ERRORS = {
+    otp_disabled: "No account for this email.",
+    user_not_found: "No account for this email.",
+    over_email_send_rate_limit: "Too many links sent. Try again later.",
+    email_address_not_authorized: "The email service can't send to this address.",
+  };
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function signInErrorNote(e) {
+    const code = e && e.code;
+    const known = (code && SIGN_IN_ERRORS[code]) || (e && e.status === 429 && SIGN_IN_ERRORS.over_email_send_rate_limit);
+    if (known) return escapeHtml(known);
+    return escapeHtml("Could not send the link. Try again." + (code ? " (" + code + ")" : ""));
+  }
+
   async function signIn(email) {
     try {
       if (!client) throw new Error("unavailable");
@@ -97,7 +120,7 @@
       if (error) throw error;
       setControl('<span class="auth-note">Check your email: a sign-in link was sent.</span>');
     } catch (e) {
-      setControl(signedOutHtml("Could not send the link. Try again."));
+      setControl(signedOutHtml(signInErrorNote(e)));
     }
   }
 
