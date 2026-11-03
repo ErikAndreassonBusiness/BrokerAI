@@ -223,3 +223,36 @@ def test_req_56_9_reports_workflow_has_no_supabase_access():
     """REQ-56-9"""
     text = (ROOT / ".github" / "workflows" / "reports.yml").read_text().lower()
     assert "supabase" not in text and "service" + "_role" not in text
+
+
+# --- Scan hardening ---
+
+
+def test_req_56_8_uppercase_variants_fail(tmp_path):
+    """REQ-56-8: matching is case-insensitive"""
+    assert scan(tmp_path, {"a.txt": "SERVICE" + "_ROLE"})
+    assert scan(tmp_path, {"b.txt": "SB_" + "SECRET_" + "x"})
+
+
+def test_req_56_8_jwt_with_odd_header_fails(tmp_path):
+    """REQ-56-8: a header that does not start with eyJ is still caught"""
+    token = "eyAi" + "x" * 12 + "." + b64({"role": "anon"}) + ".c2ln" * 3
+    assert scan(tmp_path, {"app/other.js": "k = '" + token + "'"})
+
+
+def test_req_56_8_non_dict_jwt_payload_in_config_fails(tmp_path):
+    """REQ-56-8: an undecodable or non-object payload is not an anon key"""
+    for payload in (b64([1, 2]), "ey" + "A" * 12):
+        token = ".".join([b64({"alg": "HS256"}), payload, "c2ln" * 5])
+        cfg = "window.CONFIG = { anonKey: '" + token + "' };"
+        assert scan(tmp_path, {CONFIG: cfg}), payload
+
+
+def test_req_56_8_plain_word_only_allowed_in_docs(tmp_path):
+    """REQ-56-8: the word may appear in docs, nowhere else"""
+    word = "service" + "_role"
+    docs = ("supabase/README.md", "docs/decisions/x.md", ".claude/agent-memory/a/m.md")
+    for ok in docs:
+        assert scan(tmp_path, {ok: word}) == [], ok
+    for bad in ("README.md", "app/notes.md", "tests/x.py", "a.txt"):
+        assert scan(tmp_path, {bad: word}), bad
