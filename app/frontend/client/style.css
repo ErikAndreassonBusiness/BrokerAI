@@ -220,3 +220,26 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* Revenue breakdown charts (issue #49) */
+.rev-section { margin-top: 2rem; }
+.rev-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0.5rem 0 0; font-size: 0.85rem; }
+.rev-key { white-space: nowrap; }
+.rev-swatch { display: inline-block; width: 0.8rem; height: 0.8rem; margin-right: 0.35rem; border-radius: 2px; }
+.rev-chart { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; }
+.rev-col { flex: 1 0 4.5rem; display: flex; flex-direction: column; text-align: center; }
+.rev-bar { height: 14rem; display: flex; flex-direction: column; justify-content: flex-end; }
+.rev-stack { display: flex; flex-direction: column; gap: 1px; }
+.rev-seg { flex: 0 1 auto; min-height: 1.1rem; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; overflow: hidden; }
+.rev-neg { font-size: 0.7rem; color: var(--muted); }
+.rev-label { margin-top: 0.25rem; font-size: 0.8rem; }
+.rev-unit { font-size: 0.7rem; color: var(--muted); }
+.rev-c0 { background: #2468bd; }
+.rev-c1 { background: #a85514; }
+.rev-c2 { background: #0a7d3b; }
+.rev-c3 { background: #8a4fc7; }
+.rev-c4 { background: #b0307a; }
+.rev-c5 { background: #167373; }
+.rev-c6 { background: #756716; }
+.rev-c7 { background: #7a4a2e; }
+.rev-seg.rev-gap { flex-grow: 0; background: var(--surface-2); color: var(--muted); border: 1px dashed var(--border); min-height: 1.1rem; }
