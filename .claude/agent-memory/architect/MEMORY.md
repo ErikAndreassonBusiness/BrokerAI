@@ -1,1 +1,1 @@
-- [Architecture decisions](architecture-decisions.md) — ADRs 0001 (#41 summaries) and 0002 (#44 Supabase), in docs/decisions/
+- [Architecture decisions](architecture-decisions.md) — ADRs 0001-0008 summaries; 0008 (#92) = email+password sign-in, replaces Google in 0006
