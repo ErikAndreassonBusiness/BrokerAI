@@ -35,6 +35,15 @@ API endpoints: `/api/companies`, `/api/quotes/{ticker}` (live from Yahoo) and
 - **Tests** (`.github/workflows/tests.yml`): ruff, pytest and data validation on every pull request,
   the report agent's included (`reports.yml` starts it there), and before every site publish.
 
+## CEO-letter comparison (local)
+
+The letter text stays on your Mac in `private/` (gitignored); only a small comparison is committed.
+
+1. `uv run python -m app.backend.letters fetch <ticker> <period>` saves the report to `private/reports/`.
+2. Ask Claude Code to compare the CEO letter with the previous quarter and write `data/ceo_letters/<ticker>.json`.
+3. `uv run python -m app.backend.validate` must pass.
+4. Commit only `data/ceo_letters/` in a normal PR.
+
 ## One-time setup
 
 1. **Pages**: repo → Settings → Pages → Source: _GitHub Actions_.
