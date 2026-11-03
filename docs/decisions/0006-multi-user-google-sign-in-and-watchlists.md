@@ -1,6 +1,6 @@
 # 0006 - Small multi-user site: Google sign-in, invite only, per-user watchlist
 
-Status: proposed. Date: 2026-11-03. Builds on ADR 0002 and 0005. Phase 2 (user-loaded stocks) is ADR 0007.
+Status: proposed. Date: 2026-11-03. Builds on ADR 0002 and 0005. Requesting new stocks is ADR 0007.
 
 ## Context
 Erik wants a few invited people to use the site. Decided by Erik: (1) sign-in with Google only, replacing
@@ -52,23 +52,28 @@ C. Invite emails from Supabase: rejected, the built-in mailer cannot reach non-t
 - **CI:** `app/backend/supabase_check.py` rules from ADR 0005 already cover the new file (RLS, select
   policy, `auth.uid() = user_id`); add one test that `watchlist` has no update policy and one for the
   ticker check. JS tests for `auth.js` are rewritten (OAuth call, error-in-URL message, signed-out page).
-- **Signed out:** `index.html` and `stock.html` show only the "Sign in with Google" page and load no
+- **Signed out:** `index.html` and `stock.html` show a designed landing and sign-in page (Erik finds the
+  current one too plain; the designer picks the look) with "Sign in with Google", and load no
   `data/*.json` (a UX gate, not security: the files stay reachable by URL, as accepted). If Supabase is
-  unreachable, they show "Unavailable right now" and no stocks. This replaces ADR 0002's "rest of the
-  site works from `data/`".
-- **Signed in:** the overview lists `companies.json` filtered by the user's watchlist, with an
-  add/remove control over the tickers not yet followed, and filters the news to followed tickers
-  (if the `updates.json` entries carry tickers; check in the issue). An empty list shows a short prompt.
-  Any ticker in `companies.json` can be opened on its stock page (shared data). Erik's current stocks are
-  seeded once by a SQL insert for his user id, not committed.
-- **Which tickers:** only those already in `companies.json`, which Erik curates through PRs. Each added
-  ticker increases the weekly agent's work and the nightly price fetch.
+  unreachable, the same page shows a short "Unavailable right now" message. This replaces ADR 0002's
+  "rest of the site works from `data/`".
+- **Signed in:** a personal home page (designer picks the design). It lists `companies.json` filtered by
+  the user's watchlist, with a clear way to add stocks from the site's list and to remove them, and
+  filters the news to followed tickers (if the `updates.json` entries carry tickers; check in the
+  issue). New users start with an **empty** watchlist, so the empty state is the first thing they see and
+  must make adding stocks obvious. Any ticker in `companies.json` can be opened on its stock page
+  (shared data). Erik's current stocks are seeded once by a SQL insert for his user id, not committed.
+- **Which tickers:** only those already in `companies.json`, which Erik curates through PRs (users can ask
+  for more, see ADR 0007). Each added ticker increases the weekly agent's work and the nightly price
+  fetch.
+- **Scale:** a few users (2-10). Erik invites each one by creating the user in the dashboard; there is no
+  in-site invite tool.
 
 ## Consequences
-- Supabase becomes a hard dependency of the whole site (outage or free-tier pause = no stocks shown).
-  Erik accepted the pause policy in ADR 0002; the effect is now larger.
-- Privacy is between users. Erik, as project owner, can read every row in the dashboard; say so to
-  invitees.
+- Supabase becomes a hard dependency of the whole site: an outage or free-tier pause means no stocks for
+  anyone. Erik accepts this; the page then shows the landing page with an "unavailable" message.
+- Privacy is between users. Known fact: Erik, as project owner, can read every user's rows (watchlists,
+  valuations, customers, notes) in the dashboard.
 - `.github/` is untouched, `AGENT.md`, `validate.py`, `todo.py` and `reports.yml` are unaffected.
 - Follow-up issues: (1) Google/invite setup and manual tests; (2) `watchlist` migration and CI test;
   (3) `auth.js` Google flow and tests; (4) sign-in page and signed-out gate; (5) watchlist UI on the
@@ -81,7 +86,4 @@ C. Invite emails from Supabase: rejected, the built-in mailer cannot reach non-t
 - Public repo: no Google client secret, project ref notes or invitee addresses in files or issues.
 
 ## Open questions for Erik
-1. Is it acceptable that Supabase down or paused means no stocks at all for everyone?
-2. You can read every user's rows in the dashboard. Are you fine with that, and will you tell invitees?
-3. Should new users start empty, or with a suggested set of stocks?
-4. Roughly how many people (decides whether the weekly agent budget in `reports.yml` still fits)?
+None left; the earlier ones are answered and folded into the sections above.
