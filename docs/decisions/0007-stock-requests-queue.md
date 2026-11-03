@@ -20,9 +20,11 @@ C. Users email or message Erik outside the site: no code, but no status for the 
   `user_id uuid not null default auth.uid()`, `ticker text not null` (check `^[A-Za-z0-9.-]{1,20}$`,
   Yahoo format such as `VOLV-B.ST`), `name text not null default ''` (free text help for Erik),
   `status text not null default 'requested'` (check: `requested`, `approved`, `rejected`, `added`),
+  `reason text not null default ''` (Erik's short note, shown to the user when rejected),
   `created_at timestamptz default now()`; unique on `(user_id, lower(ticker))`.
 - **RLS:** on; policies `to authenticated` with `auth.uid() = user_id`: select own rows, insert with check
-  that also forces `status = 'requested'`. No update, no delete, no `anon`. Users cannot change a status.
+  that also forces `status = 'requested'` and `reason = ''`. No update, no delete, no `anon`. Users cannot
+  change a status or a reason.
 - **Site:** on the personal home page (ADR 0006) a "Request a stock" form (ticker, optional name) and a
   short list of the user's own requests with their status. The form refuses tickers already in
   `companies.json` (it offers to add them to the watchlist instead). The site cannot verify a ticker
@@ -31,7 +33,7 @@ C. Users email or message Erik outside the site: no code, but no status for the 
   As project owner he bypasses RLS, reads all requests, and edits `status`. No `is_admin` column, no
   admin page, no `service_role` key anywhere. For 2-10 users this is all that is needed; an in-site
   admin view can be added later if volume grows (it would need an `is_admin` check in RLS and its own ADR).
-- **Flow:** user requests -> Erik reviews in the dashboard, sets `approved` or `rejected` -> for approved
+- **Flow:** user requests -> Erik reviews in the dashboard, sets `approved`, or `rejected` with a `reason` -> for approved
   ones he adds the ticker, name, currency and `ir_url` to `companies.json` by PR (verifying the ticker
   by fetching it) -> after merge he sets `added` -> the Sunday agent loads the reports as today, and the
   nightly build adds prices. The stock then appears in every user's picker. Expect up to about a week
@@ -39,8 +41,8 @@ C. Users email or message Erik outside the site: no code, but no status for the 
   the Sunday run).
 - **CI:** the ADR 0005 rules in `supabase_check.py` already cover the file (RLS, select policy,
   `auth.uid() = user_id`). Add tests that `stock_requests` has no update or delete policy and that the
-  insert policy forces `status = 'requested'`, plus JS tests for the form and the empty and unavailable
-  states.
+  insert policy forces `status = 'requested'` and an empty `reason`, plus JS tests for the form, the
+  rejected reason (shown escaped) and the empty and unavailable states.
 - **Unchanged:** `.github/`, `reports.yml`, `AGENT.md`, `validate.py`, `todo.py`. The agent never reads
   Supabase and gets no secret.
 
@@ -67,9 +69,8 @@ Revisit only if the number of users or requests makes manual adding a real burde
 
 ## Risks for planning
 - Requests pile up unseen if Erik does not look at the dashboard; the user only sees "requested".
-- A user may type a wrong or non-Yahoo ticker; Erik rejects it, and the status tells the user.
+- A user may type a wrong or non-Yahoo ticker; Erik rejects it, and the status and reason tell the user.
 - Public repo: no ticker lists tied to users, no invitee addresses in files or issues.
 
 ## Open questions for Erik
-None blocking. Optional: should a rejected request show a short reason to the user (needs one extra
-`reason` column that you fill in the dashboard)?
+None. Erik chose to show a reason on rejected requests (the `reason` column above).
