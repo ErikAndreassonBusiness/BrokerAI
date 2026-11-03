@@ -4,11 +4,14 @@ Usage: uv run python -m app.backend.validate
 """
 
 import re
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
 
 from app.backend.storage import DATA_DIR, read_json
+
+ROOT = Path(__file__).resolve().parents[2]
 
 LINE_ITEMS = [
     "revenue",
@@ -293,6 +296,137 @@ def _check_summary(path: Path, summary_file) -> list[str]:
     return errors
 
 
+TONES = {"negative", "neutral", "positive"}
+MAX_TOPICS = 6
+MAX_TOPIC_CHARS = 40
+MAX_WORDING_WORDS = 6
+MAX_LETTER_SUMMARY_CHARS = 300
+
+
+def tracked_private_files(repo_root: Path = ROOT) -> list[str]:
+    result = subprocess.run(
+        ["git", "ls-files", "private"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return result.stdout.splitlines()
+
+
+def _check_topics(at: str, key: str, topics) -> list[str]:
+    if not isinstance(topics, list):
+        return [f"{at}: {key} must be a list"]
+    errors = []
+    if len(topics) > MAX_TOPICS:
+        errors.append(f"{at}: {key} has more than {MAX_TOPICS} topics")
+    if any(not isinstance(t, str) or len(t) > MAX_TOPIC_CHARS for t in topics):
+        errors.append(
+            f"{at}: topics in {key} must be text of max {MAX_TOPIC_CHARS} chars"
+        )
+    return errors
+
+
+def _check_wording(at: str, changes) -> list[str]:
+    if not isinstance(changes, list):
+        return [f"{at}: changed_wording must be a list"]
+    errors = []
+    if len(changes) > MAX_TOPICS:
+        errors.append(f"{at}: changed_wording has more than {MAX_TOPICS} entries")
+    for change in changes:
+        if not isinstance(change, dict):
+            errors.append(f"{at}: each changed_wording entry must be an object")
+            continue
+        for field in ("topic", "before", "after"):
+            text = change.get(field)
+            if not isinstance(text, str) or not text:
+                errors.append(f"{at}: changed_wording needs text in {field}")
+            elif field != "topic" and len(text.split()) > MAX_WORDING_WORDS:
+                errors.append(
+                    f"{at}: changed_wording {field} is over {MAX_WORDING_WORDS} words"
+                )
+    return errors
+
+
+def _check_letter_summary(at: str, summary) -> list[str]:
+    if not isinstance(summary, str) or not summary:
+        return [f"{at}: summary must be text"]
+    if len(summary) > MAX_LETTER_SUMMARY_CHARS:
+        return [f"{at}: summary is over {MAX_LETTER_SUMMARY_CHARS} chars"]
+    return []
+
+
+def _check_comparison(at: str, comparison, quarters: dict) -> list[str]:
+    errors = []
+    period, compared_to = comparison.get("period"), comparison.get("compared_to")
+    for field, value in (("period", period), ("compared_to", compared_to)):
+        if value not in quarters:
+            errors.append(f"{at}: {field} {value!r} not in financials")
+    if period in quarters and compared_to in quarters and not compared_to < period:
+        errors.append(f"{at}: compared_to must be earlier than period")
+    if period in quarters and comparison.get("source_url") != quarters[period]:
+        errors.append(f"{at}: source_url differs from the stored quarter")
+    tone = comparison.get("tone")
+    if not isinstance(tone, dict) or any(
+        tone.get(k) not in TONES for k in ("previous", "current")
+    ):
+        errors.append(f"{at}: tone previous/current must be one of {sorted(TONES)}")
+    errors += _check_topics(at, "dropped_topics", comparison.get("dropped_topics"))
+    errors += _check_topics(at, "new_topics", comparison.get("new_topics"))
+    errors += _check_wording(at, comparison.get("changed_wording"))
+    return errors + _check_letter_summary(at, comparison.get("summary"))
+
+
+def _check_trend(at: str, trend, periods: set) -> list[str]:
+    if not isinstance(trend, dict):
+        return [f"{at}: trend must be an object"]
+    errors = []
+    start, end = trend.get("from"), trend.get("to")
+    for field, value in (("from", start), ("to", end)):
+        if value not in periods:
+            errors.append(f"{at}: trend {field} {value!r} is not a comparison period")
+    if start in periods and end in periods and not start < end:
+        errors.append(f"{at}: trend from must be strictly before to")
+    return errors + _check_letter_summary(f"{at} trend", trend.get("summary"))
+
+
+def _check_ceo_letters(path: Path, letters, financials) -> list[str]:
+    name = f"ceo_letters/{path.name}"
+    errors = []
+    if letters.get("ticker") != path.stem:
+        errors.append(f"{name}: ticker must match the file name")
+    quarters = {
+        q.get("period"): q.get("source_url")
+        for q in (financials or {}).get("quarters", [])
+    }
+    comparisons = letters.get("comparisons")
+    if not isinstance(comparisons, list):
+        return errors + [f"{name}: comparisons must be a list"]
+    for i, c in enumerate(comparisons):
+        if not isinstance(c, dict):
+            errors.append(f"{name}: comparison {i} must be an object")
+            continue
+        errors += _check_comparison(f"{name} {c.get('period')}", c, quarters)
+    trend = letters.get("trend")
+    if trend is not None:
+        periods = {c.get("period") for c in comparisons if isinstance(c, dict)}
+        errors += _check_trend(name, trend, periods)
+    elif len(comparisons) >= 2:
+        errors.append(f"{name}: trend is required from 2 comparisons")
+    return errors
+
+
+def _check_all_ceo_letters(data_dir: Path) -> list[str]:
+    errors = []
+    for path in sorted((data_dir / "ceo_letters").glob("*.json")):
+        financials = read_json(data_dir / "financials" / path.name)
+        errors += _check_ceo_letters(path, read_json(path), financials)
+    return errors + [
+        f"{p}: ceo_letters text must not be tracked by git (private/)"
+        for p in tracked_private_files()
+    ]
+
+
 def validate(data_dir: Path = DATA_DIR) -> list[str]:
     """Returns a list of problems; empty means everything is valid."""
     errors, tickers = _check_companies(read_json(data_dir / "companies.json", []))
@@ -304,6 +438,7 @@ def validate(data_dir: Path = DATA_DIR) -> list[str]:
     for path in sorted((data_dir / "summaries").glob("*.json")):
         errors += _check_summary(path, read_json(path))
     errors += _check_updates(read_json(data_dir / "updates.json", []), tickers)
+    errors += _check_all_ceo_letters(data_dir)
     return errors
 
 
