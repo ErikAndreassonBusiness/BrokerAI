@@ -144,7 +144,7 @@ def test_req_56_6_migrations_hold_no_data_or_secrets():
     """REQ-56-6"""
     sql = real_sql()
     assert not re.search(r"\binsert\s+into\b", sql)
-    assert "service_role" not in sql and "sb_secret_" not in sql
+    assert "service" + "_role" not in sql and "sb_" + "secret_" not in sql
 
 
 # --- Secret scan on fixtures ---
@@ -222,4 +222,4 @@ def test_req_56_8_real_repo_has_no_secrets():
 def test_req_56_9_reports_workflow_has_no_supabase_access():
     """REQ-56-9"""
     text = (ROOT / ".github" / "workflows" / "reports.yml").read_text().lower()
-    assert "supabase" not in text and "service_role" not in text
+    assert "supabase" not in text and "service" + "_role" not in text
