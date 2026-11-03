@@ -259,3 +259,52 @@ tbody tr:hover {
 .rev-c6 { background: #756716; }
 .rev-c7 { background: #7a4a2e; }
 .rev-seg.rev-gap { flex-grow: 0; background: var(--surface-2); color: var(--muted); border: 1px dashed var(--border); min-height: 1.1rem; }
+
+/* Sign-in control (header #auth) */
+.top .auth {
+  flex: 1 1 14rem;
+}
+.auth-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1 1 100%;
+}
+.auth input,
+.auth button {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 12px;
+}
+.auth input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  font-size: 16px;
+}
+.auth input::placeholder {
+  color: var(--text-2);
+}
+.auth button {
+  cursor: pointer;
+}
+.auth button:hover {
+  background: var(--surface-2);
+}
+.auth button:focus-visible {
+  outline: 2px solid var(--link);
+}
+.auth-note {
+  flex-basis: 100%;
+  color: var(--text-2);
+  font-size: 13px;
+}
+@media (max-width: 640px) {
+  .auth input,
+  .auth button {
+    min-height: 44px;
+  }
+}

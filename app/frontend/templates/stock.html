@@ -10,6 +10,7 @@
   <body>
     <header class="top">
       <a class="brand" href="./">BrokerAI</a>
+      <div id="auth" class="auth" aria-live="polite"></div>
     </header>
     <main id="app" aria-live="polite">
       <p class="muted">Loading…</p>
@@ -21,6 +22,10 @@
     </footer>
     <script src="client/common.js"></script>
     <script src="client/metrics.js"></script>
+    <script src="client/vendor/supabase.js"></script>
+    <script src="client/config.js"></script>
+    <script src="client/auth.js"></script>
+    <script>BrokerAuth.init();</script>
     <script src="client/stock.js"></script>
   </body>
 </html>
