@@ -27,7 +27,13 @@ def b64(obj):
 
 
 def jwt(role):
-    return ".".join([b64({"alg": "HS256", "typ": "JWT"}), b64({"role": role, "iss": "supabase"}), "c2ln" * 5])
+    return ".".join(
+        [
+            b64({"alg": "HS256", "typ": "JWT"}),
+            b64({"role": role, "iss": "supabase"}),
+            "c2ln" * 5,
+        ]
+    )
 
 
 GOOD_SQL = """
@@ -72,7 +78,9 @@ def test_req_56_7_table_without_rls_fails_and_is_named(tmp_path):
 
 def test_req_56_2_disable_rls_fails(tmp_path):
     """REQ-56-2"""
-    out = problems(tmp_path, GOOD_SQL + "alter table public.things disable row level security;")
+    out = problems(
+        tmp_path, GOOD_SQL + "alter table public.things disable row level security;"
+    )
     assert out
 
 
@@ -85,19 +93,28 @@ def test_req_56_3_table_without_select_policy_fails(tmp_path):
 
 def test_req_56_4_policy_to_anon_fails(tmp_path):
     """REQ-56-4"""
-    sql = GOOD_SQL + "create policy p on public.things for select to anon using (auth.uid() = user_id);"
+    sql = (
+        GOOD_SQL
+        + "create policy p on public.things for select to anon using (auth.uid() = user_id);"
+    )
     assert problems(tmp_path, sql)
 
 
 def test_req_56_4_using_true_fails(tmp_path):
     """REQ-56-4"""
-    sql = GOOD_SQL + "create policy p on public.things for select to authenticated using (true);"
+    sql = (
+        GOOD_SQL
+        + "create policy p on public.things for select to authenticated using (true);"
+    )
     assert problems(tmp_path, sql)
 
 
 def test_req_56_3_policy_without_uid_match_fails(tmp_path):
     """REQ-56-3"""
-    sql = GOOD_SQL + "create policy p on public.things for delete to authenticated using (ticker = 'A.ST');"
+    sql = (
+        GOOD_SQL
+        + "create policy p on public.things for delete to authenticated using (ticker = 'A.ST');"
+    )
     assert problems(tmp_path, sql)
 
 
@@ -123,7 +140,11 @@ def test_req_56_1_tables_exist_with_key_columns():
     """REQ-56-1"""
     sql = real_sql()
     for table in ("valuations", "customers", "notes"):
-        m = re.search(rf"create table (?:if not exists )?(?:public\.)?{table}\s*\((.*?)\n\);", sql, re.DOTALL)
+        m = re.search(
+            rf"create table (?:if not exists )?(?:public\.)?{table}\s*\((.*?)\n\);",
+            sql,
+            re.DOTALL,
+        )
         assert m, table
         body = m.group(1)
         for col in ("user_id", "ticker", "created_at"):
@@ -160,7 +181,7 @@ def scan(tmp_path, files):
     return check().scan_secrets(tmp_path, names)
 
 
-def test_req_56_8_service_role_fails_and_names_file(tmp_path):
+def test_req_56_8_service_key_fails_and_names_file(tmp_path):
     """REQ-56-8"""
     out = scan(tmp_path, {"notes.txt": "key = " + "service" + "_role"})
     assert out and any("notes.txt" in p for p in out)
@@ -180,7 +201,11 @@ def test_req_56_8_jwt_outside_config_fails(tmp_path):
 
 def test_req_56_8_anon_jwt_in_config_passes(tmp_path):
     """REQ-56-8"""
-    cfg = "window.CONFIG = { url: 'https://x.supabase.co', anonKey: '" + jwt("anon") + "' };"
+    cfg = (
+        "window.CONFIG = { url: 'https://x.supabase.co', anonKey: '"
+        + jwt("anon")
+        + "' };"
+    )
     assert scan(tmp_path, {CONFIG: cfg}) == []
 
 
@@ -190,7 +215,7 @@ def test_req_56_8_publishable_key_in_config_passes(tmp_path):
     assert scan(tmp_path, {CONFIG: cfg}) == []
 
 
-def test_req_56_8_service_role_jwt_in_config_fails(tmp_path):
+def test_req_56_8_service_key_jwt_in_config_fails(tmp_path):
     """REQ-56-8: a JWT in config.js must decode to role anon"""
     cfg = "window.CONFIG = { anonKey: '" + jwt("service" + "_role") + "' };"
     out = scan(tmp_path, {CONFIG: cfg})
@@ -242,7 +267,7 @@ def test_req_56_8_jwt_with_odd_header_fails(tmp_path):
 
 def test_req_56_8_non_dict_jwt_payload_in_config_fails(tmp_path):
     """REQ-56-8: an undecodable or non-object payload is not an anon key"""
-    for payload in (b64([1, 2]), "ey" + "A" * 12):
+    for payload in (b64([1, 2, 3, 4, 5, 6]), "ey" + "A" * 12):
         token = ".".join([b64({"alg": "HS256"}), payload, "c2ln" * 5])
         cfg = "window.CONFIG = { anonKey: '" + token + "' };"
         assert scan(tmp_path, {CONFIG: cfg}), payload

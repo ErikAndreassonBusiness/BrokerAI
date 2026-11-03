@@ -13,10 +13,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 CONFIG = "app/frontend/client/config.js"
 VENDOR = "app/frontend/client/vendor/"
-SELF_TEST = "tests/test_supabase.py"  # names the forbidden strings on purpose
+DOC_DIRS = ("docs/", ".claude/agent-memory/")
 APPEND_ONLY = "valuations"
 
-JWT = re.compile(r"eyJ[A-Za-z0-9_-]+\.(eyJ[A-Za-z0-9_-]+)\.[A-Za-z0-9_-]+")
+JWT = re.compile(r"ey[A-Za-z0-9_-]{10,}\.([A-Za-z0-9_-]{10,})\.[A-Za-z0-9_-]+")
+ADMIN_ROLE = re.compile("service" + "_role", re.IGNORECASE)
+SECRET_KEY = re.compile("sb_" + "secret_", re.IGNORECASE)
 CREATE_TABLE = re.compile(
     r"create table (?:if not exists )?(?:public\.)?(\w+)", re.IGNORECASE
 )
@@ -63,27 +65,33 @@ def check_migrations(migrations_dir: Path) -> list[str]:
 
 def _jwt_role(payload: str) -> str | None:
     try:
-        return json.loads(
-            base64.urlsafe_b64decode(payload + "=" * (-len(payload) % 4))
-        ).get("role")
+        data = json.loads(base64.urlsafe_b64decode(payload + "=" * (-len(payload) % 4)))
     except ValueError:
         return None
+    return data.get("role") if isinstance(data, dict) else None
+
+
+def _may_name_the_role(name: str) -> bool:
+    """Docs may use the plain word; code and config may not."""
+    return name.endswith(".md") and (
+        name == "supabase/README.md" or name.startswith(DOC_DIRS)
+    )
 
 
 def scan_secrets(root: Path, files: list[str]) -> list[str]:
     """Return problems for tracked files holding secret keys; each names the file."""
     problems = []
     for name in files:
-        if name.startswith(VENDOR) or name == SELF_TEST:
+        if name.startswith(VENDOR):
             continue
         try:
             text = (root / name).read_text()
         except (UnicodeDecodeError, OSError):
             continue
-        if "service_role" in text and not name.endswith(".md"):  # docs may name it
-            problems.append(f"{name}: mentions service_role")
-        if "sb_secret_" in text:
-            problems.append(f"{name}: contains a secret key (sb_secret_)")
+        if ADMIN_ROLE.search(text) and not _may_name_the_role(name):
+            problems.append(f"{name}: mentions the service role")
+        if SECRET_KEY.search(text):
+            problems.append(f"{name}: contains a secret key")
         for m in JWT.finditer(text):
             if name != CONFIG:
                 problems.append(f"{name}: contains a JWT outside {CONFIG}")
