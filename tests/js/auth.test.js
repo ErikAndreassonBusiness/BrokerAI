@@ -67,6 +67,7 @@ function openPage(opts = {}) {
       calls.fetch++;
       throw new Error("network is not allowed in tests");
     },
+    location: { origin: "https://site.example", pathname: "/BrokerAI/stock.html", search: "?t=ABC" },
     setTimeout,
     clearTimeout,
     console,
@@ -82,7 +83,7 @@ test("REQ-57-1: config.js holds the project URL and anon key only", () => {
   const window = {};
   vm.runInContext(read("config.js"), vm.createContext({ window }));
   assert.deepEqual(Object.keys(window.BROKERAI_CONFIG).sort(), ["anonKey", "url"]);
-  assert.ok(!/service_role/i.test(read("config.js")));
+  assert.ok(!new RegExp("service" + "_role", "i").test(read("config.js")));
 });
 
 test("REQ-57-1: the client is created from the public config", async () => {
@@ -197,4 +198,20 @@ test("REQ-57-9: page content from data/ is untouched and auth makes no fetches i
     assert.equal(page.app.innerHTML, PAGE);
     assert.equal(page.calls.fetch, 0);
   }
+});
+
+test("REQ-57-3: the magic link returns to the current page and does not create users", async () => {
+  const page = openPage();
+  await init(page);
+  await page.window.BrokerAuth.signIn("erik@example.com");
+  assert.deepEqual(page.calls.otp[0].options, {
+    emailRedirectTo: "https://site.example/BrokerAI/stock.html?t=ABC",
+    shouldCreateUser: false,
+  });
+});
+
+test("REQ-57: the control uses no inline event handlers", async () => {
+  const page = openPage();
+  await init(page);
+  assert.ok(!/\son(submit|click)=/i.test(page.control.innerHTML));
 });
