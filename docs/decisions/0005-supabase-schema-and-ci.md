@@ -1,6 +1,6 @@
 # 0005 - Supabase schema, access rules, migrations and CI check (issue #56)
 
-Status: proposed. Date: 2026-11-03. Builds on ADR 0002.
+Status: accepted. Date: 2026-11-03. Builds on ADR 0002.
 
 ## Context
 ADR 0002 chose Supabase but left the columns, the exact RLS pattern, where migrations live, how
@@ -28,8 +28,8 @@ test database, and the frontend has no CSP today (Pages can't set headers).
   change, an applied file is never edited. Erik applies them by pasting into the SQL editor in order; no
   CLI, no login or token on his machine. Moving to the CLI later needs no change to the files.
 - **Public config:** `app/frontend/client/config.js` holds project URL and anon/publishable key (public
-  by design). **supabase-js:** vendored, pinned file `app/frontend/client/vendor/supabase.js` (decided
-  finally in #57): no third-party script runs on the page that holds Erik's session, and no CDN outage.
+  by design). **supabase-js:** vendored, pinned file `app/frontend/client/vendor/supabase.js`: no third-party script runs on the page that holds Erik's session, and no CDN outage.
+  **Timeout:** the #57 developer picks the "unavailable" timeout; the requirement is a clean fallback.
   No CSP exists now. If one is added (meta tag), it needs `connect-src 'self' https://*.supabase.co`.
 - **CI (no database), a pytest file:** (1) parse every migration: each `create table` has
   `enable row level security` and a select policy; no `disable row level security`, no `to anon`, no
