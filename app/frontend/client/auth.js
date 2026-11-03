@@ -6,7 +6,17 @@
 
   function setControl(html) {
     const el = document.getElementById("auth");
-    if (el) el.innerHTML = html;
+    if (!el) return;
+    el.innerHTML = html;
+    const form = el.querySelector && el.querySelector("form");
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        signIn(form.elements.email.value);
+      });
+    }
+    const out = el.querySelector && el.querySelector("button[data-signout]");
+    if (out) out.addEventListener("click", signOut);
   }
 
   function setSections(html) {
@@ -17,7 +27,7 @@
 
   function signedOutHtml(note) {
     return (
-      '<form class="auth-form" onsubmit="BrokerAuth.signIn(this.email.value); return false;">' +
+      '<form class="auth-form">' +
       '<input type="email" name="email" placeholder="Email" aria-label="Email" required />' +
       '<button type="submit">Sign in</button>' +
       (note ? '<span class="auth-note">' + note + "</span>" : "") +
@@ -27,7 +37,7 @@
 
   function signedInHtml(note) {
     return (
-      '<button type="button" onclick="BrokerAuth.signOut()">Sign out</button>' +
+      '<button type="button" data-signout>Sign out</button>' +
       (note ? '<span class="auth-note">' + note + "</span>" : "")
     );
   }
@@ -77,7 +87,13 @@
   async function signIn(email) {
     try {
       if (!client) throw new Error("unavailable");
-      const { error } = await client.auth.signInWithOtp({ email });
+      const { error } = await client.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: location.origin + location.pathname + location.search,
+          shouldCreateUser: false,
+        },
+      });
       if (error) throw error;
       setControl('<span class="auth-note">Check your email: a sign-in link was sent.</span>');
     } catch (e) {
