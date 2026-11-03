@@ -284,6 +284,9 @@ def _check_wording(at: str, changes) -> list[str]:
     if len(changes) > MAX_TOPICS:
         errors.append(f"{at}: changed_wording has more than {MAX_TOPICS} entries")
     for change in changes:
+        if not isinstance(change, dict):
+            errors.append(f"{at}: each changed_wording entry must be an object")
+            continue
         for field in ("topic", "before", "after"):
             text = change.get(field)
             if not isinstance(text, str) or not text:
@@ -349,11 +352,14 @@ def _check_ceo_letters(path: Path, letters, financials) -> list[str]:
     comparisons = letters.get("comparisons")
     if not isinstance(comparisons, list):
         return errors + [f"{name}: comparisons must be a list"]
-    for c in comparisons:
+    for i, c in enumerate(comparisons):
+        if not isinstance(c, dict):
+            errors.append(f"{name}: comparison {i} must be an object")
+            continue
         errors += _check_comparison(f"{name} {c.get('period')}", c, quarters)
     trend = letters.get("trend")
     if trend is not None:
-        periods = {c.get("period") for c in comparisons}
+        periods = {c.get("period") for c in comparisons if isinstance(c, dict)}
         errors += _check_trend(name, trend, periods)
     elif len(comparisons) >= 2:
         errors.append(f"{name}: trend is required from 2 comparisons")
