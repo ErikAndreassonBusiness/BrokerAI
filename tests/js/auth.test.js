@@ -215,3 +215,77 @@ test("REQ-57: the control uses no inline event handlers", async () => {
   await init(page);
   assert.ok(!/\son(submit|click)=/i.test(page.control.innerHTML));
 });
+
+// Issue #74: the control says why the magic link could not be sent.
+async function failedSignIn(error) {
+  const page = openPage({
+    signInWithOtp: async (args) => {
+      page.calls.otp.push(args);
+      return { error };
+    },
+  });
+  await init(page);
+  await page.window.BrokerAuth.signIn("erik@example.com");
+  return page;
+}
+const GENERIC = /Could not send the link\. Try again\./;
+
+for (const [code, status] of [
+  ["otp_disabled", 422],
+  ["user_not_found", 400],
+]) {
+  test(`REQ-74-1: error code ${code} says there is no account for this email`, async () => {
+    const page = await failedSignIn({ code, status, message: "Signups not allowed for otp" });
+    assert.match(page.control.innerHTML, /No account for this email\./);
+    assert.ok(!GENERIC.test(page.control.innerHTML));
+  });
+}
+
+test("REQ-74-2: over_email_send_rate_limit says too many links were sent", async () => {
+  const page = await failedSignIn({ status: 429, code: "over_email_send_rate_limit" });
+  assert.match(page.control.innerHTML, /Too many links sent\. Try again later\./);
+});
+
+test("REQ-74-2: status 429 alone, with another code, also says too many links were sent", async () => {
+  const page = await failedSignIn({ status: 429, code: "something_else" });
+  assert.match(page.control.innerHTML, /Too many links sent\. Try again later\./);
+});
+
+test("REQ-74-3: email_address_not_authorized says the email service can't send to this address", async () => {
+  const page = await failedSignIn({ status: 400, code: "email_address_not_authorized" });
+  assert.match(page.control.innerHTML, /The email service can(?:'|&#39;|&apos;|’)t send to this address\./);
+});
+
+test("REQ-74-4: any other error code shows the generic message followed by the code", async () => {
+  const page = await failedSignIn({ status: 500, code: "unexpected_failure" });
+  assert.match(page.control.innerHTML, GENERIC);
+  assert.match(page.control.innerHTML, /unexpected_failure/);
+});
+
+test("REQ-74-4: the error code is HTML-escaped", async () => {
+  const page = await failedSignIn({ status: 500, code: "<b>bold</b>" });
+  assert.match(page.control.innerHTML, GENERIC);
+  assert.ok(!/<b>/.test(page.control.innerHTML));
+  assert.match(page.control.innerHTML, /&lt;b&gt;/);
+});
+
+test("REQ-74-4: an error without a code shows the generic message", async () => {
+  const page = await failedSignIn({ message: "boom" });
+  assert.match(page.control.innerHTML, GENERIC);
+});
+
+for (const [name, error] of [
+  ["no account", { code: "otp_disabled", status: 422 }],
+  ["rate limit", { code: "over_email_send_rate_limit", status: 429 }],
+  ["not authorized", { code: "email_address_not_authorized", status: 400 }],
+  ["other", { code: "unexpected_failure", status: 500 }],
+]) {
+  test(`REQ-74-5: after the ${name} error the email form stays usable and no fetch is made`, async () => {
+    const page = await failedSignIn(error);
+    assert.match(page.control.innerHTML, /<input[^>]*type="email"/);
+    assert.match(page.control.innerHTML, /<form/);
+    await page.window.BrokerAuth.signIn("erik@example.com");
+    assert.equal(page.calls.otp.length, 2);
+    assert.equal(page.calls.fetch, 0);
+  });
+}
