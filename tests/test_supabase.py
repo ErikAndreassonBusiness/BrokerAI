@@ -193,6 +193,12 @@ def test_req_56_8_secret_key_prefix_fails(tmp_path):
     assert out and any("a.py" in p for p in out)
 
 
+def test_req_56_8_bare_secret_prefix_in_docs_passes(tmp_path):
+    """REQ-56-8: naming the prefix (no key characters after it) is not a key."""
+    out = scan(tmp_path, {"docs/x.md": "scan for `" + "sb_" + "secret_" + "` keys"})
+    assert out == []
+
+
 def test_req_56_8_jwt_outside_config_fails(tmp_path):
     """REQ-56-8"""
     out = scan(tmp_path, {"app/other.js": "const k = '" + jwt("anon") + "'"})
