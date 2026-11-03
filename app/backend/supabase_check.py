@@ -15,6 +15,12 @@ CONFIG = "app/frontend/client/config.js"
 VENDOR = "app/frontend/client/vendor/"
 DOC_DIRS = ("docs/", ".claude/agent-memory/")
 APPEND_ONLY = "valuations"
+NO_UPDATE = "watchlist"
+TICKER_CHECK = re.compile(
+    r"ticker\s+text\s+not\s+null\s+check\s*\(\s*ticker\s*~\s*"
+    r"'\^\[A-Za-z0-9\.-\]\{1,20\}\$'\s*\)",
+    re.IGNORECASE,
+)
 
 JWT = re.compile(r"ey[A-Za-z0-9_-]{10,}\.([A-Za-z0-9_-]{10,})\.[A-Za-z0-9_-]+")
 ADMIN_ROLE = re.compile("service" + "_role", re.IGNORECASE)
@@ -34,11 +40,13 @@ def check_migrations(migrations_dir: Path) -> list[str]:
     """Return problems found in the SQL files; each names the table or file."""
     problems = []
     tables, rls, policies = set(), set(), []
+    ticker_checked = False
     for f in sorted(migrations_dir.glob("*.sql")):
         sql = f.read_text()
         tables.update(t.lower() for t in CREATE_TABLE.findall(sql))
         rls.update(t.lower() for t in ENABLE_RLS.findall(sql))
         policies += [(t.lower(), body) for t, body in POLICY.findall(sql)]
+        ticker_checked = ticker_checked or bool(TICKER_CHECK.search(sql))
         if re.search(r"disable\s+row\s+level\s+security", sql, re.IGNORECASE):
             problems.append(f"{f.name}: disables row level security")
     for table in sorted(tables):
@@ -49,6 +57,8 @@ def check_migrations(migrations_dir: Path) -> list[str]:
             for t, b in policies
         ):
             problems.append(f"{table}: no select policy")
+    if NO_UPDATE in tables and not ticker_checked:
+        problems.append(f"{NO_UPDATE}: ticker check is missing")
     for table, body in policies:
         if re.search(r"\bto\s+anon\b", body, re.IGNORECASE):
             problems.append(f"{table}: policy grants access to anon")
@@ -60,6 +70,8 @@ def check_migrations(migrations_dir: Path) -> list[str]:
             r"for\s+(update|delete|all)", body, re.IGNORECASE
         ):
             problems.append(f"{table}: is append-only, no update/delete policy allowed")
+        if table == NO_UPDATE and re.search(r"for\s+(update|all)", body, re.IGNORECASE):
+            problems.append(f"{table}: update policy is not allowed")
     return problems
 
 
