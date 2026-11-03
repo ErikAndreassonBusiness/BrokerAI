@@ -18,15 +18,24 @@ def has_all(*phrases):
     assert not missing, f"README is missing: {missing}"
 
 
+def lines():
+    return text().splitlines()
+
+
 def test_req_78_1_google_cloud_steps():
     """REQ-78-1"""
-    has_all(
-        "google cloud", "oauth consent screen", "external", "openid", "email", "profile"
-    )
-    has_all("web application")
+    has_all("google cloud", "web application")
     t = text()
     assert re.search(r"publish\w*[^.\n]*production|production[^.\n]*publish", t), (
         "publish to production"
+    )
+    assert any(
+        "consent screen" in ln
+        and "external" in ln
+        and re.search(r"openid[^.\n]*email[^.\n]*profile", ln)
+        for ln in lines()
+    ), (
+        "consent screen step must name External and the scopes openid, email, profile together"
     )
 
 
@@ -56,13 +65,34 @@ def test_req_78_4_invite_with_auto_confirm():
     """REQ-78-4"""
     has_all("authentication > users", "auto confirm", "exact", "google address")
     t = text()
-    assert "+" in t and "alias" in t
+    assert any(
+        "create new user" in ln
+        and "auto confirm" in ln
+        and re.search(r"\+`?\s*aliases?", ln)
+        for ln in lines()
+    ), "invite step must say no + aliases"
     assert re.search(r"sign-?ups[^.\n]*off", t)
+
+
+def test_req_78_4_signups_off_before_google_provider():
+    """REQ-78-4: sign-ups are switched off before the Google provider is enabled"""
+    t = text()
+    off = t.find("allow new users to sign up")
+    google = t.find("authentication > providers > google")
+    assert off != -1 and google != -1
+    assert off < google, "sign-ups off step must come before the Google provider step"
 
 
 def test_req_78_5_url_configuration_kept():
     """REQ-78-5"""
     has_all("url configuration", "site url", "redirect urls", "/brokerai/**")
+
+
+def m4_section():
+    t = text()
+    m = re.search(r"^#+[^\n]*m4[^\n]*\n(.*?)(?=^## |\Z)", t, re.DOTALL | re.MULTILINE)
+    assert m, "no heading containing M4"
+    return m.group(1)
 
 
 def test_req_78_6_m4_linking_test():
@@ -74,11 +104,35 @@ def test_req_78_6_m4_linking_test():
     has_all("browser")
     t = text()
     assert re.search(r"no new user", t)
-    assert "linked" in t
+    assert re.search(r"identity[^.\n]*linked|linked[^.\n]*identity", t)
     assert re.search(r"uninvited[^.\n]*refused|refused[^.\n]*uninvited", t)
-    assert "user id" in t and "unchanged" in t
-    for word in ("valuations", "customers", "notes"):
-        assert word in t
+
+
+def test_req_78_6_own_account_checked():
+    """REQ-78-6: Erik signs in with his existing user; id unchanged; data still shows"""
+    t = text()
+    assert re.search(r"\bown\b[^.\n]*existing user|existing user[^.\n]*\bown\b", t), (
+        "own existing user"
+    )
+    assert re.search(
+        r"\bown\b[^.\n]*google[^.\n]*address|google[^.\n]*address[^.\n]*\bown\b", t
+    )
+    assert re.search(r"\bown\b[^.\n]*user id[^.\n]*unchanged", t), (
+        "own user id unchanged"
+    )
+    assert re.search(r"valuations[^.\n]*customers[^.\n]*notes[^.\n]*still show", t), (
+        "data still shows"
+    )
+
+
+def test_req_78_6_anon_check_outside_m4_section():
+    """REQ-78-6: the signed-out anon check is its own step, not part of the linking test"""
+    section = m4_section()
+    assert "valuations" not in section and "anon" not in section
+    t = text()
+    assert re.search(r"signed-out[^.\n]*anon key[^.\n]*valuations", t), (
+        "anon check must still exist"
+    )
 
 
 def test_req_78_6_fallback_adr_0006_option_b():
@@ -93,6 +147,9 @@ def test_req_78_7_email_provider_disabled_last():
     t = text()
     assert re.search(r"disable[^.\n]*email provider|email provider[^.\n]*disabl", t)
     assert re.search(r"only after[^.\n]*home page[^.\n]*google", t)
+    assert re.search(r"only after[^.\n]*\bown\b[^.\n]*(user|account)", t), (
+        "after your own user works with Google"
+    )
 
 
 def test_req_78_8_no_emails_or_secrets():
