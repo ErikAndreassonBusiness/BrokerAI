@@ -204,7 +204,7 @@ test("REQ-57-3: the magic link returns to the current page and does not create u
   const page = openPage();
   await init(page);
   await page.window.BrokerAuth.signIn("erik@example.com");
-  assert.deepEqual(page.calls.otp[0].options, {
+  assert.deepEqual(JSON.parse(JSON.stringify(page.calls.otp[0].options)), {
     emailRedirectTo: "https://site.example/BrokerAI/stock.html?t=ABC",
     shouldCreateUser: false,
   });
