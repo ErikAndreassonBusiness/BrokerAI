@@ -107,17 +107,41 @@ test("REQ-49-3: a null part shows a dash and no zero is drawn or written", async
   assert.ok(!hasZero(region), "no 0 drawn or written");
 });
 
-test("REQ-49-3: an older quarter without breakdown is an empty slot, with no zero", async () => {
+test("REQ-49-3: a quarter without breakdown after data is an empty slot, with no zero; older ones are dropped", async () => {
   const quarters = [
     quarter("2026-Q1"),
     quarter("2026-Q2", { geography: { Sverige: 422, Norden: 233 }, segment: { Bil: 544 } }),
-    quarter("2026-Q3", { geography: { Sverige: 433, Norden: 244 }, segment: { Bil: 555 } }),
+    quarter("2026-Q3"),
+    quarter("2026-Q4", { geography: { Sverige: 433, Norden: 244 }, segment: { Bil: 555 } }),
   ];
   const region = chartRegion(await openStockPage(quarters), GEO);
-  assert.ok(region.includes("2026-Q1"), "the empty quarter keeps its slot");
+  assert.ok(!region.includes("2026-Q1"), "quarters before the first breakdown are dropped");
+  assert.ok(region.includes("2026-Q3"), "the empty quarter keeps its slot");
   assert.ok(text(region).includes("–"));
   assert.ok(!hasZero(region));
-  assert.ok(region.indexOf("2026-Q1") < region.indexOf("2026-Q2"));
+  assert.ok(region.indexOf("2026-Q2") < region.indexOf("2026-Q3") && region.indexOf("2026-Q3") < region.indexOf("2026-Q4"));
+});
+
+test("REQ-49-3: a real value of 0 is written as 0, not as a gap", async () => {
+  const q = [quarter("2026-Q1", { geography: { Sverige: 411, Norden: 0 }, segment: null })];
+  assert.ok(hasZero(chartRegion(await openStockPage(q), GEO)));
+});
+
+test("a negative part is left out of the stack but listed with its value", async () => {
+  const q = [quarter("2026-Q1", { geography: { Sverige: 411, Elim: -1234.5 }, segment: null })];
+  const region = chartRegion(await openStockPage(q), GEO);
+  assert.ok(text(region).includes("Elim"));
+  assert.ok(region.includes("\u2212" + sv(1234.5)), "listed with a minus sign");
+  assert.ok(!/flex-grow:-/.test(region));
+});
+
+test("bar height is proportional to the quarter total", async () => {
+  const q = [
+    quarter("2026-Q1", { geography: { Sverige: 100, Norden: 100 }, segment: null }),
+    quarter("2026-Q2", { geography: { Sverige: 200, Norden: 200 }, segment: null }),
+  ];
+  const heights = [...chartRegion(await openStockPage(q), GEO).matchAll(/rev-stack"[^>]*height:([\d.]+)%/g)].map((m) => +m[1]);
+  assert.deepEqual(heights, [50, 100]);
 });
 
 test("REQ-49-4: a part that exists only from a later quarter is its own series", async () => {
