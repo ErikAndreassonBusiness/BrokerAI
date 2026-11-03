@@ -47,14 +47,18 @@ MAX_SUMMARY_CHARS = 600
 MAX_ITEM_CHARS = 120
 MAX_SWOT_ITEMS = 4
 SWOT_LISTS = ["strengths", "weaknesses", "opportunities", "threats"]
+BREAKDOWN_DIMENSIONS = ("geography", "segment")
+BREAKDOWN_NAME_MAX = 60
 PERIOD = re.compile(r"^\d{4}-Q[1-4]$")
 CURRENCY = re.compile(r"^[A-Z]{3}$")
 
 
+def _is_number(value) -> bool:
+    return isinstance(value, int | float) and not isinstance(value, bool)
+
+
 def _is_number_or_null(value) -> bool:
-    return value is None or (
-        isinstance(value, int | float) and not isinstance(value, bool)
-    )
+    return value is None or _is_number(value)
 
 
 def _is_date(value) -> bool:
@@ -101,6 +105,51 @@ def _check_quotes(quotes_file, tickers: set[str]) -> list[str]:
     return errors
 
 
+def _check_breakdown(at: str, quarter: dict) -> list[str]:
+    """Optional revenue breakdown: geography/segment are null or a map of name -> number or null."""
+    if "breakdown" not in quarter:
+        return []
+    breakdown = quarter["breakdown"]
+    if not isinstance(breakdown, dict):
+        return [f"{at}: breakdown must be an object"]
+    errors = []
+    unknown = sorted(set(breakdown) - set(BREAKDOWN_DIMENSIONS))
+    if unknown:
+        errors.append(
+            f"{at}: unknown keys in breakdown: {', '.join(unknown)} "
+            f"(allowed: {', '.join(BREAKDOWN_DIMENSIONS)})"
+        )
+    revenue = quarter.get("values", {}).get("revenue")
+    for dimension in BREAKDOWN_DIMENSIONS:
+        parts = breakdown.get(dimension)
+        if parts is None:
+            continue
+        where = f"{at}: breakdown {dimension}"
+        if not isinstance(parts, dict) or not parts:
+            errors.append(f"{where} must be null or a non-empty object")
+            continue
+        bad = [
+            n
+            for n, v in parts.items()
+            if len(n) > BREAKDOWN_NAME_MAX or not _is_number_or_null(v)
+        ]
+        if bad:
+            errors.append(
+                f"{where}: names max {BREAKDOWN_NAME_MAX} characters, amounts number or null"
+            )
+            continue
+        amounts = list(parts.values())
+        if None in amounts or not _is_number(revenue):
+            continue
+        tolerance = max(0.02 * abs(revenue), len(amounts))
+        if abs(sum(amounts) - revenue) > tolerance:
+            errors.append(
+                f"{where} sums to {sum(amounts):g}, revenue is {revenue:g} "
+                f"(allowed difference {tolerance:g})"
+            )
+    return errors
+
+
 def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
     name = f"financials/{path.name}"
     ticker = financials.get("ticker")
@@ -138,6 +187,7 @@ def _check_financials(path: Path, financials, tickers: set[str]) -> list[str]:
         for item, value in values.items():
             if not _is_number_or_null(value):
                 errors.append(f"{at}: {item} must be a number or null")
+        errors += _check_breakdown(at, quarter)
         comparatives = quarter.get("comparatives", {})
         unknown = sorted(set(comparatives) - set(COMPARATIVE_ITEMS))
         if unknown:
