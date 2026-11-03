@@ -10,3 +10,6 @@ Decision records live in `docs/decisions/NNNN-<title>.md` (no earlier location e
 - #44 (ADR 0002, proposed 2026-11-02): Supabase for user-entered data (valuations, customers, notes), set up before #45; site read-only until then; single-user magic-link auth, RLS, anon key public, service_role never in repo; export button for notes (no scheduled backups into the public repo).
 
 **How to apply:** check status with Erik before building on either; both were "proposed" pending his approval.
+
+- #47 (ADR 0003, proposed 2026-11-03): optional per-quarter `breakdown {geography, segment}` maps (name → MSEK/null) beside `values`; absent = not looked at (refill pseudo keys `breakdown.*`), null dimension = not reported; reuse stored names; validate sum within max(2 %, parts) of revenue.
+- #51 (ADR 0004, proposed 2026-11-03): letters only in gitignored `private/`; local fetch script + local Claude Code compare; derived `data/ceo_letters/<ticker>.json` (tone, topics, short wording changes, no long quotes); validate fails if `git ls-files private` non-empty; agent not widened.
