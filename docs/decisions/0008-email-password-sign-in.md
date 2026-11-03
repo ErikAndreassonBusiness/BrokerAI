@@ -60,10 +60,10 @@ C. Keep the magic link next to the password: two sign-in paths, still needs SMTP
   supabase-js clears on load; accepted for a few users. Revisit if a CSP or a server ever enters.
   (ADR 0006 chose PKCE only for the OAuth flow, which is gone.)
 - **Supabase settings (Erik, dashboard, in README):**
-  1. Authentication > Sign In / Providers > Email: provider on, "Allow new users to sign up" off,
+  1. Authentication > Sign In / Providers: Email provider on; the User Signups toggle ("Allow new users to sign up", top of the page) off;
      **Minimum password length 10**, no character-class rule (length matters more; invitees use a
-     password manager). **Secure password change OFF**: it forces a reauthentication email for every
-     change, which breaks the "change password" and first-login flow. Trade-off accepted: someone with a
+     password manager). **Secure password change OFF**: it can require a reauthentication email for a
+     password change (verify in the dashboard), which would break the "change password" and first-login flow. Trade-off accepted: someone with a
      stolen live session can change the password.
   2. **Leaked-password protection** (checks against known breaches) is, as far as I know, a paid-plan
      feature; **unsure, check the dashboard**. If it is not available, the 10-character minimum and
