@@ -65,15 +65,17 @@ def test_req_92_3_transactional_provider_alternative():
 
 
 def test_req_92_3_smtp_credential_only_in_supabase():
-    """REQ-92-3"""
+    """REQ-92-3: one line ties the app password to Supabase only and never the repo"""
     assert line_with(
-        r"(app password|smtp|credential)",
-        r"only[^.\n]*(supabase|smtp)",
-        r"(never|not)[^.\n]*(repo|commit)",
-    ) or line_with(
-        r"(app password|smtp|credential)[^.\n]*only[^.\n]*supabase",
-        r"never[^.\n]*repo",
+        r"app password",
+        r"\bonly\b[^.\n]*supabase",
+        r"\bnever\b[^.\n]*repo",
     )
+
+
+def test_req_92_3_smtp_sender_fields():
+    """REQ-92-3: the SMTP step names Sender email (the Gmail address) and Sender name"""
+    assert line_with(r"smtp settings", r"sender email", r"sender name")
 
 
 def test_req_92_3_smtp_settings_location():
@@ -112,9 +114,20 @@ def test_req_92_6_random_temporary_password_16_chars_private():
     assert line_with(r"temporary password", r"privately")
 
 
+def section(heading_pattern):
+    """Text from the matching '## ' heading to the next '## ' heading."""
+    m = re.search(
+        rf"^## [^\n]*{heading_pattern}[^\n]*\n(.*?)(?=^## |\Z)",
+        text(),
+        re.DOTALL | re.MULTILINE,
+    )
+    assert m, f"no '## ' heading matching {heading_pattern}"
+    return m.group(1)
+
+
 def test_req_92_7_own_account_steps_in_order():
     """REQ-92-7: set password -> private-window check -> forgot-password test -> #85"""
-    t = text()
+    t = section(r"own account")
     steps = [
         r"set[^.\n]*(your )?own password[^.\n]*magic link|magic link[^.\n]*still works",
         r"private[^.\n]*window[^.\n]*user id|user id[^.\n]*private[^.\n]*window",
@@ -129,6 +142,24 @@ def test_req_92_7_own_account_steps_in_order():
     assert positions == sorted(positions) and len(set(positions)) == 4, (
         f"own-account steps out of order: {positions}"
     )
+
+
+def test_req_92_7_precondition_81_and_93_before_first_step():
+    """REQ-92-7: a line before the first step says the steps wait for #81 and #93"""
+    t = section(r"own account")
+    first = re.search(r"set[^.\n]*(your )?own password[^.\n]*magic link", t)
+    assert first, "first own-account step not found"
+    before = t[: first.start()]
+    assert any(
+        "#81" in ln and "#93" in ln and re.search(r"only after|after .*merged", ln)
+        for ln in before.splitlines()
+    ), "no precondition line naming #81 and #93 before the first step"
+
+
+def test_req_92_6_invite_section_needs_81():
+    """REQ-92-6: the invite section says it needs #81 (the first-login prompt)"""
+    t = section(r"invite")
+    assert re.search(r"#81", t)
 
 
 def test_req_92_7_private_window_checks_data_unchanged():
@@ -152,6 +183,17 @@ def test_req_92_8_no_invites_before_reset_mail_reached_non_team_address():
         r"reset (email|mail)",
         r"non-team",
     )
+
+
+def test_req_92_8_gate_comes_before_create_new_user_step():
+    """REQ-92-8"""
+    t = text()
+    gate = re.search(
+        r"(do not|don't|never) invite anyone[^.\n]*reset (email|mail)[^.\n]*non-team", t
+    )
+    create = t.find("create new user")
+    assert gate and create != -1
+    assert gate.start() < create, "gate must come before the Create new user step"
 
 
 def test_req_92_9_no_real_project_ref():
