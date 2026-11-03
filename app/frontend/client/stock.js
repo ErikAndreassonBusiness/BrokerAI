@@ -78,6 +78,7 @@ async function init() {
     ${renderKeyData(quotesFile.quotes[ticker] || {}, company)}
     <h2>Quarterly financials</h2>
     ${renderFinancials(financials)}
+    ${renderRevenueCharts(financials)}
     ${renderNews(updates, ticker)}
     ${renderSummary(summary)}`;
 }
@@ -233,3 +234,61 @@ function renderSummary(data) {
 }
 
 init();
+
+// Revenue stacked bars by geography and by segment (issue #49). One column per quarter, oldest left.
+const REVENUE_DIMENSIONS = [
+  ["geography", "Revenue by geography", "geography"],
+  ["segment", "Revenue by segment", "segment"],
+];
+
+// Parts in order of first appearance across the quarters; a part can start in a later quarter.
+function breakdownParts(quarters, dim) {
+  const parts = [];
+  for (const q of quarters) {
+    const map = q.breakdown && q.breakdown[dim];
+    if (map && typeof map === "object") {
+      for (const name of Object.keys(map)) if (!parts.includes(name)) parts.push(name);
+    }
+  }
+  return parts;
+}
+
+function renderBreakdownColumn(fin, q, dim, parts) {
+  const map = q.breakdown && q.breakdown[dim];
+  const has = map && typeof map === "object";
+  const segs = parts
+    .map((name, i) => {
+      const v = has ? map[name] : null;
+      const cls = `rev-seg rev-c${i % 8}`;
+      if (!isNum(v) || v <= 0) return `<div class="${cls} rev-gap" title="${esc(name)}: –">–</div>`;
+      return `<div class="${cls}" style="flex-grow:${v}" title="${esc(name)}: ${fmtNum(v)}">${fmtNum(v)}</div>`;
+    })
+    .reverse()
+    .join("");
+  return `<div class="rev-col"><div class="rev-stack">${segs}</div>
+    <div class="rev-label">${esc(q.period)}</div><div class="rev-unit">M${esc(currencyOf(fin, q))}</div></div>`;
+}
+
+function renderBreakdownChart(fin, dim, title, noun) {
+  const quarters = [...fin.quarters].sort((a, b) => String(a.period).localeCompare(String(b.period)));
+  const parts = breakdownParts(quarters, dim);
+  let body;
+  if (parts.length) {
+    const legend = parts
+      .map((name, i) => `<span class="rev-key"><span class="rev-swatch rev-c${i % 8}"></span>${esc(name)}</span>`)
+      .join("");
+    body = `<div class="rev-legend">${legend}</div>
+      <div class="rev-chart">${quarters.map((q) => renderBreakdownColumn(fin, q, dim, parts)).join("")}</div>`;
+  } else if (quarters.some((q) => q.breakdown && q.breakdown[dim] === null)) {
+    body = `<p class="muted">The company does not report revenue by ${noun}.</p>`;
+  } else {
+    body = `<p class="muted">No breakdown collected yet.</p>`;
+  }
+  return `<h3>${title}</h3>${body}`;
+}
+
+function renderRevenueCharts(fin) {
+  return `<section class="rev-section">${REVENUE_DIMENSIONS.map(([dim, title, noun]) =>
+    renderBreakdownChart(fin, dim, title, noun),
+  ).join("")}</section>`;
+}
