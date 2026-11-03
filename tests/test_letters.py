@@ -472,3 +472,63 @@ def test_req_52_8_validate_is_clean_when_nothing_private_is_tracked(
 def test_req_52_8_nothing_under_private_is_tracked_in_this_repo():
     """REQ-52-8: the real repo is clean"""
     assert validate_module.tracked_private_files() == []
+
+
+# --- review fixes: safe ticker, https only, malformed items ---
+
+
+@pytest.mark.parametrize("ticker", ["../../x", "a.st", "A/B", ""])
+def test_req_52_3_unsafe_ticker_exits_without_download(
+    letters, tmp_path, downloads, ticker
+):
+    data_dir, private = tmp_path / "data", tmp_path / "private"
+    write_financials(data_dir)
+
+    with pytest.raises(SystemExit) as exc:
+        letters.fetch(ticker, "2026-Q2", data_dir=data_dir, private_dir=private)
+
+    assert exc.value.code not in (0, None)
+    assert downloads == []
+
+
+def test_req_52_3_non_https_source_url_exits_without_download(
+    letters, tmp_path, downloads
+):
+    data_dir, private = tmp_path / "data", tmp_path / "private"
+    q = quarter("2026-Q2", source_url="http://example.com/2026-Q2.pdf")
+    write_financials(data_dir, [quarter("2026-Q1"), q])
+
+    with pytest.raises(SystemExit) as exc:
+        letters.fetch("A.ST", "2026-Q2", data_dir=data_dir, private_dir=private)
+
+    assert exc.value.code not in (0, None)
+    assert downloads == []
+
+
+def test_req_52_3_download_rejects_a_redirect_to_http(letters, monkeypatch):
+    import httpx
+
+    def fake_get(url, **kwargs):
+        return httpx.Response(
+            200, content=b"x", request=httpx.Request("GET", "http://evil.test/a.pdf")
+        )
+
+    monkeypatch.setattr(letters.httpx, "get", fake_get)
+
+    with pytest.raises(SystemExit):
+        letters.download("https://example.com/a.pdf")
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        {"comparisons": ["not an object"]},
+        {"comparisons": [comparison(changed_wording=["not an object"])]},
+        {"comparisons": [comparison()], "trend": "not an object"},
+    ],
+    ids=["comparison-item", "wording-item", "trend"],
+)
+def test_req_52_4_malformed_items_give_an_error_not_a_crash(tmp_path, bad):
+    data = letters_file([])
+    data.update(bad)
+    assert letter_errors(tmp_path, data)
