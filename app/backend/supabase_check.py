@@ -18,7 +18,7 @@ APPEND_ONLY = "valuations"
 
 JWT = re.compile(r"ey[A-Za-z0-9_-]{10,}\.([A-Za-z0-9_-]{10,})\.[A-Za-z0-9_-]+")
 ADMIN_ROLE = re.compile("service" + "_role", re.IGNORECASE)
-SECRET_KEY = re.compile("sb_" + "secret_", re.IGNORECASE)
+SECRET_KEY = re.compile("sb_" + "secret_" + r"[A-Za-z0-9]", re.IGNORECASE)
 CREATE_TABLE = re.compile(
     r"create table (?:if not exists )?(?:public\.)?(\w+)", re.IGNORECASE
 )
