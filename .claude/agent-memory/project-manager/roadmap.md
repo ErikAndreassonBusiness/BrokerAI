@@ -20,3 +20,7 @@ Update 2026-11-02 (Erik's decisions):
 - Valuation = one number; range is optional/low priority, source of range undecided (#46).
 - CEO letter full text stays local and gitignored; only derived comparison committed (#51-#53). #51 no longer blocked by #47.
 - ADRs 0001/0002 in PR #55. New issues: #56 Supabase setup+RLS tests (arch), #57 frontend sign-in client, #58 export button. #45/#46/#50/#54 blocked by #56/#57. #42 holds validate+todo+AGENT/reports.yml (+ AGENT.md hosted-data line); #43 UI.
+
+Draft 2026-11-03 (not yet approved/created): multi-user plan for ADR 0006/0007. Sprint A1 (Google beside email, watchlist migration, design proposal), A2 (gate, watchlist client, home page, remove email last), B (stock_requests, form, README). Existing #45/#46/#50/#54/#58 move after B. Email provider stays on until Google linking is manually tested. Full draft was in the session scratchpad.
+
+Update 2026-11-03: Erik approved the multi-user plan; issues created. #76 Sprint 0 (ADR accept), #77 manual steps M1-M9, A1 = #78-#81 (Ready), A2 = #82-#85, B = #86-#88 (Backlog). #66 folds into #84 (Closes #66). Decisions: rejected requests carry a reason column; updates.json already has ticker so news filters per watchlist. #45/#46/#50/#54/#58 move after Sprint B (commented).
