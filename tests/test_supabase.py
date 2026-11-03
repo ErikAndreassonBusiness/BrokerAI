@@ -287,3 +287,196 @@ def test_req_56_8_plain_word_only_allowed_in_docs(tmp_path):
         assert scan(tmp_path, {ok: word}) == [], ok
     for bad in ("README.md", "app/notes.md", "tests/x.py", "a.txt"):
         assert scan(tmp_path, {bad: word}), bad
+
+
+# --- Watchlist table (issue #79) ---
+# Chosen problem wording (check_migrations must name the table, then say):
+#   "watchlist: update policy is not allowed"
+#   "watchlist: ticker check is missing"
+
+WATCHLIST_SQL = """
+create table public.watchlist (
+  user_id uuid not null default auth.uid(),
+  ticker text not null check (ticker ~ '^[A-Za-z0-9.-]{1,20}$'),
+  created_at timestamptz not null default now(),
+  primary key (user_id, ticker)
+);
+alter table public.watchlist enable row level security;
+create policy watchlist_select on public.watchlist for select to authenticated
+  using (auth.uid() = user_id);
+create policy watchlist_insert on public.watchlist for insert to authenticated
+  with check (auth.uid() = user_id);
+create policy watchlist_delete on public.watchlist for delete to authenticated
+  using (auth.uid() = user_id);
+"""
+
+
+def watchlist_sql():
+    files = sorted(MIGRATIONS.glob("*_create_watchlist.sql"))
+    assert files, "no <timestamp>_create_watchlist.sql in supabase/migrations"
+    return files[0].read_text().lower()
+
+
+def watchlist_policies(sql):
+    return re.findall(
+        r"create policy\s+\w+\s+on\s+(?:public\.)?watchlist(.*?);", sql, re.DOTALL
+    )
+
+
+def test_req_79_1_watchlist_migration_is_newer_than_user_tables():
+    """REQ-79-1"""
+    files = sorted(MIGRATIONS.glob("*_create_watchlist.sql"))
+    assert files, "no <timestamp>_create_watchlist.sql in supabase/migrations"
+    assert files[0].name > "20261103120000_create_user_tables.sql"
+
+
+def test_req_79_2_columns_and_primary_key():
+    """REQ-79-2"""
+    sql = watchlist_sql()
+    assert re.search(r"user_id uuid not null default auth\.uid\(\)", sql)
+    assert re.search(r"\bticker text not null", sql)
+    assert re.search(r"created_at timestamptz[^,]*default now\(\)", sql)
+    assert re.search(r"primary key\s*\(\s*user_id\s*,\s*ticker\s*\)", sql)
+
+
+def test_req_79_3_ticker_check_pattern():
+    """REQ-79-3"""
+    raw = sorted(MIGRATIONS.glob("*_create_watchlist.sql"))
+    assert raw, "no <timestamp>_create_watchlist.sql in supabase/migrations"
+    text = raw[0].read_text()
+    assert "^[A-Za-z0-9.-]{1,20}$" in text
+    assert re.search(r"check\s*\(\s*ticker\s*~", text, re.IGNORECASE)
+
+
+def test_req_79_4_rls_and_own_row_policies():
+    """REQ-79-4"""
+    sql = watchlist_sql()
+    assert re.search(
+        r"alter table (?:public\.)?watchlist\s+enable row level security", sql
+    )
+    pols = watchlist_policies(sql)
+    for verb in ("select", "insert", "delete"):
+        match = [p for p in pols if re.search(rf"for\s+{verb}\b", p)]
+        assert len(match) == 1, verb
+        assert re.search(r"\bto\s+authenticated\b", match[0]), verb
+        assert re.search(r"auth\.uid\(\)\s*=\s*user_id", match[0]), verb
+    ins = next(p for p in pols if re.search(r"for\s+insert", p))
+    assert re.search(r"with check\s*\(\s*auth\.uid\(\)\s*=\s*user_id", ins)
+
+
+def test_req_79_5_no_update_no_anon_no_true():
+    """REQ-79-5"""
+    pols = watchlist_policies(watchlist_sql())
+    assert len(pols) == 3
+    for p in pols:
+        assert not re.search(r"for\s+(update|all)\b", p)
+        assert not re.search(r"\banon\b", p)
+        assert not re.search(r"\(\s*true\s*\)", p)
+
+
+def test_req_79_6_real_migrations_pass_the_check_with_watchlist():
+    """REQ-79-6: the real folder includes the watchlist migration and is clean"""
+    assert list(MIGRATIONS.glob("*_create_watchlist.sql"))
+    assert check().check_migrations(MIGRATIONS) == []
+
+
+def test_req_79_6_good_watchlist_fixture_passes(tmp_path):
+    """REQ-79-6"""
+    assert problems(tmp_path, WATCHLIST_SQL) == []
+
+
+def test_req_79_7_update_policy_on_watchlist_is_flagged(tmp_path):
+    """REQ-79-7: message names watchlist and says update is not allowed"""
+    sql = WATCHLIST_SQL + (
+        "create policy watchlist_update on public.watchlist for update "
+        "to authenticated using (auth.uid() = user_id) "
+        "with check (auth.uid() = user_id);"
+    )
+    out = problems(tmp_path, sql)
+    assert any("watchlist" in p and "update policy is not allowed" in p for p in out)
+
+
+def test_req_79_7_all_policy_on_watchlist_is_flagged(tmp_path):
+    """REQ-79-7: a for-all policy also allows update"""
+    sql = WATCHLIST_SQL + (
+        "create policy watchlist_all on public.watchlist for all "
+        "to authenticated using (auth.uid() = user_id) "
+        "with check (auth.uid() = user_id);"
+    )
+    out = problems(tmp_path, sql)
+    assert any("watchlist" in p and "update policy is not allowed" in p for p in out)
+
+
+def test_req_79_8_missing_ticker_check_is_flagged(tmp_path):
+    """REQ-79-8: message names watchlist and says the ticker check is missing"""
+    sql = WATCHLIST_SQL.replace(" check (ticker ~ '^[A-Za-z0-9.-]{1,20}$')", "")
+    assert "ticker ~" not in sql
+    out = problems(tmp_path, sql)
+    assert any("watchlist" in p and "ticker check is missing" in p for p in out)
+
+
+def test_req_79_8_wrong_ticker_pattern_is_flagged(tmp_path):
+    """REQ-79-8"""
+    sql = WATCHLIST_SQL.replace("{1,20}", "{1,200}")
+    out = problems(tmp_path, sql)
+    assert any("watchlist" in p and "ticker check is missing" in p for p in out)
+
+
+def test_req_79_9_empty_migrations_folder_is_clean(tmp_path):
+    """REQ-79-9"""
+    d = tmp_path / "migrations"
+    d.mkdir()
+    assert check().check_migrations(d) == []
+
+
+# --- Ticker rule edge cases after review (issue #79) ---
+
+TICKER_CHECK = "check (ticker ~ '^[A-Za-z0-9.-]{1,20}$')"
+NO_CHECK = WATCHLIST_SQL.replace(" " + TICKER_CHECK, "")
+
+
+def ticker_missing(out):
+    return any("watchlist" in p and "ticker check is missing" in p for p in out)
+
+
+def test_req_79_8_check_on_another_table_does_not_count(tmp_path):
+    """REQ-79-8: the ticker check must belong to the watchlist table"""
+    other = (
+        "create table public.other (\n"
+        "  user_id uuid not null default auth.uid(),\n"
+        f"  ticker text not null {TICKER_CHECK}\n);\n"
+        "alter table public.other enable row level security;\n"
+        "create policy other_select on public.other for select to authenticated\n"
+        "  using (auth.uid() = user_id);\n"
+    )
+    assert "ticker ~" not in NO_CHECK
+    assert ticker_missing(problems(tmp_path, NO_CHECK + other))
+
+
+def test_req_79_8_check_only_in_a_comment_is_missing(tmp_path):
+    """REQ-79-8: a commented-out check does not count"""
+    sql = f"-- ticker text not null {TICKER_CHECK}\n" + NO_CHECK
+    assert ticker_missing(problems(tmp_path, sql))
+
+
+def test_req_79_8_check_before_not_null_is_accepted(tmp_path):
+    """REQ-79-8: column order does not matter"""
+    sql = WATCHLIST_SQL.replace(
+        f"ticker text not null {TICKER_CHECK}",
+        f"ticker text {TICKER_CHECK} not null",
+    )
+    assert sql != WATCHLIST_SQL
+    assert problems(tmp_path, sql) == []
+
+
+def test_req_79_8_table_level_constraint_is_accepted(tmp_path):
+    """REQ-79-8: a named table constraint is a valid ticker check"""
+    sql = WATCHLIST_SQL.replace(
+        f"ticker text not null {TICKER_CHECK},",
+        "ticker text not null,",
+    ).replace(
+        "primary key (user_id, ticker)",
+        f"primary key (user_id, ticker),\n  constraint watchlist_ticker {TICKER_CHECK}",
+    )
+    assert "constraint watchlist_ticker" in sql
+    assert problems(tmp_path, sql) == []
