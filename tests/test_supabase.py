@@ -341,9 +341,11 @@ def test_req_79_2_columns_and_primary_key():
 
 def test_req_79_3_ticker_check_pattern():
     """REQ-79-3"""
-    sql = watchlist_sql()
-    assert "^[a-za-z0-9.-]{1,20}$" in sql.replace("a-z0-9", "a-za-z0-9")
-    assert re.search(r"check\s*\(\s*ticker\s*~", sql)
+    raw = sorted(MIGRATIONS.glob("*_create_watchlist.sql"))
+    assert raw, "no <timestamp>_create_watchlist.sql in supabase/migrations"
+    text = raw[0].read_text()
+    assert "^[A-Za-z0-9.-]{1,20}$" in text
+    assert re.search(r"check\s*\(\s*ticker\s*~", text, re.IGNORECASE)
 
 
 def test_req_79_4_rls_and_own_row_policies():
