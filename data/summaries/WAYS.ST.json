@@ -1,0 +1,21 @@
+{
+  "ticker": "WAYS.ST",
+  "updated": "2026-11-08",
+  "summary": "Waystream säljer switchar och nätverksutrustning till stadsnät och operatörer. I tredje kvartalet 2026 ökade nettoomsättningen med 38 % till 41,8 MSEK (30,3), varav 24 % organiskt, och rörelseresultatet förbättrades med 35 %. Bruttomarginalen var 46 %.",
+  "swot": {
+    "strengths": [
+      { "text": "Försäljningen i Sverige ökade med 267 % i Q3.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] },
+      { "text": "Operatörssegmentet växer och närmar sig stadsnäten i storlek.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Övriga Europa föll till 5 MSEK från 18 MSEK i Q3.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] },
+      { "text": "Bruttomarginalen på 46 % är lägre än föregående år.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Tellus Fiber ger korsförsäljning och nya kundsegment.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] }
+    ],
+    "threats": [
+      { "text": "Långa leveranstider på halvledare och minne begränsar produktionen.", "sources": ["https://storage.mfn.se/e61b5300-bfd5-4968-b69d-be72629f4761/waystream-q3-2026.pdf"] }
+    ]
+  }
+}

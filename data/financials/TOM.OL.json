@@ -543,6 +543,16 @@
         "operating_cash_flow": 112,
         "capex": null,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": null,
+        "segment": {
+          "Collection": 217,
+          "Recycling": 54,
+          "Food": 86,
+          "Horizon": 10,
+          "Group Functions": -1
+        }
       }
     }
   ]

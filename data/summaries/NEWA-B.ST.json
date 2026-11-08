@@ -1,0 +1,18 @@
+{
+  "ticker": "NEWA-B.ST",
+  "updated": "2026-11-08",
+  "summary": "New Wave Group säljer profilprodukter, sport och hemprodukter via tre segment. Andra kvartalet 2026 gav en nettoomsättning på 2 611 MSEK (2 300) och rörelseresultat på 295 MSEK (241). Förvärvet av uhlsport slutfördes 1 oktober. Q3-rapporten är ännu inte publicerad.",
+  "swot": {
+    "strengths": [
+      { "text": "Rörelseresultatet steg till 295 MSEK (241) i Q2.", "sources": ["https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2026/q2_nwg_2026_en_hq_6.pdf"] },
+      { "text": "Försäljningen är spridd: Nordamerika, Sverige, Benelux och resten av Europa.", "sources": ["https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2026/q2_nwg_2026_en_hq_6.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Lagret är stort, 5 948 MSEK av tillgångarna på 13 518 MSEK, per 30 juni.", "sources": ["https://www.nwg.se/globalassets/reports/kvartalsrapporter/en/2026/q2_nwg_2026_en_hq_6.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Förvärvet av uhlsport group slutfördes den 1 oktober 2026.", "sources": ["https://www.nwg.se/en/press/"] }
+    ],
+    "threats": []
+  }
+}

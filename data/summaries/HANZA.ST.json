@@ -1,0 +1,20 @@
+{
+  "ticker": "HANZA.ST",
+  "updated": "2026-11-08",
+  "summary": "HANZA är en kontraktstillverkare med fabriker i Norden, Centraleuropa, Baltikum och Asien. I tredje kvartalet 2026 steg nettoomsättningen till 2 487 MSEK (1 404), främst genom förvärvet av BMK, och rörelseresultatet till 196 MSEK (116). Organisk tillväxt var 8 % i Main markets.",
+  "swot": {
+    "strengths": [
+      { "text": "Justerad rörelsemarginal i Main markets var 9,5 % (6,8 %) i Q3.", "sources": ["https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Nettoskulden har ökat efter förvärven; långfristiga skulder är 2 454 MSEK.", "sources": ["https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf"] },
+      { "text": "Poster av engångskaraktär, bland annat avveckling av en fabrik, belastade året.", "sources": ["https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Ny regional organisation införs 2027 för att stödja snabb expansion.", "sources": ["https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf"] }
+    ],
+    "threats": [
+      { "text": "Komponenttillgången är osäker, vilket kan påverka leveranser.", "sources": ["https://storage.mfn.se/95ff7db3-593f-4be1-8b15-5b471ef12ea2/hanza-interim-report-q3-2026.pdf"] }
+    ]
+  }
+}

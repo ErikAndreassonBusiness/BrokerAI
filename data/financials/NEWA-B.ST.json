@@ -480,6 +480,21 @@
         "operating_cash_flow": 95,
         "capex": -223,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "North America": 555,
+          "Sweden": 510,
+          "Benelux": 343,
+          "Nordic countries excl. Sweden": 297,
+          "Rest of Europe": 753,
+          "Other countries": 153
+        },
+        "segment": {
+          "Corporate": 1424,
+          "Sports & Leisure": 987,
+          "Gifts & Home Furnishings": 200
+        }
       }
     }
   ]

@@ -3,6 +3,54 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q3",
+      "report_date": "2021-10-14",
+      "source_url": "https://mb.cision.com/Main/13305/3431855/1480274.pdf",
+      "values": {
+        "revenue": 19.423,
+        "gross_profit": 13.365,
+        "ebit": 2.542,
+        "depreciation": 1.456,
+        "net_income": 1.979,
+        "eps": 0.25,
+        "cash": 28.623,
+        "inventory": 7.443,
+        "current_assets": 47.571,
+        "total_assets": 70.463,
+        "short_term_debt": 2.019,
+        "long_term_debt": null,
+        "current_liabilities": 19.208,
+        "total_equity": 51.008,
+        "operating_cash_flow": 5.871,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
+      "period": "2021-Q4",
+      "report_date": "2022-02-17",
+      "source_url": "https://mb.cision.com/Main/13305/3508015/1536075.pdf",
+      "values": {
+        "revenue": 24.678,
+        "gross_profit": 17.790,
+        "ebit": 4.157,
+        "depreciation": 1.663,
+        "net_income": 3.220,
+        "eps": 0.40,
+        "cash": 26.242,
+        "inventory": 7.215,
+        "current_assets": 54.842,
+        "total_assets": 78.401,
+        "short_term_debt": 1.986,
+        "long_term_debt": null,
+        "current_liabilities": 23.041,
+        "total_equity": 54.351,
+        "operating_cash_flow": 0.060,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q1",
       "report_date": "2022-04-21",
       "source_url": "https://mb.cision.com/Main/13305/3548945/1566130.pdf",
@@ -456,6 +504,17 @@
         "operating_cash_flow": 0.255,
         "capex": null,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sverige": null,
+          "Övriga Norden": null,
+          "Övriga Europa": 5
+        },
+        "segment": {
+          "Stadsnät": null,
+          "Operatörer": null
+        }
       }
     }
   ]

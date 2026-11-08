@@ -1,0 +1,15 @@
+{
+  "ticker": "BORG.ST",
+  "updated": "2026-11-08",
+  "summary": "Björn Borg är ett varumärke inom underkläder och sportkläder som säljer via grossister, egna butiker och e-handel. I tredje kvartalet 2026 var nettoomsättningen 308,2 MSEK (299,8) och rörelseresultatet 53,2 MSEK (45,1).",
+  "swot": {
+    "strengths": [
+      { "text": "Rörelseresultatet steg till 53,2 MSEK (45,1) i Q3.", "sources": ["https://storage.mfn.se/07094ab0-924d-459d-ac17-fe66f340d5e6/bjorn-borg-interim-report-q3-2026.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Försäljningen är säsongsbetonad; andra kvartalet är betydligt svagare (198,4 MSEK).", "sources": ["https://storage.mfn.se/1f741e1b-ce70-4baf-a70f-b79b6cb15fd9/bjorn-borg-interim-report-q2-2026.pdf"] }
+    ],
+    "opportunities": [],
+    "threats": []
+  }
+}

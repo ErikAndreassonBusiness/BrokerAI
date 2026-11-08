@@ -504,6 +504,18 @@
         "operating_cash_flow": 269,
         "capex": -64,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sweden": 568,
+          "Other European countries": 1618,
+          "Other countries": 662,
+          "Internal sales, eliminations": -283
+        },
+        "segment": {
+          "Component": 2240,
+          "System": 326
+        }
       }
     }
   ]

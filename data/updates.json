@@ -1,5 +1,12 @@
 [
   {
+    "date": "2026-11-08",
+    "summary": "Inission published its Q3 report with higher sales and operating profit, while inventories grew and operating cash flow was slightly negative. New Wave has not yet reported Q3, and RevolutionRace reports on 19 November.",
+    "items": [
+      { "ticker": "INISS-B.ST", "text": "Q3: net sales +17.8 % y/y to SEK 625.8 M (531.1), EBIT SEK 47.7 M (27.7); inventories SEK 741.2 M (620.5), cash flow from operations SEK -3.7 M (3.6).", "url": "https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf" }
+    ]
+  },
+  {
     "date": "2026-11-01",
     "summary": "VBG Group published its Q3 report with higher sales but lower operating profit than a year earlier. New Wave, Inission (5 November) and RevolutionRace (19 November) have not yet reported Q3.",
     "items": [

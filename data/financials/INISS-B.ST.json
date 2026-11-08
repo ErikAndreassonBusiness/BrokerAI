@@ -480,6 +480,72 @@
         "operating_cash_flow": -4.8,
         "capex": -9.4,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sweden": 152.1,
+          "Finland": 98.5,
+          "Denmark": 36.2,
+          "Estonia": 15.4,
+          "United Kingdom": 8.4,
+          "Italy": 18.4,
+          "Germany": 10.2,
+          "Latvia": 15.2,
+          "Lithuania": 25.2,
+          "Other EU countries": 20.7,
+          "Norway": 185.3,
+          "USA": 32.9,
+          "Other non-EU countries": 16.2
+        },
+        "segment": {
+          "Inission Power, OEM": 88.8,
+          "Inission, EMS": 545.9
+        }
+      }
+    },
+    {
+      "period": "2026-Q3",
+      "report_date": "2026-11-05",
+      "source_url": "https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf",
+      "values": {
+        "revenue": 625.8,
+        "gross_profit": null,
+        "ebit": 47.7,
+        "depreciation": 25.2,
+        "net_income": 33.2,
+        "eps": 1.4,
+        "cash": 31.2,
+        "inventory": 741.2,
+        "current_assets": 1306.4,
+        "total_assets": 2021.1,
+        "short_term_debt": 310.2,
+        "long_term_debt": 250.9,
+        "current_liabilities": 913.5,
+        "total_equity": 821.5,
+        "operating_cash_flow": -3.7,
+        "capex": -7.6,
+        "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sweden": 142.4,
+          "Finland": 101.2,
+          "Denmark": 37.9,
+          "Estonia": 13.1,
+          "United Kingdom": 6.9,
+          "Italy": 13.4,
+          "Germany": 7.6,
+          "Latvia": 22.4,
+          "Lithuania": 27.4,
+          "Other EU countries": 14.9,
+          "Norway": 151.7,
+          "USA": 52.0,
+          "Other non-EU countries": 34.9
+        },
+        "segment": {
+          "Inission Power, OEM": 115.0,
+          "Inission, EMS": 510.8
+        }
       }
     }
   ]

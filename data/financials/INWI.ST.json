@@ -504,6 +504,26 @@
         "operating_cash_flow": 304.9,
         "capex": -52.7,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sverige": 543,
+          "Danmark": 688,
+          "Norge": 136,
+          "Finland": 429,
+          "Polen": 23,
+          "UK": 601,
+          "Irland": 112,
+          "Tyskland": 26,
+          "Övrigt": 165
+        },
+        "segment": {
+          "Skandinavien": 1126,
+          "Väst": 701,
+          "Öst": 607,
+          "e-Commerce": 300,
+          "Koncerngemensamt, elimineringar och övrigt": -10
+        }
       }
     }
   ]

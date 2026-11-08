@@ -1,0 +1,20 @@
+{
+  "ticker": "INWI.ST",
+  "updated": "2026-11-08",
+  "summary": "Inwido är en europeisk tillverkare av fönster och dörrar med fyra segment. I tredje kvartalet 2026 ökade nettoomsättningen med 22 % till 2 724 MSEK, delvis genom förvärv. Operationellt EBITA var 334 MSEK (268).",
+  "swot": {
+    "strengths": [
+      { "text": "Operationellt EBITA steg till 334 MSEK (268) i Q3.", "sources": ["https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf"] },
+      { "text": "Försäljningen är spridd över flera länder, med UK och Danmark som största marknader.", "sources": ["https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Organisk tillväxt var 5 % i Q3, så huvuddelen av tillväxten kom från förvärv.", "sources": ["https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Fortsatt hög aktivitet på förvärvsmarknaden enligt rapporten.", "sources": ["https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf"] }
+    ],
+    "threats": [
+      { "text": "Efterfrågan från konsument varierar mellan marknaderna; Norge beskrivs som utmanande.", "sources": ["https://storage.mfn.se/8e53ab96-d19d-43b8-a0b6-2a8aef2d437a/inwido-q3-2026-se.pdf"] }
+    ]
+  }
+}
