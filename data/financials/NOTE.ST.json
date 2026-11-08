@@ -3,6 +3,30 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q3",
+      "report_date": "2021-10-19",
+      "source_url": "https://mb.cision.com/Main/165/3435077/1482401.pdf",
+      "values": {
+        "revenue": 685.0,
+        "gross_profit": 92.0,
+        "ebit": 64.0,
+        "depreciation": 18.0,
+        "net_income": 48.0,
+        "eps": 1.66,
+        "cash": 85.0,
+        "inventory": 757.0,
+        "current_assets": 1462.0,
+        "total_assets": 1882.0,
+        "short_term_debt": 240.0,
+        "long_term_debt": 141.0,
+        "current_liabilities": 1004.0,
+        "total_equity": 719.0,
+        "operating_cash_flow": -42.0,
+        "capex": null,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2021-Q4",
       "report_date": "2022-01-28",
       "source_url": "https://mb.cision.com/Main/165/3493638/1526122.pdf",
@@ -456,6 +480,19 @@
         "operating_cash_flow": 16,
         "capex": null,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Western Europe": 825,
+          "Rest of World": 232
+        },
+        "segment": {
+          "Industrial": 425,
+          "Security & Defence": 303,
+          "Communication": 128,
+          "Medtech": 86,
+          "Greentech": 115
+        }
       }
     }
   ]

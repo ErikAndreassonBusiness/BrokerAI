@@ -1,0 +1,21 @@
+{
+  "ticker": "NOTE.ST",
+  "updated": "2026-11-08",
+  "summary": "NOTE är en elektroniktillverkare med fabriker i Europa och Asien. I tredje kvartalet 2026 steg nettoomsättningen till 1 057 MSEK (830) och rörelseresultatet till 91 MSEK. Security & Defence var största kundsegmentet efter Industrial, med 303 MSEK.",
+  "swot": {
+    "strengths": [
+      { "text": "Security & Defence växte till 303 MSEK (94) i Q3.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] },
+      { "text": "Rörelseresultatet steg till 91 MSEK, marginal över 8 %.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Kassaflödet från den löpande verksamheten var bara 16 MSEK i Q3.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] },
+      { "text": "Rest of World minskade försäljningen med 6 % i kvartalet.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Nya och större fabriker i Sverige och Finland ökar kapaciteten.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] }
+    ],
+    "threats": [
+      { "text": "Medtech och Greentech minskade jämfört med föregående år.", "sources": ["https://storage.mfn.se/6f1ef3a3-7f4a-4673-b761-3804f2b59886/note-q3-2026-sv-final.pdf"] }
+    ]
+  }
+}

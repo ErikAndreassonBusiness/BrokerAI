@@ -1,0 +1,18 @@
+{
+  "ticker": "RVRC.ST",
+  "updated": "2026-11-08",
+  "summary": "RevolutionRace säljer outdoor- och sportkläder online, främst i Tyskland och Norden. Rapporten för april–juni 2026 visade en nettoomsättning på 414 MSEK (405) och rörelseresultat på 66 MSEK. Förvärvet av ICANIWILL har genomförts; nästa rapport kommer den 19 november.",
+  "swot": {
+    "strengths": [
+      { "text": "Hög bruttomarginal: bruttoresultat 299 MSEK på 414 MSEK i omsättning.", "sources": ["https://storage.mfn.se/b377c295-ea56-470a-a48e-1d0f7790f56a/interim-report-q4-2025-26.pdf"] },
+      { "text": "Sverige växte 12 % i kvartalet.", "sources": ["https://storage.mfn.se/b377c295-ea56-470a-a48e-1d0f7790f56a/interim-report-q4-2025-26.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Tillväxten i Tyskland var 0 % i kronor och RoW minskade med 4 %.", "sources": ["https://storage.mfn.se/b377c295-ea56-470a-a48e-1d0f7790f56a/interim-report-q4-2025-26.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Förvärvet av ICANIWILL breddar erbjudandet.", "sources": ["https://mfn.se/a/rvrc-holding/revolutionrace-completes-the-acquisition-of-icaniwill-and-resolves-on-the-transfer-of-own-shares"] }
+    ],
+    "threats": []
+  }
+}

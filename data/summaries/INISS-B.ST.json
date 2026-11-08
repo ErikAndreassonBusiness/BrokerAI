@@ -1,0 +1,19 @@
+{
+  "ticker": "INISS-B.ST",
+  "updated": "2026-11-08",
+  "summary": "Inission är en kontraktstillverkare av elektronik (EMS) med ett mindre kraftelektroniksegment (Power, OEM). I tredje kvartalet 2026 ökade nettoomsättningen med 17,8 % till 625,8 MSEK och rörelseresultatet till 47,7 MSEK (27,7). Lagret växte till 741,2 MSEK.",
+  "swot": {
+    "strengths": [
+      { "text": "Rörelsemarginalen steg till 7,6 % (5,2 %) i Q3.", "sources": ["https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf"] },
+      { "text": "Inission Power, OEM ökade externa intäkter till 115,0 MSEK (81,9).", "sources": ["https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Kassaflödet från den löpande verksamheten var -3,7 MSEK i Q3.", "sources": ["https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf"] },
+      { "text": "Nettoskulden är 529,9 MSEK och lagret binder kapital.", "sources": ["https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Selteka fick en order på drönarkommunikation i september.", "sources": ["https://inissiongroup.b-cdn.net/app/uploads/2026/11/inission-ab-q3-2026-en-2.pdf"] }
+    ],
+    "threats": []
+  }
+}

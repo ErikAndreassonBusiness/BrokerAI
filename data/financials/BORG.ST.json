@@ -3,6 +3,30 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2021-Q3",
+      "report_date": "2021-11-19",
+      "source_url": "https://storage.mfn.se/f19b607b-048c-44e5-81f1-2def6c193299/bjorn-borg-delarsrapport-q3-2021.pdf",
+      "values": {
+        "revenue": 240.141,
+        "gross_profit": null,
+        "ebit": 52.357,
+        "depreciation": 9.451,
+        "net_income": 40.102,
+        "eps": 1.59,
+        "cash": 45.795,
+        "inventory": 134.869,
+        "current_assets": 350.886,
+        "total_assets": 676.127,
+        "short_term_debt": 22.690,
+        "long_term_debt": 140.554,
+        "current_liabilities": 169.622,
+        "total_equity": 324.919,
+        "operating_cash_flow": 20.645,
+        "capex": -1.890,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2022-Q1",
       "report_date": "2022-05-19",
       "source_url": "https://storage.mfn.se/a25bc523-f914-4a1f-8df6-3acac397ca7b/bjorn-borg-delarsrapport-q1-2022.pdf",

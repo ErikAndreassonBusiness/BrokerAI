@@ -504,6 +504,25 @@
         "operating_cash_flow": 264.6,
         "capex": -156.5,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Sweden": 86.0,
+          "Other Nordic countries": 61.0,
+          "Germany": 134.8,
+          "Other European countries": 199.7,
+          "US": 594.6,
+          "Rest of North America": 152.9,
+          "Brazil": 65.5,
+          "Australia/New Zealand": 38.1,
+          "China": 31.7,
+          "Rest of world": 83.0
+        },
+        "segment": {
+          "Truck & Trailer Equipment": 380.3,
+          "Mobile Thermal Solutions": 778.1,
+          "Ringfeder Power Transmission": 288.8
+        }
       }
     }
   ]

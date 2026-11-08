@@ -360,6 +360,14 @@
         "operating_cash_flow": 118,
         "capex": -86,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": null,
+        "segment": {
+          "Main markets": 1729,
+          "Other markets": 757,
+          "Business development and services": 1
+        }
       }
     }
   ]

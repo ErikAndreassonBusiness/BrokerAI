@@ -3,6 +3,30 @@
   "currency": "SEK",
   "quarters": [
     {
+      "period": "2022-Q4",
+      "report_date": "2023-01-31",
+      "source_url": "https://storage.mfn.se/f48cec07-46ae-4ecc-b92f-8d095167400d/230131-rvrc-q2-22_23.pdf",
+      "values": {
+        "revenue": 509,
+        "gross_profit": null,
+        "ebit": 105,
+        "depreciation": 2,
+        "net_income": 82,
+        "eps": 0.73,
+        "cash": 65,
+        "inventory": 445,
+        "current_assets": 578,
+        "total_assets": 1396,
+        "short_term_debt": 3,
+        "long_term_debt": 30,
+        "current_liabilities": 314,
+        "total_equity": 1017,
+        "operating_cash_flow": 146,
+        "capex": -2,
+        "free_cash_flow": null
+      }
+    },
+    {
       "period": "2023-Q1",
       "report_date": "2023-05-09",
       "source_url": "https://storage.mfn.se/e6b6c4bc-0614-4100-9a03-719ef830b8e0/rvrc-holding-ab-delarsrapport-q3-22-23.pdf",
@@ -336,6 +360,14 @@
         "operating_cash_flow": 31,
         "capex": -1,
         "free_cash_flow": null
+      },
+      "breakdown": {
+        "geography": {
+          "Nordics": 108,
+          "DACH": 231,
+          "RoW": 75
+        },
+        "segment": null
       }
     }
   ]

@@ -1,0 +1,18 @@
+{
+  "ticker": "AQ.ST",
+  "updated": "2026-11-08",
+  "summary": "AQ Group tillverkar komponenter och system i segmenten Component och System. I tredje kvartalet 2026 ökade nettoomsättningen med 21 % till 2 566 MSEK, varav 18 % organiskt. Rörelseresultatet var 259 MSEK och nettoresultatet 205 MSEK.",
+  "swot": {
+    "strengths": [
+      { "text": "Organisk tillväxt på 18 % i Q3, driven av datacenter och försvar.", "sources": ["https://mb.cision.com/Main/11536/4408713/4317820.pdf"] },
+      { "text": "Låg skuldsättning: räntebärande skulder 436 MSEK mot eget kapital 5 349 MSEK.", "sources": ["https://mb.cision.com/Main/11536/4408713/4317820.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Segmentet System växte svagt: 340 MSEK (332) i Q3.", "sources": ["https://mb.cision.com/Main/11536/4408713/4317820.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Bolaget växer i de flesta marknadssegment och har flyttat upp till Large Cap.", "sources": ["https://mb.cision.com/Main/11536/4408713/4317820.pdf"] }
+    ],
+    "threats": []
+  }
+}

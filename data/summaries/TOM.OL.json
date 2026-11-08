@@ -1,0 +1,20 @@
+{
+  "ticker": "TOM.OL",
+  "updated": "2026-11-08",
+  "summary": "TOMRA tillhandahåller system för återvinning och sortering inom divisionerna Collection, Recycling och Food. I tredje kvartalet 2026 ökade intäkterna med 20 % till 366 MEUR och justerat EBITA var 47 MEUR (30). Bruttomarginalen var 43,0 % (44,1 %).",
+  "swot": {
+    "strengths": [
+      { "text": "Collection är största divisionen med 217 MEUR i intäkter och 16,6 % EBITA-marginal.", "sources": ["https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf"] },
+      { "text": "Kassaflödet från den löpande verksamheten var 112 MEUR i Q3.", "sources": ["https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf"] }
+    ],
+    "weaknesses": [
+      { "text": "Bruttomarginalen föll till 43,0 % (44,1 %).", "sources": ["https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf"] }
+    ],
+    "opportunities": [
+      { "text": "Nya pantsystem, bland annat i Storbritannien, väntas ge volymer.", "sources": ["https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf"] }
+    ],
+    "threats": [
+      { "text": "Recycling påverkas av en svag europeisk marknad för plaståtervinning.", "sources": ["https://www.tomra.com/-/media/project/tomra/tomra/investor-relations/quarterly-results-files/2026/3q/tomra-2026-q3-report.pdf"] }
+    ]
+  }
+}
